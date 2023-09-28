@@ -1,9 +1,9 @@
-import Header from "../../components/Header/Header.tsx";
+import Contact from "../Contact/Contact.tsx";
 
 const Home = () => {
     return (
         <div>
-            <Header />
+            <Contact />
         </div>
     );
 };
