@@ -1,9 +1,11 @@
-import Contact from "../Contact/Contact.tsx";
+import Header from "../../components/Header/Header.tsx";
+import ListHoliday from "../ListHoliday/ListHoliday.tsx";
 
 const Home = () => {
     return (
         <div>
-            <Contact />
+            <Header />
+            <ListHoliday />
         </div>
     );
 };
