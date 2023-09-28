@@ -1,8 +1,11 @@
+
+
 function Header() {
     return (
         <>
-            <header className="w-full bg-white">
-                TEST
+            <header className="w-2 bg-red-50">
+
+                <span className="">coucou</span>
             </header>
         </>
     )
