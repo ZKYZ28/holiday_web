@@ -1,17 +1,13 @@
 import data from './ListData.json';
+import { FC } from 'react';
 
-function List(props) {
+type ListProps = {
+  input: string;
+};
+
+const List: FC<ListProps> = ({ input }) => {
   // create a new array by filtering the original array
-  const filteredData = data.filter((el) => {
-    // if no input the return the original
-    if (props.input === '') {
-      return el;
-    }
-    // return the item which contains the user input
-    else {
-      return el.text.toLowerCase().includes(props.input);
-    }
-  });
+  const filteredData = data.filter((el) => (input === '' ? el : el.text.toLowerCase().includes(input)));
   return (
     <ul className="h-60 overflow-y-scroll w-full mb-4">
       {filteredData.map((item) => (
@@ -21,6 +17,6 @@ function List(props) {
       ))}
     </ul>
   );
-}
+};
 
 export default List;

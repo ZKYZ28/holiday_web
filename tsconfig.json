@@ -20,6 +20,10 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "typeRoots": [
+    "./node_modules/@types",
+    "./typing"
+  ],
+  "include": ["./src", "./typing/**-typing.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

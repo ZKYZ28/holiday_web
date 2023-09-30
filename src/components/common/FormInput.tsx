@@ -1,17 +1,19 @@
-import {ChangeEvent, ChangeEventHandler, useState} from 'react';
+import { ChangeEvent, ChangeEventHandler, useState } from 'react';
 import Span from './Span.tsx';
 import StarsRequired from './StarsRequired.tsx';
 import cn from 'classnames';
 
 type FormInputProps = {
-    idInput : string;
-    nameInput : string;
-    errorMessage : string;
-    label : string;
-    onChange : ChangeEventHandler
+  id: string;
+  name: string;
+  errorMessage: string;
+  label: string;
+  onChange: ChangeEventHandler;
+  value: string;
+  placeholder: string;
 };
 
-function FormInput({ idInput, nameInput, errorMessage, label, onChange, ...inputProps } : FormInputProps) {
+function FormInput({ id, errorMessage, label, ...inputProps }: FormInputProps) {
   const [focused, setFocused] = useState(false);
   const [isValid, setIsValid] = useState(true);
 
@@ -22,7 +24,7 @@ function FormInput({ idInput, nameInput, errorMessage, label, onChange, ...input
 
   return (
     <div className="formInput">
-      <label htmlFor={idInput}>
+      <label htmlFor={id}>
         {label}
         <StarsRequired />
       </label>
@@ -32,9 +34,7 @@ function FormInput({ idInput, nameInput, errorMessage, label, onChange, ...input
           'w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline my-6',
           { ['border-red-500']: !isValid && focused }
         )}
-        id={idInput}
-        name={nameInput}
-        onChange={onChange}
+        id={id}
         onBlur={handleBlur}
         onFocus={() => setFocused(true)}
         data-focused={focused.toString()}

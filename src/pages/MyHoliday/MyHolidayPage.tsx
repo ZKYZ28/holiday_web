@@ -32,7 +32,7 @@ function MyHolidayPage() {
               <div className="p-3">
                 <div>
                   <table className="table-auto w-full">
-                    <thead className="text-xs capitalize font-semibold uppercase text-gray-400 bg-gray-50">
+                    <thead className="text-xs capitalize font-semibold text-gray-400 bg-gray-50">
                       <tr>
                         <MyHolidayColumn name="Nom" />
                         <MyHolidayColumn name="Email" />

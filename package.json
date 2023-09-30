@@ -1,6 +1,7 @@
 {
   "name": "ue26-frameworkweb-holiday",
   "private": true,
+  "author": "ma couilkle",
   "version": "0.0.0",
   "type": "module",
   "scripts": {

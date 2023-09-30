@@ -5,7 +5,7 @@ import MyHolidayPage from '../pages/MyHoliday/MyHolidayPage.tsx';
 import ContactPage from '../pages/Contact/ContactPage.tsx';
 import Login from '../pages/Login/Login.tsx';
 import Register from '../pages/Register/Register.tsx';
-import Chat from '../pages/Chat/Chat.tsx';
+import ChatPage from '../pages/Chat/ChatPage.tsx';
 
 const router = createBrowserRouter(
   [
@@ -49,7 +49,7 @@ const router = createBrowserRouter(
     },
     {
       path: 'chats',
-      element: <Chat />,
+      element: <ChatPage />,
     },
   ],
   {}

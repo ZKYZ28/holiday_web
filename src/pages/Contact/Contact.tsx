@@ -12,6 +12,7 @@ function Contact() {
   const [textAreaField, setTextAreaFild] = useState('');
 
   const inputEmail = {
+    id :'email',
     name: 'email',
     type: 'email',
     placeholder: 'jean.dupont@gmail.com',
@@ -21,6 +22,7 @@ function Contact() {
   };
 
   const textAreaFieldContent = {
+    id: 'message',
     name: 'message',
     type: 'message',
     placeholder: 'Bonjour, où se trouve votre agence ?',

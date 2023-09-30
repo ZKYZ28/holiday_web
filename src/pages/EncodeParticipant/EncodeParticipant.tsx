@@ -1,12 +1,12 @@
 import FormContainer from '../../components/common/FormContainer.tsx';
-import { useState } from 'react';
+import {ChangeEvent, useState} from 'react';
 import List from './ListUsers/ListUsers.tsx';
 import FormInput from '../../components/common/FormInput.tsx';
 import ButtonForm from '../../components/common/ButtonForm.tsx';
 
 const EncodeParticipant = () => {
-  const [searchInput, setSearchText] = useState('');
-  const searchHandler = (e) => {
+  const [searchInput,  setSearchText] = useState('');
+  const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
     // convert input text to lower case
     const lowerCase = e.target.value.toLowerCase();
     setSearchText(lowerCase);
@@ -28,9 +28,7 @@ const EncodeParticipant = () => {
       </div>
       <List input={searchInput} />
 
-      <form className="w-full flex justify-center mt-8">
-        <ButtonForm text="Ajouter" />
-      </form>
+      <ButtonForm text="Ajouter" />
     </FormContainer>
   );
 };

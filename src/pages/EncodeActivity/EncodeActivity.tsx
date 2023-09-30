@@ -11,6 +11,7 @@ const EncodeActivity = () => {
     setNameInput(e.target.value);
   };
   const inputName = {
+    id: 'name',
     name: 'name',
     type: 'text',
     placeholder: 'Aqua poney',
@@ -25,6 +26,7 @@ const EncodeActivity = () => {
     setLocationInput(e.target.value);
   };
   const inputLocation = {
+    id: 'location',
     name: 'location',
     type: 'text',
     placeholder: 'Rue des caravanes 10 4020 Liège',
@@ -39,6 +41,7 @@ const EncodeActivity = () => {
     setStartDateInput(e.target.value);
   };
   const inputStartDate = {
+    id: 'startDate',
     name: 'startDate',
     type: 'datetime',
     placeholder: '',
@@ -53,6 +56,7 @@ const EncodeActivity = () => {
     setPriceInput(e.target.value);
   };
   const inputPrice = {
+    id: 'price',
     name: 'price',
     type: 'number',
     placeholder: '',
@@ -69,6 +73,7 @@ const EncodeActivity = () => {
   };
 
   const descriptionTextArea = {
+    id: 'description',
     name: 'description',
     type: 'message',
     placeholder: 'On va faire de l\'aquaponey, trop bien !',
@@ -86,7 +91,6 @@ const EncodeActivity = () => {
               {...inputName}
               value={nameInput}
               onChange={handleChangeName}
-              styleInput="w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
             />
           </div>
           <div className="w-full lg:w-2/5">
@@ -94,7 +98,6 @@ const EncodeActivity = () => {
               {...inputLocation}
               value={locationInput}
               onChange={handleChangeLocation}
-              styleInput="w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
             />
           </div>
         </div>
@@ -105,7 +108,6 @@ const EncodeActivity = () => {
               {...inputStartDate}
               value={startDateInput}
               onChange={handleChangeStartDate}
-              styleInput="w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
             />
           </div>
           <div className="w-full lg:w-2/5">
@@ -113,7 +115,6 @@ const EncodeActivity = () => {
               {...inputPrice}
               value={priceInput}
               onChange={handleChangePrice}
-              styleInput="w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
             />
           </div>
         </div>

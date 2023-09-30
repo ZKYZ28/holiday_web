@@ -1,5 +1,5 @@
 import axiosInstance from '../axios.ts';
-import { Apod, ApodQueryParams } from '../Models/Apod.ts';
+
 
 class HolidayApi {
   static ENDPOINT: string = ''; // ou /v1 -> pour la versiond e l'api
@@ -15,4 +15,4 @@ class HolidayApi {
   }
 }
 
-export default ApodApi;
+export default HolidayApi;

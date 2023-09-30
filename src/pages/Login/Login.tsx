@@ -12,6 +12,7 @@ const Login = () => {
     setEmailInput(e.target.value);
   };
   const inputEmail = {
+    id: 'email',
     name: 'email',
     type: 'email',
     placeholder: 'jean.dupont@gmail.com',
@@ -28,6 +29,7 @@ const Login = () => {
   };
 
   const inputPassword = {
+    id: 'password',
     name: 'password',
     type: 'password',
     placeholder: '',
@@ -44,14 +46,12 @@ const Login = () => {
             {...inputEmail}
             value={emailInput}
             onChange={handleChangeEmail}
-            styleInput="w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
           />
 
           <FormInput
             {...inputPassword}
             value={passwordInput}
             onChange={handleChangePassword}
-            styleInput="w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
           />
 
           <div className="flex justify-center">
@@ -62,7 +62,7 @@ const Login = () => {
         <div className="flex items-center mt-12 flex-col">
           <div className="h-1 bg-gray-100 w-1/2 rounded-lg mb-10" />
           <p className="text-xl text-blue-800 font-semibold mb-8">Vous n'avez pas encore de compte ? </p>
-          <ButtonLink text="S'enregistrer" />
+          <ButtonLink text="S'enregistrer" to="/login" />
         </div>
       </FormContainer>
     </PageWrapper>

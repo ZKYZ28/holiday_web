@@ -12,6 +12,7 @@ const Register = () => {
     setEmailInput(e.target.value);
   };
   const inputEmail = {
+    id: 'email',
     name: 'email',
     type: 'email',
     placeholder: 'jean.dupont@gmail.com',
@@ -26,6 +27,7 @@ const Register = () => {
     setNameInput(e.target.value);
   };
   const inputName = {
+    id: 'name',
     name: 'name',
     type: 'text',
     placeholder: 'Doe',
@@ -40,8 +42,9 @@ const Register = () => {
     setFirstnameInput(e.target.value);
   };
   const inputFirstName = {
-    name: 'email',
-    type: 'email',
+    id: 'firstName',
+    name: 'firstName',
+    type: 'text',
     placeholder: 'John',
     errorMessage: 'Ça doit être un prénom valide !',
     label: 'Prénom :',
@@ -56,6 +59,7 @@ const Register = () => {
   };
 
   const inputPassword = {
+    id : 'password',
     name: 'password',
     type: 'password',
     placeholder: '',
@@ -72,6 +76,7 @@ const Register = () => {
   };
 
   const inputConfirmPassword = {
+    id : 'confirmPassword',
     name: 'confirmPassword',
     type: 'password',
     placeholder: '',
@@ -88,7 +93,6 @@ const Register = () => {
             {...inputEmail}
             value={emailInput}
             onChange={handleChangeEmail}
-            styleInput="w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
           />
 
           <div className="block lg:flex justify-between w-full">
@@ -97,7 +101,6 @@ const Register = () => {
                 {...inputName}
                 value={nameInput}
                 onChange={handleChangeName}
-                styleInput="w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
               />
             </div>
             <div className="w-full lg:w-2/5">
@@ -105,7 +108,6 @@ const Register = () => {
                 {...inputFirstName}
                 value={firstnameInput}
                 onChange={handleChangeFirstname}
-                styleInput="w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
               />
             </div>
           </div>
@@ -116,7 +118,6 @@ const Register = () => {
                 {...inputPassword}
                 value={passwordInput}
                 onChange={handleChangePassword}
-                styleInput="w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
               />
             </div>
             <div className="w-full lg:w-2/5">
@@ -124,7 +125,6 @@ const Register = () => {
                 {...inputConfirmPassword}
                 value={confirmPasswordInput}
                 onChange={handleChangeConfirmPassword}
-                styleInput="w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
               />
             </div>
           </div>
@@ -137,7 +137,7 @@ const Register = () => {
         <div className="flex items-center mt-12 flex-col">
           <div className="h-1 bg-gray-100 w-1/2 rounded-lg mb-10" />
           <p className="text-xl text-blue-800 font-semibold mb-8">Vous avez déjà un compte ? </p>
-          <ButtonLink text="Se connecter" />
+          <ButtonLink text="Se connecter" to="/login" />
         </div>
       </FormContainer>
     </PageWrapper>
