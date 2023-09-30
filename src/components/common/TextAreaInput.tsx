@@ -2,7 +2,7 @@ import {ChangeEvent, useState} from "react";
 import Span from "./Span.tsx";
 import StarsRequired from "./StarsRequired.tsx";
 
-function TextAreaInput({styleTextArea, idTextArea, nameTextArea, errorMessage, label, onChange, ...inputProps}) {
+function TextAreaInput({idTextArea, nameTextArea, errorMessage, label, onChange, ...inputProps}) {
     console.log(inputProps)
 
     const [focused, setFocused] = useState(false);
@@ -19,7 +19,7 @@ function TextAreaInput({styleTextArea, idTextArea, nameTextArea, errorMessage, l
             <label htmlFor={idTextArea}>{label}<StarsRequired /></label>
             <textarea
                 {...inputProps}
-                className={`${styleTextArea} ${!isValid && focused ? 'border-red-500' : ''}`}
+                className={`my-4 w-full h-32 bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline ${!isValid && focused ? 'border-red-500' : ''}`}
                 id={idTextArea}
                 name={nameTextArea}
                 onChange={onChange}

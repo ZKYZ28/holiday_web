@@ -2,7 +2,7 @@ import {ChangeEvent, useState} from "react";
 import Span from "./Span.tsx";
 import StarsRequired from "./StarsRequired.tsx";
 
-function FormInput({styleInput, idInput, nameInput, errorMessage, label, onChange, ...inputProps}) {
+function FormInput({idInput, nameInput, errorMessage, label, onChange, ...inputProps}) {
 
     const [focused, setFocused] = useState(false);
     const [isValid, setIsValid] = useState(true);
@@ -17,7 +17,7 @@ function FormInput({styleInput, idInput, nameInput, errorMessage, label, onChang
             <label htmlFor={idInput}>{label}<StarsRequired /></label>
             <input
                 {...inputProps}
-                className={`${styleInput} ${!isValid && focused ? 'border-red-500' : ''}`}
+                className={`w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline my-6 ${!isValid && focused ? 'border-red-500' : ''}`}
                 id={idInput}
                 name={nameInput}
                 onChange={onChange}

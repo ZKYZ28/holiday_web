@@ -1,11 +1,11 @@
 import Header from "../../components/Header/Header.tsx";
-import ListHoliday from "../ListHoliday/ListHoliday.tsx";
+import EncodeParticipant from "../EncodeParticipant/EncodeParticipant.tsx";
 
 const Home = () => {
     return (
         <div>
             <Header />
-            <ListHoliday />
+            <EncodeParticipant/>
         </div>
     );
 };

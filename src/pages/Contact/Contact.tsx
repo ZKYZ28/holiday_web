@@ -7,10 +7,6 @@ import ButtonForm from "../../components/common/ButtonForm.tsx";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faFacebook, faLinkedin} from "@fortawesome/free-brands-svg-icons";
 
-
-
-
-
 function Contact() {
 
     const [emailInput, setEmailInput] = useState('')
@@ -57,15 +53,13 @@ function Contact() {
                             <FormInput {...inputEmail}
                                        value={emailInput}
                                        onChange={handleChangeEmail}
-                                       styleInput="w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
                                 />
                         </DivBalise>
                         <TextAreaInput {...textAreaFieldContent}
                                         value={textAreaField}
-                                       onChange={handleChangeTextArea}
-                                       styleTextArea="my-4 w-full h-32 bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline" />
+                                       onChange={handleChangeTextArea}/>
                         <DivBalise style="my-2 w-1/2 lg:w-1/4">
-                            <ButtonForm text="Envoyer" style="uppercase text-sm font-bold tracking-wide bg-blue-900 text-gray-100 p-3 rounded-lg w-full focus:outline-none focus:shadow-outline" />
+                            <ButtonForm text="Envoyer" />
                         </DivBalise>
                     </DivBalise>
 
