@@ -21,8 +21,8 @@ function MyHolidayPage() {
       <PageContent pageTitle="Monaco">
         <div>
         <TitleH2 text="28/03/2022" />
-        <div className="w-full flex flex-col items-center md:flex-row md:flex-wrap md:justify-between h-2/4">
-            <div className="w-full md:w-5/12 h-full bg-white shadow-lg rounded-sm border border-gray-200 h-96 overflow-x-scroll">
+        <div className="w-full flex flex-col items-center md:flex-row md:flex-wrap md:justify-between">
+            <div className="w-full md:w-5/12 bg-white shadow-lg rounded-sm border border-gray-200 h-96 overflow-x-scroll">
               <header className="flex justify-between items-center px-5 py-4 border-b border-gray-100">
                 <h2 className="text-xl capitalize lg:text-2xl text-blue-800 font-bold ">Participant(s)</h2>
                 <button><FontAwesomeIcon className="text-blue-800" icon={faPlus} size="xl" /></button>
@@ -51,7 +51,7 @@ function MyHolidayPage() {
               </div>
             </div>
 
-            <div className="w-full h-full mt-10 md:mt-0 md:w-5/12 bg-white shadow-lg rounded-sm border border-gray-200 h-96 overflow-y-scroll">
+            <div className="w-full mt-10 md:mt-0 md:w-5/12 bg-white shadow-lg rounded-sm border border-gray-200 h-96 overflow-y-scroll">
                 <header className="flex justify-between items-center px-5 py-4 border-b border-gray-100">
                     <h3 className="text-base capitalize lg:text-xl text-blue-800 font-bold ">Méteo prévue</h3>
                 </header>
