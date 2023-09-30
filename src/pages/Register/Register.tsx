@@ -3,6 +3,7 @@ import FormInput from "../../components/common/FormInput.tsx";
 import {ChangeEvent, useState} from "react";
 import ButtonForm from "../../components/common/ButtonForm.tsx";
 import ButtonLink from "../../components/common/ButtonLink.tsx";
+import PageWrapper from "../../components/common/PageWrapper.tsx";
 
 const Register = () => {
     // EMAIL
@@ -80,6 +81,7 @@ const Register = () => {
     }
 
     return (
+    <PageWrapper>
         <FormContainer title="S'enregister">
             <form>
                 <FormInput {...inputEmail}
@@ -133,6 +135,7 @@ const Register = () => {
                 <ButtonLink text="Se connecter" />
             </div>
         </FormContainer>
+    </PageWrapper>
     );
 };
 export default Register
