@@ -3,6 +3,7 @@ import FormInput from "../../components/common/FormInput.tsx";
 import {ChangeEvent, useState} from "react";
 import ButtonForm from "../../components/common/ButtonForm.tsx";
 import ButtonLink from "../../components/common/ButtonLink.tsx";
+import PageWrapper from "../../components/common/PageWrapper.tsx";
 
 const Login = () => {
     // EMAIL
@@ -36,6 +37,7 @@ const Login = () => {
     }
 
     return (
+        <PageWrapper>
         <FormContainer title="Se connecter">
             <form>
                 <FormInput {...inputEmail}
@@ -61,6 +63,7 @@ const Login = () => {
                 <ButtonLink text="S'enregistrer" />
             </div>
         </FormContainer>
+        </PageWrapper>
     );
 };
 export default Login;

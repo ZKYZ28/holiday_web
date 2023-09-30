@@ -1,10 +1,11 @@
 
 import chat from "../../assets/imgs/others/chat.png"
 import GroupChat from "./GroupChat/GroupChat.tsx";
+import PageWrapper from "../../components/common/PageWrapper.tsx";
 
 const Chat = () => {
     return (
-        <>
+        <PageWrapper>
             <div className="flex h-screen antialiased text-gray-00">
                 <div className="flex flex-row h-full w-full overflow-x-hidden">
 
@@ -202,7 +203,7 @@ const Chat = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </PageWrapper>
     );
 };
 
