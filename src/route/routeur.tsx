@@ -6,6 +6,7 @@ import ContactPage from '../pages/Contact/ContactPage.tsx';
 import Login from '../pages/Login/Login.tsx';
 import Register from '../pages/Register/Register.tsx';
 import ChatPage from '../pages/Chat/ChatPage.tsx';
+import EncodeHoliday from "../pages/EncodeHoliday/EncodeHoliday.tsx";
 
 const router = createBrowserRouter(
   [
@@ -28,6 +29,10 @@ const router = createBrowserRouter(
         {
           path: ':id',
           element: <MyHolidayPage />,
+        },
+        {
+          path: 'create',
+          element: <EncodeHoliday />,
         },
       ],
     },

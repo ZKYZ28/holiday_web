@@ -1,17 +1,15 @@
 import axiosInstance from '../axios.ts';
-
+import { Holiday, HolidayMutation } from '../Models/Holiday.ts';
 
 class HolidayApi {
-  static ENDPOINT: string = ''; // ou /v1 -> pour la versiond e l'api
+  static ENDPOINT: string = '/v1';
 
-  static async getHoliday() {
-    // pas oublier de typer son Models avec ...get<TYPE>()
-    return axiosInstance.get(`${this.ENDPOINT}/apod`);
+  static async createHoliday(holiday: HolidayMutation) {
+    return axiosInstance.post(`${this.ENDPOINT}/holiday`, holiday);
   }
 
-  static async getHolidayWithParamas() {
-    // pas oublier de typer son Models avec ...get<TYPE>()
-    return axiosInstance.get(`${this.ENDPOINT}/apod`);
+  static async getHoliday() {
+    return axiosInstance.get<Holiday[]>(`${this.ENDPOINT}/holiday`);
   }
 }
 

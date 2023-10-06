@@ -1,10 +1,15 @@
 import FormContainer from '../../components/common/FormContainer.tsx';
 import FormInput from '../../components/common/FormInput.tsx';
 import { ChangeEvent, useState } from 'react';
-import ButtonForm from '../../components/common/ButtonForm.tsx';
 import TextAreaInput from '../../components/common/TextAreaInput.tsx';
+import { useCreateHoliday } from '../../api/Queries/HolidayQueries.ts';
+import * as dayjs from 'dayjs';
 
 const EncodeHoliday = () => {
+  const { mutate: mutateHoliday } = useCreateHoliday(() => {
+    alert('Post succeeded !');
+  });
+
   // NOM
   const [nameInput, setNameInput] = useState('');
   const handleChangeName = (e: ChangeEvent<HTMLInputElement>) => {
@@ -56,7 +61,7 @@ const EncodeHoliday = () => {
     setEndDateInput(e.target.value);
   };
   const inputEndDate = {
-    id : 'endDate',
+    id: 'endDate',
     name: 'endDate',
     type: 'date',
     placeholder: '',
@@ -73,7 +78,7 @@ const EncodeHoliday = () => {
   };
 
   const descriptionTextArea = {
-    id : 'description',
+    id: 'description',
     name: 'description',
     type: 'message',
     placeholder: 'On va faire de l\'aqua poney, trop bien !',
@@ -82,47 +87,47 @@ const EncodeHoliday = () => {
     required: false,
   };
 
+  const submitTest = () => {
+    const date = dayjs();
+    mutateHoliday({
+      name: 'EndMove',
+      description: 'EndMoveSex',
+      startDate: date.format(),
+      endDate: date.format(),
+    });
+  };
+
   return (
     <FormContainer title="Encoder vacances">
       <form>
         <div className="block lg:flex justify-between w-full">
           <div className="w-full lg:w-2/5">
-            <FormInput
-              {...inputName}
-              value={nameInput}
-              onChange={handleChangeName}
-            />
+            <FormInput {...inputName} value={nameInput} onChange={handleChangeName} />
           </div>
           <div className="w-full lg:w-2/5">
-            <FormInput
-              {...inputLocation}
-              value={locationInput}
-              onChange={handleChangeLocation}
-            />
+            <FormInput {...inputLocation} value={locationInput} onChange={handleChangeLocation} />
           </div>
         </div>
 
         <div className="block lg:flex justify-between w-full">
           <div className="w-full lg:w-2/5">
-            <FormInput
-              {...inputStartDate}
-              value={startDateInput}
-              onChange={handleChangeStartDate}
-            />
+            <FormInput {...inputStartDate} value={startDateInput} onChange={handleChangeStartDate} />
           </div>
           <div className="w-full lg:w-2/5">
-            <FormInput
-              {...inputEndDate}
-              value={endDateInput}
-              onChange={handleChangeEndDate}
-            />
+            <FormInput {...inputEndDate} value={endDateInput} onChange={handleChangeEndDate} />
           </div>
         </div>
 
         <TextAreaInput {...descriptionTextArea} value={descriptionTextAreaField} onChange={handleChangeDescription} />
 
         <div className="flex justify-center">
-          <ButtonForm text="Encoder" />
+          <button
+            type="submit"
+            onClick={submitTest}
+            className="bg-blue-800 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full"
+          >
+            Encoder
+          </button>
         </div>
       </form>
     </FormContainer>
