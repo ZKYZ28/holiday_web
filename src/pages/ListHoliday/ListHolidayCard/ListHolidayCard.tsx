@@ -3,7 +3,8 @@ import calendar from '../../../assets/imgs/icons/calendar.png';
 import peoples from '../../../assets/imgs/icons/peoples.png';
 import location from '../../../assets/imgs/icons/location.png';
 import bgCard from '../../../assets/imgs/bg/bg.jpg';
-function ListHolidayCard() {
+function ListHolidayCard({idHoliday}) {
+  const id = `/holidays/${idHoliday}`;
   return (
     <div className="lg:flex bg-white rounded-2xl">
       <img className="object-cover w-full h-100 rounded-lg lg:w-64" src={bgCard} alt="" />
@@ -33,7 +34,7 @@ function ListHolidayCard() {
         </ul>
 
         <div className="flex justify-center items-center mt-5">
-          <ButtonLink text="Voir plus" to="/myholiday" />
+          <ButtonLink text="Voir plus" to={id} />
         </div>
       </div>
     </div>
