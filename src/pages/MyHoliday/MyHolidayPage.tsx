@@ -1,7 +1,7 @@
 import TitleH2 from '../../components/common/TiteH2.tsx';
 import PageWrapper from '../../components/common/PageWrapper.tsx';
 import PageContent from '../../components/common/PageContent.tsx';
-import { useParams } from 'react-router-dom';
+import {NavLink, useParams} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import MyHolidayMembers from './MyHolidayMembers/MyHolidayMembers.tsx';
@@ -106,6 +106,9 @@ function MyHolidayPage() {
           <div className="w-full bg-white shadow-lg rounded-sm border border-gray-200 mt-10">
             <header className="flex justify-between items-center px-5 py-4 border-b border-gray-100 ">
               <h2 className="text-xl capitalize lg:text-2xl text-blue-800 font-bold ">Activités prévues</h2>
+              <NavLink to='/holidays/activity'>
+                <FontAwesomeIcon className="text-blue-800" icon={faPlus} size="xl" />
+              </NavLink>
             </header>
             <div className="overflow-y-scroll">
               <div className="grid grid-cols-1 gap-8 mt-8 md:grid-cols-2 p-3" style={{ height: '50rem' }}>

@@ -12,7 +12,6 @@ type TextAreaProps = {
 }
 
 function TextAreaInput({ id, name, errorMessage, label, onChange, ...inputProps }:TextAreaProps) {
-  console.log(inputProps);
 
   const [focused, setFocused] = useState(false);
   const [isValid, setIsValid] = useState(true);
