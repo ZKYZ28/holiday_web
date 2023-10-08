@@ -13,7 +13,7 @@ class HolidayApi {
   }
 
   static async getHolidayById(holidayId : string) {
-    return axiosInstance.get<Holiday[]>(`${this.ENDPOINT}/holiday/${holidayId}`);
+    return axiosInstance.get<Holiday>(`${this.ENDPOINT}/holiday/${holidayId}`);
   }
 
 }
