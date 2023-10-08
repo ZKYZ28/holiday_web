@@ -3,7 +3,6 @@ import calendar from '../../../assets/imgs/icons/calendar.png';
 import peoples from '../../../assets/imgs/icons/peoples.png';
 import location from '../../../assets/imgs/icons/location.png';
 import bgCard from '../../../assets/imgs/bg/bg.jpg';
-
 function ListHolidayCard() {
   return (
     <div className="lg:flex bg-white rounded-2xl">

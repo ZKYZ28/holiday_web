@@ -1,6 +1,6 @@
 import FormContainer from '../../components/common/FormContainer.tsx';
 import FormInput from '../../components/common/FormInput.tsx';
-import {ChangeEvent, EventHandler, useState} from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import TextAreaInput from '../../components/common/TextAreaInput.tsx';
 import { useCreateHoliday } from '../../api/Queries/HolidayQueries.ts';
 import * as dayjs from 'dayjs';
@@ -92,9 +92,7 @@ const descriptionTextArea = {
 };
 
 const EncodeHoliday = () => {
-  const { mutate: mutateHoliday } = useCreateHoliday(() => {
-    alert('Post succeeded !');
-  });
+  const { mutate: mutateHoliday } = useCreateHoliday();
 
   const [valueInputs, setValueInputs] = useState({
     name: '',
@@ -117,29 +115,26 @@ const EncodeHoliday = () => {
     setDescriptionAreaField(e.target.value);
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data = new FormData(e.target);
-    console.log(data);
-    mutateHoliday({
-      name: data.get('name'),
-      description: data.get('description'),
-      startDate: dayjs(data.get('startDate')).format(),
-      endDate: dayjs(data.get('endDate')).format(),
-      location: {
-        street: data.get('street'),
-        number: data.get('number'),
-        locality: data.get('locality'),
-        postalCode: data.get('postalCode'),
-        country: data.get('country'),
+    const data = new FormData(e.target as HTMLFormElement);
+    console.log(e.target);
+    mutateHoliday(
+      {
+        name: data.get('name') as string,
+        description: data.get('description') as string,
+        startDate: dayjs(data.get('startDate') as string).format(),
+        endDate: dayjs(data.get('endDate') as string).format(),
+        location: {
+          street: data.get('street') as string,
+          number: data.get('number'),
+          locality: data.get('locality'),
+          postalCode: data.get('postalCode'),
+          country: data.get('country'),
+        },
       },
-    });
-    // mutateHoliday({
-    //   name: 'EndMove',
-    //   description: 'EndMoveSex',
-    //   startDate: date.format(),
-    //   endDate: date.format(),
-    // });
+      { onError: () => alert('An error occurred'), onSuccess: () => alert('Success') }
+    );
   };
 
   return (

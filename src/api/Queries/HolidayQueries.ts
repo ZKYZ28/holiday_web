@@ -1,22 +1,22 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import HolidayApi from '../EndPoints/HolidayApi.ts';
-import { Holiday, HolidayMutation } from '../Models/Holiday.ts';
-import holidayApi from "../EndPoints/HolidayApi.ts";
+import { HolidayMutation } from '../Models/Holiday.ts';
+import { holidayKeys } from '../Querykeys.ts';
 
-export const useCreateHoliday = (onSuccess?: () => void) => {
-  // const client = useQueryClient();
+export const useCreateHoliday = () => {
+  const client = useQueryClient();
   return useMutation((holiday: HolidayMutation) => HolidayApi.createHoliday(holiday), {
     onSuccess: () => {
-      // client.invalidateQueries(newsKeys.list());
-      onSuccess?.();
+      // L'invalidation se fait asynchronement mais ne renvoie pas de données, donc pas besoin du .then()
+      client.invalidateQueries(holidayKeys.all);
     },
   });
 };
 
 export const useGetAllHoliday = () => {
   return useQuery({
-    queryKey: ['holidays'], // Une clé pour identifier cette requête
-    queryFn:  () => holidayApi.getHoliday().then(content =>  content.data),
-    initialData: (): { data: Holiday[] } => ({ data: [] }),
+    queryKey: holidayKeys.list(),
+    queryFn: () => HolidayApi.getHoliday().then((content) => content.data),
+    initialData: [],
   });
 };
