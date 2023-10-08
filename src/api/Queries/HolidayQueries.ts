@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import HolidayApi from '../EndPoints/HolidayApi.ts';
 import { Holiday, HolidayMutation } from '../Models/Holiday.ts';
+import holidayApi from "../EndPoints/HolidayApi.ts";
 
 export const useCreateHoliday = (onSuccess?: () => void) => {
   // const client = useQueryClient();
@@ -14,9 +15,8 @@ export const useCreateHoliday = (onSuccess?: () => void) => {
 
 export const useGetAllHoliday = () => {
   return useQuery({
-    // queryKey: newsKeys.list(), TODO set query and invalidate it in useMutation
-    queryFn: () => HolidayApi.getHoliday(),
-    select: (response) => response.data,
+    queryKey: ['holidays'], // Une clé pour identifier cette requête
+    queryFn:  () => holidayApi.getHoliday().then(content =>  content.data),
     initialData: (): { data: Holiday[] } => ({ data: [] }),
   });
 };

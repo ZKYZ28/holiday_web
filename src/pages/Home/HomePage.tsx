@@ -26,6 +26,7 @@ const HomePage = () => {
             <form className="mb-6 mt-12">
               <ButtonForm text="Chercher" />
             </form>
+
             <form className="">
               <ButtonForm text="Chercher" />
             </form>
