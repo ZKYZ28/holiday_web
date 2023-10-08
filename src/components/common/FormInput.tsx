@@ -23,7 +23,7 @@ function FormInput({ id, errorMessage, label, ...inputProps }: FormInputProps) {
   };
 
   return (
-    <div className="formInput">
+    <div className="my-4">
       <label htmlFor={id}>
         {label}
         <StarsRequired />
@@ -31,7 +31,7 @@ function FormInput({ id, errorMessage, label, ...inputProps }: FormInputProps) {
       <input
         {...inputProps}
         className={cn(
-          'w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline my-6',
+          'w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline my-1',
           { ['border-red-500']: !isValid && focused }
         )}
         id={id}
