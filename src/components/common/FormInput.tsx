@@ -9,7 +9,6 @@ type FormInputProps = {
   errorMessage: string;
   label: string;
   onChange: ChangeEventHandler;
-  value: string;
   placeholder: string;
 };
 

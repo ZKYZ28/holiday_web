@@ -5,6 +5,7 @@ import TextAreaInput from '../../components/common/TextAreaInput.tsx';
 import { useCreateHoliday } from '../../api/Queries/HolidayQueries.ts';
 import * as dayjs from 'dayjs';
 import PageWrapper from '../../components/common/PageWrapper.tsx';
+import GenericForm from "../../components/common/GenericForm.tsx";
 
 const inputsHoliday = [
   {
@@ -94,7 +95,7 @@ const descriptionTextArea = {
 const EncodeHoliday = () => {
   const { mutate: mutateHoliday } = useCreateHoliday();
 
-  const [valueInputs, setValueInputs] = useState({
+  const initialValues = {
     name: '',
     country: '',
     number: '',
@@ -103,34 +104,24 @@ const EncodeHoliday = () => {
     locality: '',
     startDate: '',
     endDate: '',
-  });
+  }
 
-  const [descriptionTextAreaField, setDescriptionAreaField] = useState('');
-
-  const onChange = (evt) => {
-    setValueInputs({ ...valueInputs, [evt.target.name]: evt.target.value });
-  };
-
-  const handleChangeDescription = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setDescriptionAreaField(e.target.value);
-  };
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const data = new FormData(e.target as HTMLFormElement);
-    console.log(e.target);
+  const handleSubmit = (values) => {
+    const {name, country, number, street, postalCode, locality, startDate, endDate, description} = values;
+    console.log(values)
+    // const data = new FormData(e.target as HTMLFormElement);
     mutateHoliday(
       {
-        name: data.get('name') as string,
-        description: data.get('description') as string,
-        startDate: dayjs(data.get('startDate') as string).format(),
-        endDate: dayjs(data.get('endDate') as string).format(),
+        name,
+        description,
+        startDate: dayjs(startDate).format(),
+        endDate: dayjs(endDate).format(),
         location: {
-          street: data.get('street') as string,
-          number: data.get('number'),
-          locality: data.get('locality'),
-          postalCode: data.get('postalCode'),
-          country: data.get('country'),
+          street,
+          number,
+          locality,
+          postalCode,
+          country
         },
       },
       { onError: () => alert('An error occurred'), onSuccess: () => alert('Success') }
@@ -140,35 +131,13 @@ const EncodeHoliday = () => {
   return (
     <PageWrapper>
       <FormContainer title="Encoder vacances">
-        <form onSubmit={handleSubmit}>
-          {inputsHoliday.map(
-            (input, index) =>
-              index % 2 === 0 && (
-                <div key={input.id} className="block lg:flex justify-between w-full">
-                  <div className="w-full lg:w-2/5">
-                    <FormInput {...input} value={valueInputs[input.name]} onChange={onChange} />
-                  </div>
-                  {inputsHoliday[index + 1] && (
-                    <div className="w-full lg:w-2/5">
-                      <FormInput
-                        {...inputsHoliday[index + 1]}
-                        value={valueInputs[inputsHoliday[index + 1].name]}
-                        onChange={onChange}
-                      />
-                    </div>
-                  )}
-                </div>
-              )
-          )}
-
-          <TextAreaInput {...descriptionTextArea} value={descriptionTextAreaField} onChange={handleChangeDescription} />
-
-          <div className="flex justify-center">
-            <button type="submit" className="bg-blue-800 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full">
-              Encoder
-            </button>
-          </div>
-        </form>
+        <GenericForm
+            fields={inputsHoliday}
+            initalValues={initialValues}
+            onSubmit={handleSubmit}
+            textAreaProps={descriptionTextArea}
+            buttonText="Encoder"
+        />
       </FormContainer>
     </PageWrapper>
   );

@@ -3,59 +3,84 @@ import FormInput from '../../components/common/FormInput.tsx';
 import { ChangeEvent, useState } from 'react';
 import ButtonForm from '../../components/common/ButtonForm.tsx';
 import TextAreaInput from '../../components/common/TextAreaInput.tsx';
+import PageWrapper from "../../components/common/PageWrapper.tsx";
+import GenericForm from "../../components/common/GenericForm.tsx";
+import * as dayjs from "dayjs";
 
-const EncodeActivity = () => {
-  // NOM
-  const [nameInput, setNameInput] = useState('');
-  const handleChangeName = (e: ChangeEvent<HTMLInputElement>) => {
-    setNameInput(e.target.value);
-  };
-  const inputName = {
+const inputsActivity = [
+  {
     id: 'name',
     name: 'name',
     type: 'text',
-    placeholder: 'Aqua poney',
+    placeholder: 'Drift',
     errorMessage: 'Ça doit être un nom valide !',
     label: 'Nom :',
     required: true,
-  };
-
-  // LOCATION
-  const [locationInput, setLocationInput] = useState('');
-  const handleChangeLocation = (e: ChangeEvent<HTMLInputElement>) => {
-    setLocationInput(e.target.value);
-  };
-  const inputLocation = {
-    id: 'location',
-    name: 'location',
+  },
+  {
+    id: 'country',
+    name: 'country',
     type: 'text',
-    placeholder: 'Rue des caravanes 10 4020 Liège',
-    errorMessage: 'Ça doit être un lieu valide !',
+    placeholder: 'Pays',
+    errorMessage: 'Belgique',
+    label: 'Pays :',
+    required: true,
+  },
+  {
+    id: 'number',
+    name: 'number',
+    type: 'number',
+    placeholder: '77',
+    errorMessage: 'Le numéro de la boite doit être nombre compris entre 0 et 25000 !',
+    label: 'Numéro de boite :',
+    required: true,
+  },
+  {
+    id: 'street',
+    name: 'street',
+    type: 'text',
+    placeholder: 'Rue du port',
+    errorMessage: 'Merci de saisir entre 0 à 100 caractères !',
+    label: 'Rue :',
+    required: true,
+  },
+  {
+    id: 'postalCode',
+    name: 'postalCode',
+    type: 'number',
+    placeholder: '4000',
+    errorMessage: 'Merci d\'indiquer un code postal entre 1 à 6 chiffres',
+    label: 'Code postal :',
+    required: true,
+  },
+  {
+    id: 'locality',
+    name: 'locality',
+    type: 'text',
+    placeholder: 'Liège',
+    errorMessage: 'Le numéro de la boite doit être nombre compris entre 0 et 25000 !',
     label: 'Lieu :',
     required: true,
-  };
-
-  // DATE
-  const [startDateInput, setStartDateInput] = useState('');
-  const handleChangeStartDate = (e: ChangeEvent<HTMLInputElement>) => {
-    setStartDateInput(e.target.value);
-  };
-  const inputStartDate = {
+  },
+  {
     id: 'startDate',
     name: 'startDate',
-    type: 'datetime',
+    type: 'datetime-local',
     placeholder: '',
     errorMessage: 'Ça doit être une date valide !',
-    label: 'Date :',
+    label: 'Date de début :',
     required: true,
-  };
-
-  // PRICE
-  const [priceInput, setPriceInput] = useState('');
-  const handleChangePrice = (e: ChangeEvent<HTMLInputElement>) => {
-    setPriceInput(e.target.value);
-  };
-  const inputPrice = {
+  },
+  {
+    id: 'endDate',
+    name: 'endDate',
+    type: 'datetime-local',
+    placeholder: '',
+    errorMessage: 'Ça doit être une date valide !',
+    label: 'Date de fin :',
+    required: true,
+  },
+  {
     id: 'price',
     name: 'price',
     type: 'number',
@@ -63,69 +88,67 @@ const EncodeActivity = () => {
     errorMessage: 'Ça doit être un nombre valide !',
     label: 'Prix :',
     required: true,
+  }
+]
+
+const descriptionTextArea = {
+  id: 'description',
+  name: 'description',
+  type: 'message',
+  placeholder: 'On va faire de l\'aqua poney, trop bien !',
+  errorMessage: '',
+  label: 'Description',
+  required: false,
+};
+
+const EncodeActivity = () => {
+
+  const initalValues = {
+    name: '',
+    country: '',
+    number: '',
+    street: '',
+    postalCode: '',
+    locality: '',
+    startDate: '',
+    endDate: '',
+    price: '',
   };
 
-  // DESCRIPTION
-  const [descriptionTextAreaField, setDescriptionAreaField] = useState('');
-
-  const handleChangeDescription = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setDescriptionAreaField(e.target.value);
-  };
-
-  const descriptionTextArea = {
-    id: 'description',
-    name: 'description',
-    type: 'message',
-    placeholder: 'On va faire de l\'aquaponey, trop bien !',
-    errorMessage: '',
-    label: 'Description',
-    required: false,
+  const handleSubmit = (values) => {
+    const {name, country, number, street, postalCode, locality, startDate, endDate, price, description} = values;
+    console.log(values)
+    // const data = new FormData(e.target as HTMLFormElement);
+    // // CALL TO API TO REGITER THE ACTIVITY
+    // mutateActivity(
+    //     {
+    //       name,
+    //       description,
+    //       startDate: dayjs(startDate).format(),
+    //       endDate: dayjs(endDate).format(),
+    //       location: {
+    //         street,
+    //         number,
+    //         locality,
+    //         postalCode,
+    //         country
+    //       },
+    //     },
+    //     { onError: () => alert('An error occurred'), onSuccess: () => alert('Success') }
+    // );
   };
 
   return (
-    <FormContainer title="Encoder activité">
-      <form>
-        <div className="block lg:flex justify-between w-full">
-          <div className="w-full lg:w-2/5">
-            <FormInput
-              {...inputName}
-              value={nameInput}
-              onChange={handleChangeName}
-            />
-          </div>
-          <div className="w-full lg:w-2/5">
-            <FormInput
-              {...inputLocation}
-              value={locationInput}
-              onChange={handleChangeLocation}
-            />
-          </div>
-        </div>
-
-        <div className="block lg:flex justify-between w-full">
-          <div className="w-full lg:w-2/5">
-            <FormInput
-              {...inputStartDate}
-              value={startDateInput}
-              onChange={handleChangeStartDate}
-            />
-          </div>
-          <div className="w-full lg:w-2/5">
-            <FormInput
-              {...inputPrice}
-              value={priceInput}
-              onChange={handleChangePrice}
-            />
-          </div>
-        </div>
-
-        <TextAreaInput {...descriptionTextArea} value={descriptionTextAreaField} onChange={handleChangeDescription} />
-
-        <div className="flex justify-center">
-          <ButtonForm text="Encoder" />
-        </div>
-      </form>
-    </FormContainer>
+      <PageWrapper>
+        <FormContainer title="Encoder activité">
+          <GenericForm
+            fields={inputsActivity}
+            initalValues={initalValues}
+            textAreaProps={descriptionTextArea}
+            buttonText="Encoder"
+          />
+        </FormContainer>
+      </PageWrapper>
   );
 };
 export default EncodeActivity;
