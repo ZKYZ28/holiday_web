@@ -12,16 +12,15 @@ import {useGetHolidayById} from "../../api/Queries/HolidayQueries.ts";
 
 function MyHolidayPage() {
   const { id } = useParams();
-  const { data} = useGetHolidayById(id);
+  const { data = {} } = useGetHolidayById(id);
 
-  console.log("ID " + id)
   console.log(data)
 
   return (
     <PageWrapper>
-      <PageContent pageTitle="Monaco">
+      <PageContent pageTitle={data.name}>
         <div>
-          <TitleH2 text="28/03/2022" />
+          <TitleH2 text={data.startDate} />
           <div className="w-full flex flex-col items-center md:flex-row md:flex-wrap md:justify-between">
             <div className="w-full md:w-5/12 bg-white shadow-lg rounded-sm border border-gray-200 h-96 overflow-x-scroll">
               <header className="flex justify-between items-center px-5 py-4 border-b border-gray-100">
@@ -106,16 +105,22 @@ function MyHolidayPage() {
           <div className="w-full bg-white shadow-lg rounded-sm border border-gray-200 mt-10">
             <header className="flex justify-between items-center px-5 py-4 border-b border-gray-100 ">
               <h2 className="text-xl capitalize lg:text-2xl text-blue-800 font-bold ">Activités prévues</h2>
-              <NavLink to='/holidays/activity'>
+              <NavLink to={`/holidays/activity/${id}`}>
                 <FontAwesomeIcon className="text-blue-800" icon={faPlus} size="xl" />
               </NavLink>
             </header>
             <div className="overflow-y-scroll">
               <div className="grid grid-cols-1 gap-8 mt-8 md:grid-cols-2 p-3" style={{ height: '50rem' }}>
-                <MyHolidayCard />
-                <MyHolidayCard />
-                <MyHolidayCard />
-                <MyHolidayCard />
+
+                {/*{ data.activities.length === 0 ? (*/}
+                {/*    <p>Aucune activité disponible</p>*/}
+                {/*  ) : (*/}
+                {/*    data.activities.map((activity, index) => (*/}
+                {/*      <MyHolidayCard/>*/}
+                {/*    ))*/}
+                {/*  )*/}
+                {/*}*/}
+
               </div>
             </div>
           </div>

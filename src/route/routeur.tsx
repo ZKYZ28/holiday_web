@@ -32,7 +32,7 @@ const router = createBrowserRouter(
           element: <MyHolidayPage />,
         },
         {
-          path: 'activity',
+          path: 'activity/:id',
           element: <EncodeActivity />,
         },
         {
