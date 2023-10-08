@@ -8,9 +8,14 @@ class HolidayApi {
     return axiosInstance.post(`${this.ENDPOINT}/holiday`, holiday);
   }
 
-  static async getHoliday() {
-    return axiosInstance.get<Holiday[]>(`${this.ENDPOINT}/holiday`);
+  static async getAllHoliday() {
+    return axiosInstance.get<Holiday[]>(`${this.ENDPOINT}/holiday/all`);
   }
+
+  static async getHolidayById(holidayId : string) {
+    return axiosInstance.get<Holiday[]>(`${this.ENDPOINT}/holiday/${holidayId}`);
+  }
+
 }
 
 export default HolidayApi;

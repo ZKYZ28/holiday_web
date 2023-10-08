@@ -8,13 +8,14 @@ import MyHolidayMembers from './MyHolidayMembers/MyHolidayMembers.tsx';
 import MyHolidayColumn from './MyHolidayColumn/MyHolidayColumn.tsx';
 import sun from '../../assets/imgs/icons/sun.png';
 import MyHolidayCard from './MyHolidayCard/MyHolidayCard.tsx';
+import {useGetHolidayById} from "../../api/Queries/HolidayQueries.ts";
 
 function MyHolidayPage() {
-  const params = useParams();
+  const { id } = useParams();
+  const { data} = useGetHolidayById(id);
 
-  if (params.id) {
-    alert(`You are visiting ID : ${params.id}`);
-  }
+  console.log("ID " + id)
+  console.log(data)
 
   return (
     <PageWrapper>

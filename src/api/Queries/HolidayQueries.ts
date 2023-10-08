@@ -16,7 +16,14 @@ export const useCreateHoliday = () => {
 export const useGetAllHoliday = () => {
   return useQuery({
     queryKey: holidayKeys.list(),
-    queryFn: () => HolidayApi.getHoliday().then((content) => content.data),
+    queryFn: () => HolidayApi.getAllHoliday().then((content) => content.data),
     initialData: [],
+  });
+};
+
+export const useGetHolidayById = (holidayId : string) => {
+  return useQuery({
+    queryKey: ['holiday'],
+    queryFn: () => HolidayApi.getHolidayById(holidayId).then((content) => content.data)
   });
 };
