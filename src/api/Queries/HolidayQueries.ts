@@ -23,7 +23,7 @@ export const useGetAllHoliday = () => {
 
 export const useGetHolidayById = (holidayId : string) => {
   return useQuery({
-    queryKey: ['holiday'],
+    queryKey: holidayKeys.all,
     queryFn: () => HolidayApi.getHolidayById(holidayId).then((content) => content.data)
   });
 };
