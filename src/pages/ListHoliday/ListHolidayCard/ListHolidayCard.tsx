@@ -3,18 +3,15 @@ import calendar from '../../../assets/imgs/icons/calendar.png';
 import peoples from '../../../assets/imgs/icons/peoples.png';
 import location from '../../../assets/imgs/icons/location.png';
 import bgCard from '../../../assets/imgs/bg/bg.jpg';
-function ListHolidayCard({idHoliday}) {
-  const id = `/holidays/${idHoliday}`;
+function ListHolidayCard({holiday}) {
+  const id = `/holidays/${holiday.id}`;
   return (
     <div className="lg:flex bg-white rounded-2xl">
       <img className="object-cover w-full h-100 rounded-lg lg:w-64" src={bgCard} alt="" />
 
       <div className="flex flex-col justify-between p-6 lg:mx-6">
-        <h3 className="text-xl md:text-3xl font-bold text-blue-800 ">ZozoParty</h3>
-        <p className="my-8 text-base lg:text-lg">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam tincidunt arcu diam.Lorem ipsum dolor sit
-          amet, consectetur adipiscing elit.
-        </p>
+        <h3 className="text-xl md:text-3xl font-bold text-blue-800 ">{holiday.name}</h3>
+        <p className="my-8 text-base lg:text-lg"> {holiday.description} </p>
 
         <ul className="flex flex-col justify-around">
           <div className="flex flex-row items-center mb-1.5">

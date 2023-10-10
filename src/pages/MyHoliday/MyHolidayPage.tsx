@@ -9,10 +9,11 @@ import MyHolidayColumn from './MyHolidayColumn/MyHolidayColumn.tsx';
 import sun from '../../assets/imgs/icons/sun.png';
 import MyHolidayCard from './MyHolidayCard/MyHolidayCard.tsx';
 import {useGetHolidayById} from "../../api/Queries/HolidayQueries.ts";
+import {HolidayMutation} from "../../api/Models/Holiday.ts";
 
 function MyHolidayPage() {
   const { id } = useParams();
-  const { data = {} } = useGetHolidayById(id);
+  const { data = {} as HolidayMutation, isLoading } = useGetHolidayById(id);
 
   console.log(data)
 
@@ -111,16 +112,20 @@ function MyHolidayPage() {
             </header>
             <div className="overflow-y-scroll">
               <div className="grid grid-cols-1 gap-8 mt-8 md:grid-cols-2 p-3" style={{ height: '50rem' }}>
-
-                {/*{ data.activities.length === 0 ? (*/}
-                {/*    <p>Aucune activité disponible</p>*/}
-                {/*  ) : (*/}
-                {/*    data.activities.map((activity, index) => (*/}
-                {/*      <MyHolidayCard/>*/}
-                {/*    ))*/}
-                {/*  )*/}
-                {/*}*/}
-
+                {isLoading ? (
+                  <p>Chargement en cours...</p>
+                ) : (
+                  <>
+                { data.activities.length === 0 ? (
+                    <p>Aucune activité disponible</p>
+                  ) : (
+                    data.activities.map((activity, index) => (
+                      <MyHolidayCard key={activity.id} activity={activity}/>
+                    ))
+                  )
+                }
+                  </>
+                )}
               </div>
             </div>
           </div>

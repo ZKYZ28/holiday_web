@@ -19,7 +19,7 @@ const ListHolidayPage = () => {
               <ButtonLink text="Encoder" to="/holidays/create" />
               <div className="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
                 {holidays.map((holiday) => (
-                  <ListHolidayCard key={holiday.id} idHoliday={holiday.id} />
+                  <ListHolidayCard key={holiday.id} holiday={holiday} />
                 ))}
               </div>
             </>

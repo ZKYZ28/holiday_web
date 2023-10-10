@@ -1,11 +1,9 @@
 import FormContainer from '../../components/common/FormContainer.tsx';
-import FormInput from '../../components/common/FormInput.tsx';
-import { ChangeEvent, useState } from 'react';
-import ButtonForm from '../../components/common/ButtonForm.tsx';
-import TextAreaInput from '../../components/common/TextAreaInput.tsx';
 import PageWrapper from "../../components/common/PageWrapper.tsx";
 import GenericForm from "../../components/common/GenericForm.tsx";
 import * as dayjs from "dayjs";
+import {useCreateActivity} from "../../api/Queries/ActivityQueries.ts";
+import {useParams} from "react-router-dom";
 
 const inputsActivity = [
   {
@@ -102,41 +100,46 @@ const descriptionTextArea = {
 };
 
 const EncodeActivity = () => {
+  const { id } = useParams();
+  const { mutate: mutateActivity } = useCreateActivity(id);
 
   const initalValues = {
     name: '',
+    description: '',
     country: '',
     number: '',
     street: '',
     postalCode: '',
     locality: '',
-    startDate: '',
-    endDate: '',
     price: '',
+    startDate: '',
+    endDate: ''
   };
 
   const handleSubmit = (values) => {
-    const {name, country, number, street, postalCode, locality, startDate, endDate, price, description} = values;
-    console.log(values)
-    // const data = new FormData(e.target as HTMLFormElement);
-    // // CALL TO API TO REGITER THE ACTIVITY
-    // mutateActivity(
-    //     {
-    //       name,
-    //       description,
-    //       startDate: dayjs(startDate).format(),
-    //       endDate: dayjs(endDate).format(),
-    //       location: {
-    //         street,
-    //         number,
-    //         locality,
-    //         postalCode,
-    //         country
-    //       },
-    //     },
-    //     { onError: () => alert('An error occurred'), onSuccess: () => alert('Success') }
-    // );
+    const {name, description, country, number, street, postalCode, locality, startDate, endDate, price} = values;
+
+    // CALL TO API TO REGITER THE ACTIVITY
+    mutateActivity(
+        {
+          name,
+          description,
+          price,
+          startDate: dayjs(startDate).format(),
+          endDate: dayjs(endDate).format(),
+          location: {
+            street,
+            number,
+            locality,
+            postalCode,
+            country
+          },
+        },
+        { onError: () => alert('An error occurred'), onSuccess: () =>  alert('Succes')}
+    );
   };
+
+
 
   return (
       <PageWrapper>
@@ -146,6 +149,7 @@ const EncodeActivity = () => {
             initalValues={initalValues}
             textAreaProps={descriptionTextArea}
             buttonText="Encoder"
+            onSubmit={handleSubmit}
           />
         </FormContainer>
       </PageWrapper>

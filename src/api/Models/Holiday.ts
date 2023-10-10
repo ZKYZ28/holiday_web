@@ -1,4 +1,5 @@
 import {LocationMutation} from "./Location.ts";
+import {ActivityMutation} from "./Activity.ts";
 
 export type Holiday = {
   id: string;
@@ -7,6 +8,7 @@ export type Holiday = {
   startDate: string;
   endDate: string;
   location: LocationMutation;
+  activities: ActivityMutation;
 };
 
 export type HolidayMutation = Omit<Holiday, 'id'>;

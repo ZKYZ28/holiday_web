@@ -109,7 +109,7 @@ const EncodeHoliday = () => {
   const handleSubmit = (values) => {
     const {name, country, number, street, postalCode, locality, startDate, endDate, description} = values;
     console.log(values)
-    // const data = new FormData(e.target as HTMLFormElement);
+
     mutateHoliday(
       {
         name,
