@@ -41,9 +41,7 @@ function GenericForm({ fields, initalValues, onSubmit, textAreaProps, buttonText
             </div>
           )
       )}
-      {textAreaProps && (
-        <TextAreaInput {...textAreaProps} value={description} onChange={handleChangeDescription} />
-      )}
+      {textAreaProps && <TextAreaInput {...textAreaProps} value={description} onChange={handleChangeDescription} />}
 
       <div className="flex justify-center">
         <button type="submit" className="bg-blue-800 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full">

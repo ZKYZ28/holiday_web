@@ -1,11 +1,8 @@
 import FormContainer from '../../components/common/FormContainer.tsx';
-import FormInput from '../../components/common/FormInput.tsx';
-import { ChangeEvent, FormEvent, useState } from 'react';
-import TextAreaInput from '../../components/common/TextAreaInput.tsx';
 import { useCreateHoliday } from '../../api/Queries/HolidayQueries.ts';
 import * as dayjs from 'dayjs';
 import PageWrapper from '../../components/common/PageWrapper.tsx';
-import GenericForm from "../../components/common/GenericForm.tsx";
+import GenericForm from '../../components/common/GenericForm.tsx';
 
 const inputsHoliday = [
   {
@@ -104,11 +101,11 @@ const EncodeHoliday = () => {
     locality: '',
     startDate: '',
     endDate: '',
-  }
+  };
 
   const handleSubmit = (values) => {
-    const {name, country, number, street, postalCode, locality, startDate, endDate, description} = values;
-    console.log(values)
+    const { name, country, number, street, postalCode, locality, startDate, endDate, description } = values;
+    console.log(values);
 
     mutateHoliday(
       {
@@ -121,7 +118,7 @@ const EncodeHoliday = () => {
           number,
           locality,
           postalCode,
-          country
+          country,
         },
       },
       { onError: () => alert('An error occurred'), onSuccess: () => alert('Success') }
@@ -132,11 +129,11 @@ const EncodeHoliday = () => {
     <PageWrapper>
       <FormContainer title="Encoder vacances">
         <GenericForm
-            fields={inputsHoliday}
-            initalValues={initialValues}
-            onSubmit={handleSubmit}
-            textAreaProps={descriptionTextArea}
-            buttonText="Encoder"
+          fields={inputsHoliday}
+          initalValues={initialValues}
+          onSubmit={handleSubmit}
+          textAreaProps={descriptionTextArea}
+          buttonText="Encoder"
         />
       </FormContainer>
     </PageWrapper>

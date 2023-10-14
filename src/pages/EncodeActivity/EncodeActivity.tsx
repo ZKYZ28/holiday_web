@@ -1,9 +1,9 @@
 import FormContainer from '../../components/common/FormContainer.tsx';
-import PageWrapper from "../../components/common/PageWrapper.tsx";
-import GenericForm from "../../components/common/GenericForm.tsx";
-import * as dayjs from "dayjs";
-import {useCreateActivity} from "../../api/Queries/ActivityQueries.ts";
-import {useParams} from "react-router-dom";
+import PageWrapper from '../../components/common/PageWrapper.tsx';
+import GenericForm from '../../components/common/GenericForm.tsx';
+import * as dayjs from 'dayjs';
+import { useCreateActivity } from '../../api/Queries/ActivityQueries.ts';
+import { useParams } from 'react-router-dom';
 
 const inputsActivity = [
   {
@@ -86,8 +86,8 @@ const inputsActivity = [
     errorMessage: 'Ça doit être un nombre valide !',
     label: 'Prix :',
     required: true,
-  }
-]
+  },
+];
 
 const descriptionTextArea = {
   id: 'description',
@@ -113,46 +113,44 @@ const EncodeActivity = () => {
     locality: '',
     price: '',
     startDate: '',
-    endDate: ''
+    endDate: '',
   };
 
   const handleSubmit = (values) => {
-    const {name, description, country, number, street, postalCode, locality, startDate, endDate, price} = values;
+    const { name, description, country, number, street, postalCode, locality, startDate, endDate, price } = values;
 
     // CALL TO API TO REGITER THE ACTIVITY
     mutateActivity(
-        {
-          name,
-          description,
-          price,
-          startDate: dayjs(startDate).format(),
-          endDate: dayjs(endDate).format(),
-          location: {
-            street,
-            number,
-            locality,
-            postalCode,
-            country
-          },
+      {
+        name,
+        description,
+        price,
+        startDate: dayjs(startDate).format(),
+        endDate: dayjs(endDate).format(),
+        location: {
+          street,
+          number,
+          locality,
+          postalCode,
+          country,
         },
-        { onError: () => alert('An error occurred'), onSuccess: () =>  alert('Succes')}
+      },
+      { onError: () => alert('An error occurred'), onSuccess: () => alert('Succes') }
     );
   };
 
-
-
   return (
-      <PageWrapper>
-        <FormContainer title="Encoder activité">
-          <GenericForm
-            fields={inputsActivity}
-            initalValues={initalValues}
-            textAreaProps={descriptionTextArea}
-            buttonText="Encoder"
-            onSubmit={handleSubmit}
-          />
-        </FormContainer>
-      </PageWrapper>
+    <PageWrapper>
+      <FormContainer title="Encoder activité">
+        <GenericForm
+          fields={inputsActivity}
+          initalValues={initalValues}
+          textAreaProps={descriptionTextArea}
+          buttonText="Encoder"
+          onSubmit={handleSubmit}
+        />
+      </FormContainer>
+    </PageWrapper>
   );
 };
 export default EncodeActivity;

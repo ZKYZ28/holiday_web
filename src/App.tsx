@@ -1,15 +1,17 @@
 import { StrictMode } from 'react';
 import './assets/css/App.css';
 import { QueryClientProvider } from '@tanstack/react-query';
-import { RouterProvider } from 'react-router-dom';
 import queryClient from './QueryClient.ts';
-import router from './route/routeur.tsx';
+import AuthProvider from './provider/AuthProvider.tsx';
+import Routes from './route/routes.tsx';
 
 function App() {
   return (
     <StrictMode>
       <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
+        <AuthProvider>
+          <Routes />
+        </AuthProvider>
       </QueryClientProvider>
     </StrictMode>
   );

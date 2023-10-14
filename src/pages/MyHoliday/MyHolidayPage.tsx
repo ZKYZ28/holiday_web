@@ -1,21 +1,21 @@
 import TitleH2 from '../../components/common/TiteH2.tsx';
 import PageWrapper from '../../components/common/PageWrapper.tsx';
 import PageContent from '../../components/common/PageContent.tsx';
-import {NavLink, useParams} from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import MyHolidayMembers from './MyHolidayMembers/MyHolidayMembers.tsx';
 import MyHolidayColumn from './MyHolidayColumn/MyHolidayColumn.tsx';
 import sun from '../../assets/imgs/icons/sun.png';
 import MyHolidayCard from './MyHolidayCard/MyHolidayCard.tsx';
-import {useGetHolidayById} from "../../api/Queries/HolidayQueries.ts";
-import {HolidayMutation} from "../../api/Models/Holiday.ts";
+import { useGetHolidayById } from '../../api/Queries/HolidayQueries.ts';
+import { HolidayMutation } from '../../api/Models/Holiday.ts';
 
 function MyHolidayPage() {
   const { id } = useParams();
   const { data = {} as HolidayMutation, isLoading } = useGetHolidayById(id);
 
-  console.log(data)
+  console.log(data);
 
   return (
     <PageWrapper>
@@ -116,14 +116,13 @@ function MyHolidayPage() {
                   <p>Chargement en cours...</p>
                 ) : (
                   <>
-                { data.activities.length === 0 ? (
-                    <p>Aucune activité disponible</p>
-                  ) : (
-                    data.activities.map((activity, index) => (
-                      <MyHolidayCard key={activity.id} activity={activity}/>
-                    ))
-                  )
-                }
+                    {data && data.activities && data.activities.length === 0 ? (
+                      <p>Aucune activité disponible</p>
+                    ) : (
+                      data &&
+                      data.activities &&
+                      data.activities.map((activity, index) => <MyHolidayCard key={activity.id} activity={activity} />)
+                    )}
                   </>
                 )}
               </div>

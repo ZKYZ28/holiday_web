@@ -1,131 +1,124 @@
 import FormContainer from '../../components/common/FormContainer.tsx';
 import FormInput from '../../components/common/FormInput.tsx';
-import { ChangeEvent, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import ButtonForm from '../../components/common/ButtonForm.tsx';
 import ButtonLink from '../../components/common/ButtonLink.tsx';
 import PageWrapper from '../../components/common/PageWrapper.tsx';
+import { useCreateAccount } from '../../api/Queries/AuthentificationQueries.ts';
+import { useAuth } from '../../provider/AuthProvider.tsx';
+import { useNavigate } from 'react-router-dom';
 
-const Register = () => {
-  // EMAIL
-  const [emailInput, setEmailInput] = useState('');
-  const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
-    setEmailInput(e.target.value);
-  };
-  const inputEmail = {
+const inputRegister = [
+  {
     id: 'email',
     name: 'email',
     type: 'email',
-    placeholder: 'jean.dupont@gmail.com',
-    errorMessage: 'Ça doit être une adresse mail valide !',
-    label: 'Courriel :',
+    placeholder: 'john.doe@gmail.com',
+    errorMessage: 'L\'adresse mail doit être valide !',
+    label: 'Courriel',
     required: true,
-  };
-
-  // NOM
-  const [nameInput, setNameInput] = useState('');
-  const handleChangeName = (e: ChangeEvent<HTMLInputElement>) => {
-    setNameInput(e.target.value);
-  };
-  const inputName = {
-    id: 'name',
-    name: 'name',
+  },
+  {
+    id: 'lastName',
+    name: 'lastName',
     type: 'text',
     placeholder: 'Doe',
-    errorMessage: 'Ça doit être un nom valide !',
+    errorMessage: 'Votre prénom ne peut pas être vide, ni contenir de chiffres. !',
     label: 'Nom :',
     required: true,
-  };
-
-  // PRENOM
-  const [firstnameInput, setFirstnameInput] = useState('');
-  const handleChangeFirstname = (e: ChangeEvent<HTMLInputElement>) => {
-    setFirstnameInput(e.target.value);
-  };
-  const inputFirstName = {
+  },
+  {
     id: 'firstName',
     name: 'firstName',
     type: 'text',
     placeholder: 'John',
-    errorMessage: 'Ça doit être un prénom valide !',
-    label: 'Prénom :',
+    errorMessage: 'Votre prénom ne peut pas être vide, ni contenir de chiffres.  !',
+    label: 'prénom :',
     required: true,
-  };
-
-  // PASSWORD
-  const [passwordInput, setPasswordInput] = useState('');
-
-  const handleChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
-    setPasswordInput(e.target.value);
-  };
-
-  const inputPassword = {
-    id : 'password',
+  },
+  {
+    id: 'password',
     name: 'password',
     type: 'password',
-    placeholder: '',
-    errorMessage: 'ERROR MESSAGE HERE',
+    placeholder: '*************',
+    errorMessage: 'Votre mot de passe ne peut pas être vide, au minimum 8 caractères  !',
     label: 'Mot de passe :',
     required: true,
-  };
-
-  // CONFRIM PASSWORD
-  const [confirmPasswordInput, setConfirmPasswordInput] = useState('');
-
-  const handleChangeConfirmPassword = (e: ChangeEvent<HTMLInputElement>) => {
-    setConfirmPasswordInput(e.target.value);
-  };
-
-  const inputConfirmPassword = {
-    id : 'confirmPassword',
+  },
+  {
+    id: 'confirmPassword',
     name: 'confirmPassword',
     type: 'password',
-    placeholder: '',
-    errorMessage: 'ERROR MESSAGE HERE',
-    label: 'Confirmer mot de passe :',
+    placeholder: '*************',
+    errorMessage: '',
+    label: 'Mot de passe :',
     required: true,
+  },
+];
+
+const Register = () => {
+  const { token, setJwtToken } = useAuth();
+  const navigate = useNavigate();
+
+  const { mutate: mutateRegister } = useCreateAccount();
+
+  const [values, setValues] = useState({
+    email: '',
+    lastName: '',
+    firstName: '',
+    password: '',
+    confirmPassword: '',
+  });
+
+  const onChange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    mutateRegister(
+      {
+        email: values.email,
+        lastName: values.lastName,
+        firstName: values.firstName,
+        password: values.password,
+        confirmPassword: values.confirmPassword,
+      },
+      {
+        // Recuperer le token renvoyé par l'api
+        onSuccess: (data) => {
+          // console.log(data);
+          setJwtToken(data.data);
+          // Récupérer les infos de l'utilisateru ???
+          console.log(token);
+          navigate('/holidays', { replace: true });
+        },
+      }
+    );
   };
 
   return (
     <PageWrapper>
       <FormContainer title="S'enregister">
-        <form>
-          <FormInput
-            {...inputEmail}
-            value={emailInput}
-            onChange={handleChangeEmail}
-          />
+        <form onSubmit={handleSubmit}>
+          <FormInput {...inputRegister[0]} value={values.email} onChange={onChange} />
 
           <div className="block lg:flex justify-between w-full">
             <div className="w-full lg:w-2/5">
-              <FormInput
-                {...inputName}
-                value={nameInput}
-                onChange={handleChangeName}
-              />
+              <FormInput {...inputRegister[1]} value={values.lastName} onChange={onChange} />
             </div>
             <div className="w-full lg:w-2/5">
-              <FormInput
-                {...inputFirstName}
-                value={firstnameInput}
-                onChange={handleChangeFirstname}
-              />
+              <FormInput {...inputRegister[2]} value={values.firstName} onChange={onChange} />
             </div>
           </div>
 
           <div className="block lg:flex justify-between w-full">
             <div className="w-full lg:w-2/5">
-              <FormInput
-                {...inputPassword}
-                value={passwordInput}
-                onChange={handleChangePassword}
-              />
+              <FormInput {...inputRegister[3]} value={values.password} onChange={onChange} />
             </div>
             <div className="w-full lg:w-2/5">
-              <FormInput
-                {...inputConfirmPassword}
-                value={confirmPasswordInput}
-                onChange={handleChangeConfirmPassword}
-              />
+              <FormInput {...inputRegister[4]} value={values.confirmPassword} onChange={onChange} />
             </div>
           </div>
 

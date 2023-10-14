@@ -7,7 +7,6 @@ const HomePage = () => {
   return (
     <PageWrapper>
       <div className="page-size flex w-full justify-center items-center background">
-
         <div className="lg:w-4/6 w-11/12 p-16 bg-white rounded-2xl box-shadow">
           <div className="flex flex-col">
             <p className="text-blue-800 font-bold lg:text-3xl text-xl">Welcome to</p>

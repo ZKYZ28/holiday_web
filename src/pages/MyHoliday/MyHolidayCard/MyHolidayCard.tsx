@@ -4,10 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEuroSign } from '@fortawesome/free-solid-svg-icons/faEuroSign';
 import { faCalendarDays } from '@fortawesome/free-solid-svg-icons/faCalendarDays';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons/faLocationDot';
-import { faPencil, faTrash} from '@fortawesome/free-solid-svg-icons';
+import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 
-function ListHolidayCard({activity}) {
-
+function ListHolidayCard({ activity }) {
   return (
     <div className="lg:flex bg-white rounded-2xl">
       <img className="object-cover w-full h-100 rounded-lg lg:w-64" src={driftCard} alt="" />
@@ -35,7 +34,10 @@ function ListHolidayCard({activity}) {
 
           <div className="flex flex-row items-center mb-1.5">
             <FontAwesomeIcon icon={faLocationDot} size="xl" className="w-5 mr-4" />
-            <li className="font-bold text-base lg:text-xl ">{activity.location.street} {activity.location.number}, {activity.location.postalCode} {activity.location.locality}</li>
+            <li className="font-bold text-base lg:text-xl ">
+              {activity.location.street} {activity.location.number}, {activity.location.postalCode}{' '}
+              {activity.location.locality}
+            </li>
           </div>
         </ul>
 

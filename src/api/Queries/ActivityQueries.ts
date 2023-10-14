@@ -1,9 +1,9 @@
-import {useMutation, useQueryClient} from "@tanstack/react-query";
-import HolidayApi from "../EndPoints/HolidayApi.ts";
-import {holidayKeys} from "../Querykeys.ts";
-import {ActivityMutation} from "../Models/Activity.ts";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import HolidayApi from '../EndPoints/HolidayApi.ts';
+import { holidayKeys } from '../Querykeys.ts';
+import { ActivityMutation } from '../Models/Activity.ts';
 
-export const useCreateActivity = (holidayId : string) => {
+export const useCreateActivity = (holidayId: string) => {
   const client = useQueryClient();
   return useMutation((activity: ActivityMutation) => HolidayApi.createActivity(activity, holidayId), {
     onSuccess: () => {

@@ -1,18 +1,17 @@
-import {ChangeEventHandler, useState} from 'react';
+import { ChangeEventHandler, useState } from 'react';
 import Span from './Span.tsx';
 import StarsRequired from './StarsRequired.tsx';
 
 type TextAreaProps = {
-    id: string;
-    name: string;
-    errorMessage: string;
-    label: string;
-    onChange: ChangeEventHandler
-    value: string
-}
+  id: string;
+  name: string;
+  errorMessage: string;
+  label: string;
+  onChange: ChangeEventHandler;
+  value: string;
+};
 
-function TextAreaInput({ id, name, errorMessage, label, onChange, ...inputProps }:TextAreaProps) {
-
+function TextAreaInput({ id, name, errorMessage, label, onChange, ...inputProps }: TextAreaProps) {
   const [focused, setFocused] = useState(false);
   const [isValid, setIsValid] = useState(true);
 

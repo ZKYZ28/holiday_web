@@ -1,8 +1,17 @@
 import ButtonLink from '../common/ButtonLink.tsx';
 import './Header.css';
 import { NavLink } from 'react-router-dom';
+import { useAuth } from '../../provider/AuthProvider.tsx';
+import { ButtonHTMLAttributes, HTMLProps } from 'react';
 
 function Header() {
+  const { user, setJwtToken } = useAuth();
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    setJwtToken(undefined);
+  };
+
   return (
     <header className="bg-white w-full flex md:flex-row flex-col justify-between items-center alig px-12 custom-height border-b-2 border-blue-600">
       <NavLink to="/">
@@ -17,8 +26,25 @@ function Header() {
         <ButtonLink text="Holidays" to="/holidays" />
         <ButtonLink text="Chats" to="/chats" />
         <ButtonLink text="ContactPage" to="/contact" />
-        <ButtonLink text="Login" to="/login" />
-        <ButtonLink text="Register" to="/register" />
+        {user ? (
+          <div>
+            <p>
+              Bonjour,{' '}
+              <span className="font-bold">
+                {' '}
+                {user.firstName} {user.lastName}
+              </span>{' '}
+            </p>
+            <button type="button" onClick={handleSubmit} className="text-red-600 font-bold">
+              Se déconnecter
+            </button>
+          </div>
+        ) : (
+          <>
+            <ButtonLink text="Login" to="/login" />
+            <ButtonLink text="Register" to="/register" />
+          </>
+        )}
       </ul>
     </header>
   );
