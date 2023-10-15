@@ -1,58 +1,74 @@
 import FormContainer from '../../components/common/FormContainer.tsx';
 import FormInput from '../../components/common/FormInput.tsx';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import ButtonForm from '../../components/common/ButtonForm.tsx';
 import ButtonLink from '../../components/common/ButtonLink.tsx';
 import PageWrapper from '../../components/common/PageWrapper.tsx';
+import { useAuth } from '../../provider/AuthProvider.tsx';
+import {useLocation, useNavigate } from 'react-router-dom';
+import { useCreateHAccount, useLoginAccount } from '../../api/Queries/AuthentificationQueries.ts';
+
+const inputEmail = {
+  id: 'email',
+  name: 'email',
+  type: 'email',
+  placeholder: 'john.doe@gmail.com',
+  errorMessage: 'Ça doit être une adresse mail valide !',
+  label: 'Courriel :',
+  required: true,
+};
+
+const inputPassword = {
+  id: 'password',
+  name: 'password',
+  type: 'password',
+  placeholder: '',
+  errorMessage: 'Votre mot de passe ne peut pas être vide, au minimum 8 caractères  !',
+  label: 'Mot de passe :',
+  required: true,
+};
 
 const Login = () => {
-  // EMAIL
+  const { setJwtToken } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { mutate: mutateLogin } = useLoginAccount();
+
   const [emailInput, setEmailInput] = useState('');
+  const [passwordInput, setPasswordInput] = useState('');
   const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmailInput(e.target.value);
   };
-  const inputEmail = {
-    id: 'email',
-    name: 'email',
-    type: 'email',
-    placeholder: 'jean.dupont@gmail.com',
-    errorMessage: 'Ça doit être une adresse mail valide !',
-    label: 'Courriel :',
-    required: true,
-  };
-
-  // PASSWORD
-  const [passwordInput, setPasswordInput] = useState('');
-
   const handleChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
     setPasswordInput(e.target.value);
   };
 
-  const inputPassword = {
-    id: 'password',
-    name: 'password',
-    type: 'password',
-    placeholder: '',
-    errorMessage: 'ERROR MESSAGE HERE',
-    label: 'Mot de passe :',
-    required: true,
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    mutateLogin(
+      {
+        email: emailInput,
+        password: passwordInput,
+      },
+      {
+        onSuccess: (data) => {
+          console.log(data);
+          setJwtToken(data.data);
+          navigate('/holidays', { replace: true });
+        },
+      }
+    );
   };
 
   return (
     <PageWrapper>
       <FormContainer title="Se connecter">
-        <form>
-          <FormInput
-            {...inputEmail}
-            value={emailInput}
-            onChange={handleChangeEmail}
-          />
+        {location.state && <p className="text-red-600 font-bold text-center">{location.state.message}</p>}
+        <form onSubmit={handleSubmit}>
+          <FormInput {...inputEmail} value={emailInput} onChange={handleChangeEmail} />
 
-          <FormInput
-            {...inputPassword}
-            value={passwordInput}
-            onChange={handleChangePassword}
-          />
+          <FormInput {...inputPassword} value={passwordInput} onChange={handleChangePassword} />
 
           <div className="flex justify-center">
             <ButtonForm text="Se connecter" />

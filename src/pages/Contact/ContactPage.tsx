@@ -12,7 +12,7 @@ function ContactPage() {
   const [textAreaField, setTextAreaFild] = useState('');
 
   const inputEmail = {
-    id : 'email',
+    id: 'email',
     name: 'email',
     type: 'email',
     placeholder: 'jean.dupont@gmail.com',
@@ -51,21 +51,11 @@ function ContactPage() {
             <div className="w-full p-8 my-4 md:px-12 lg:w-9/12 lg:pl-20 lg:pr-40 mr-auto rounded-2xl shadow-2xl">
               <Span style="font-bold uppercase md:text-5xl sm:text-xs" text="Contactez-nous" />
               <div className="grid grid-cols-1 gap-5 mt-5">
-                <FormInput
-                  {...inputEmail}
-                  value={emailInput}
-                  onChange={handleChangeEmail}
-                />
+                <FormInput {...inputEmail} value={emailInput} onChange={handleChangeEmail} />
               </div>
-              <TextAreaInput
-                {...textAreaFieldContent}
-                value={textAreaField}
-                onChange={handleChangeTextArea}
-              />
+              <TextAreaInput {...textAreaFieldContent} value={textAreaField} onChange={handleChangeTextArea} />
               <div className="my-2 w-1/2 lg:w-1/4">
-                <ButtonForm
-                  text="Envoyer"
-                />
+                <ButtonForm text="Envoyer" />
               </div>
             </div>
 

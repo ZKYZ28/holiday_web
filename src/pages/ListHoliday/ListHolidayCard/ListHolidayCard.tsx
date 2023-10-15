@@ -3,8 +3,10 @@ import calendar from '../../../assets/imgs/icons/calendar.png';
 import peoples from '../../../assets/imgs/icons/peoples.png';
 import location from '../../../assets/imgs/icons/location.png';
 import bgCard from '../../../assets/imgs/bg/bg.jpg';
-import * as dayjs from "dayjs";
-function ListHolidayCard({holiday}) {
+import * as dayjs from 'dayjs';
+
+
+function ListHolidayCard({ holiday }) {
   const id = `/holidays/${holiday.id}`;
   return (
     <div className="lg:flex bg-white rounded-2xl">

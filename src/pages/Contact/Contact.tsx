@@ -12,7 +12,7 @@ function Contact() {
   const [textAreaField, setTextAreaFild] = useState('');
 
   const inputEmail = {
-    id :'email',
+    id: 'email',
     name: 'email',
     type: 'email',
     placeholder: 'jean.dupont@gmail.com',

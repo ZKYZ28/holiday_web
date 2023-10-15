@@ -21,10 +21,10 @@ export const useGetAllHoliday = () => {
   });
 };
 
-export const useGetHolidayById = (holidayId : string) => {
+export const useGetHolidayById = (holidayId: string) => {
   return useQuery({
     queryKey: holidayKeys.all,
     queryFn: () => HolidayApi.getHolidayById(holidayId).then((content) => content.data),
-    initialData: {}
+    initialData: {},
   });
 };

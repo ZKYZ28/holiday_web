@@ -1,4 +1,4 @@
-import {LocationMutation} from "./Location.ts";
+import { LocationMutation } from './Location.ts';
 
 export type Activity = {
   id: string;

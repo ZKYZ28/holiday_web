@@ -2,8 +2,8 @@ import FormContainer from '../../components/common/FormContainer.tsx';
 import { useCreateHoliday } from '../../api/Queries/HolidayQueries.ts';
 import * as dayjs from 'dayjs';
 import PageWrapper from '../../components/common/PageWrapper.tsx';
-import GenericForm from "../../components/common/GenericForm.tsx";
 import { useNavigate } from 'react-router-dom';
+import GenericForm from '../../components/common/GenericForm.tsx';
 
 const inputsHoliday = [
   {
@@ -103,12 +103,13 @@ const EncodeHoliday = () => {
     locality: '',
     startDate: '',
     endDate: '',
-  }
+  };
 
   const handleSubmit = (values) => {
-    const {name, country, number, street, postalCode, locality, startDate, endDate, description} = values;
-    console.log(values)
+    const { name, country, number, street, postalCode, locality, startDate, endDate, description } = values;
+    console.log(values);
 
+    //TODO VERIFIER SI ACTIVITIES EST NECESSAIRE
     mutateHoliday(
         {
           name,
@@ -120,7 +121,7 @@ const EncodeHoliday = () => {
             number,
             locality,
             postalCode,
-            country
+            country,
           },
           activities: []
         },

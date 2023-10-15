@@ -1,5 +1,5 @@
-import {LocationMutation} from "./Location.ts";
-import {ActivityMutation} from "./Activity.ts";
+import { LocationMutation } from './Location.ts';
+import { ActivityMutation } from './Activity.ts';
 
 export type Holiday = {
   id: string;
