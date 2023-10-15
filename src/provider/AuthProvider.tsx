@@ -1,8 +1,7 @@
-import {createContext, FC, ReactNode, useCallback, useContext, useEffect, useMemo, useState} from 'react';
+import {createContext, FC, ReactNode, useCallback, useContext, useMemo, useState} from 'react';
 import axiosInstance from '../api/axios.ts';
 import { UserAuthentificated } from '../api/Models/UserAuthentificated.ts';
-import { decodePayloadJwt, isInvalidToken, isValidToken, JwtPayloadType } from './utils/JwtUtils.ts';
-import { useNavigate } from 'react-router-dom';
+import { decodePayloadJwt, isInvalidToken, JwtPayloadType } from './utils/JwtUtils.ts';
 
 const LS_TOKEN = 'token';
 
