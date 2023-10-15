@@ -3,15 +3,14 @@ import { Holiday, HolidayMutation } from '../Models/Holiday.ts';
 import { ActivityMutation } from '../Models/Activity.ts';
 import { UserAuthentificated } from '../Models/UserAuthentificated.ts';
 import { Login } from '../Models/Login.ts';
-import login from '../../pages/Login/Login.tsx';
-import {Weather} from '../Models/Weather.ts';
-import {Participant} from '../Models/Participant.ts';
-import {InvitationMutation} from '../Models/Invitation.ts';
+import { Weather } from '../Models/Weather.ts';
+import { Participant } from '../Models/Participant.ts';
+import { InvitationMutation } from '../Models/Invitation.ts';
 
 class HolidayApi {
   static ENDPOINT: string = '/v1';
 
-  //HOLIDAY
+  // HOLIDAY
   static async createHoliday(holiday: HolidayMutation) {
     return axiosInstance.post(`${this.ENDPOINT}/holiday`, holiday);
   }
@@ -24,37 +23,32 @@ class HolidayApi {
     return axiosInstance.get<Holiday>(`${this.ENDPOINT}/holiday/${holidayId}`);
   }
 
-
-  //ACTIVITY
-  static async createActivity(activity: ActivityMutation, holidayId : string) {
+  // ACTIVITY
+  static async createActivity(activity: ActivityMutation, holidayId: string) {
     return axiosInstance.post(`${this.ENDPOINT}/activity/${holidayId}`, activity);
   }
 
-
-  //WEATHER
-  static async getWeather(holidayId : string) {
+  // WEATHER
+  static async getWeather(holidayId: string) {
     return axiosInstance.get<Weather>(`${this.ENDPOINT}/weather/${holidayId}`);
   }
 
-  //PARTICIPANT
+  // PARTICIPANT
   static async getParticipants() {
     return axiosInstance.get<Participant>(`${this.ENDPOINT}/participant/all`);
   }
-  static async getParticipantsByHoliday(holidayId : string) {
+  static async getParticipantsByHoliday(holidayId: string) {
     return axiosInstance.get<Participant>(`${this.ENDPOINT}/participant/${holidayId}`);
   }
 
-
-
-  //INVITATION
-  static async getInvitations(participantId : string) {
+  // INVITATION
+  static async getInvitations(participantId: string) {
     return axiosInstance.get<Participant>(`${this.ENDPOINT}/invitation/all/${participantId}`);
   }
 
-  static async createInvitations(invitations : InvitationMutation[]) {
+  static async createInvitations(invitations: InvitationMutation[]) {
     return axiosInstance.post(`${this.ENDPOINT}/invitation`, invitations);
   }
-}
 
   static async createAccount(newAccount: Register) {
     return axiosInstance.post(`${this.ENDPOINT}/authentification/register`, newAccount);
