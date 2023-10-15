@@ -4,7 +4,7 @@ type MyHolidayMembersProps = {
   srcImage: string;
 };
 
-function MyHolidayMembers({ name, email, srcImage }: MyHolidayMembersProps) {
+function MyHolidayMember({ name, email, srcImage }: MyHolidayMembersProps) {
   return (
     <tr>
       <td className="p-2 whitespace-nowrap">
@@ -22,4 +22,4 @@ function MyHolidayMembers({ name, email, srcImage }: MyHolidayMembersProps) {
   );
 }
 
-export default MyHolidayMembers;
+export default MyHolidayMember;

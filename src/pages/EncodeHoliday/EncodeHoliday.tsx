@@ -1,11 +1,9 @@
 import FormContainer from '../../components/common/FormContainer.tsx';
-import FormInput from '../../components/common/FormInput.tsx';
-import { ChangeEvent, FormEvent, useState } from 'react';
-import TextAreaInput from '../../components/common/TextAreaInput.tsx';
 import { useCreateHoliday } from '../../api/Queries/HolidayQueries.ts';
 import * as dayjs from 'dayjs';
 import PageWrapper from '../../components/common/PageWrapper.tsx';
 import GenericForm from "../../components/common/GenericForm.tsx";
+import { useNavigate } from 'react-router-dom';
 
 const inputsHoliday = [
   {
@@ -94,6 +92,7 @@ const descriptionTextArea = {
 
 const EncodeHoliday = () => {
   const { mutate: mutateHoliday } = useCreateHoliday();
+  const navigate = useNavigate();
 
   const initialValues = {
     name: '',
@@ -111,20 +110,21 @@ const EncodeHoliday = () => {
     console.log(values)
 
     mutateHoliday(
-      {
-        name,
-        description,
-        startDate: dayjs(startDate).format(),
-        endDate: dayjs(endDate).format(),
-        location: {
-          street,
-          number,
-          locality,
-          postalCode,
-          country
+        {
+          name,
+          description,
+          startDate: dayjs(startDate).format(),
+          endDate: dayjs(endDate).format(),
+          location: {
+            street,
+            number,
+            locality,
+            postalCode,
+            country
+          },
+          activities: []
         },
-      },
-      { onError: () => alert('An error occurred'), onSuccess: () => alert('Success') }
+      { onError: () => alert('An error occurred') , onSuccess: () => navigate("/holidays") }
     );
   };
 

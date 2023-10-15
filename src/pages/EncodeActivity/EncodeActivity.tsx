@@ -4,6 +4,7 @@ import GenericForm from "../../components/common/GenericForm.tsx";
 import * as dayjs from "dayjs";
 import {useCreateActivity} from "../../api/Queries/ActivityQueries.ts";
 import {useParams} from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const inputsActivity = [
   {
@@ -102,6 +103,7 @@ const descriptionTextArea = {
 const EncodeActivity = () => {
   const { id } = useParams();
   const { mutate: mutateActivity } = useCreateActivity(id);
+  const navigate = useNavigate();
 
   const initalValues = {
     name: '',
@@ -135,7 +137,7 @@ const EncodeActivity = () => {
             country
           },
         },
-        { onError: () => alert('An error occurred'), onSuccess: () =>  alert('Succes')}
+        { onError: () => alert('An error occurred'), onSuccess: () =>  navigate(`/holidays/${id}`)}
     );
   };
 
