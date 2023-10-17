@@ -1,4 +1,3 @@
-import ButtonLink from '../../components/common/ButtonLink.tsx';
 import ListHolidayCard from './ListHolidayCard/ListHolidayCard.tsx';
 import PageWrapper from '../../components/common/PageWrapper.tsx';
 import PageContent from '../../components/common/PageContent.tsx';
@@ -7,13 +6,16 @@ import ModalInvitation from './MondalInvitation/ModalInvitation.tsx';
 import { useState } from 'react';
 import { useAuth } from '../../provider/AuthProvider.tsx';
 import { useGetInvitations } from '../../api/Queries/InvitationQueries.ts';
-import { usetGetParticipantsCount } from '../../api/Queries/ParticipantQueries.ts';
+import { NavLink } from 'react-router-dom';
 
 const ListHolidayPage = () => {
   const { user } = useAuth();
+  console.log(user?.id)
   const { data: holidays, isLoading } = useGetAllHoliday(user.id!);
   const [showModalInvitation, setShowModalInvitation] = useState(false);
   const { data: invitations, isLoading: invitationsIsLoading, error: invitationsError } = useGetInvitations(user.id!);
+
+  console.log(holidays);
 
   const openModalInvitation = (): void => {
     setShowModalInvitation(true);
@@ -35,7 +37,12 @@ const ListHolidayPage = () => {
             ) : (
               <>
                 <div className="w-full flex justify-between">
-                  <ButtonLink text="Encoder" to="/holidays/create" />
+                  <NavLink
+                    className="inline-block bg-blue-800 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full"
+                    to="/holidays/create"
+                  >
+                    Encoder
+                  </NavLink>
                   <button
                     onClick={openModalInvitation}
                     type="button"
