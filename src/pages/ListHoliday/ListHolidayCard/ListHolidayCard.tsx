@@ -1,4 +1,4 @@
-import ButtonLink from '../../../components/common/ButtonLink.tsx';
+import ButtonLink from '../../../components/Header/ButtonLink/ButtonLink.tsx';
 import calendar from '../../../assets/imgs/icons/calendar.png';
 import peoples from '../../../assets/imgs/icons/peoples.png';
 import location from '../../../assets/imgs/icons/location.png';

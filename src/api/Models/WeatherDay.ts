@@ -1,5 +1,5 @@
-import {WeatherConditionMutation} from "./WeatherCondition.ts";
-import {WeatherHourMutation} from "./WeatherHour.ts";
+import {WeatherCondition} from './WeatherCondition.ts';
+import {WeatherHour} from './WeatherHour.ts';
 
 export type WeatherDay = {
   date: string;
@@ -8,9 +8,8 @@ export type WeatherDay = {
   currentTemp: number;
   riskOfRain: number;
   riskOfSnow: number;
-  condition: WeatherConditionMutation[];
-  weatherByHour : WeatherHourMutation[];
+  condition: WeatherCondition;
+  weatherByHour: WeatherHour[];
 };
 
 export type WeatherDayMutation = Omit<WeatherDay, 'id'>;
-// Pick<DATA, Props>

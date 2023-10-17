@@ -6,7 +6,7 @@ import ButtonLink from '../../components/common/ButtonLink.tsx';
 import PageWrapper from '../../components/common/PageWrapper.tsx';
 import { useAuth } from '../../provider/AuthProvider.tsx';
 import {useLocation, useNavigate } from 'react-router-dom';
-import { useCreateHAccount, useLoginAccount } from '../../api/Queries/AuthentificationQueries.ts';
+import { useLoginAccount } from '../../api/Queries/AuthentificationQueries.ts';
 
 const inputEmail = {
   id: 'email',
@@ -71,7 +71,7 @@ const Login = () => {
           <FormInput {...inputPassword} value={passwordInput} onChange={handleChangePassword} />
 
           <div className="flex justify-center">
-            <ButtonForm text="Se connecter" />
+            <button type="submit" className="bg-blue-800 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full">Se connecter</button>
           </div>
         </form>
 

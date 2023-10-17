@@ -1,11 +1,11 @@
 import { FC, ReactNode } from 'react';
 import useWarden from '../../hooks/Warden.ts';
-import {Navigate} from "react-router-dom";
-import {useAuth} from "../../provider/AuthProvider.tsx";
+import { Navigate } from 'react-router-dom';
+import { useAuth } from '../../provider/AuthProvider.tsx';
 
 const Warden: FC<{ children: ReactNode }> = ({ children }) => {
   const { token } = useAuth();
-   useWarden();
+  useWarden();
 
   // Check if the user is authenticated
   if (!token) {

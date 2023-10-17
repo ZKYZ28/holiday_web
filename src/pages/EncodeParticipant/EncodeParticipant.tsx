@@ -1,13 +1,12 @@
 import FormContainer from '../../components/common/FormContainer.tsx';
-import {ChangeEvent, useState} from 'react';
-import List from './ListUsers/ListUsers.tsx';
+import { ChangeEvent, useState } from 'react';
 import FormInput from '../../components/common/FormInput.tsx';
 import ListUsers from './ListUsers/ListUsers.tsx';
 import PageWrapper from '../../components/common/PageWrapper.tsx';
 import PageContent from '../../components/common/PageContent.tsx';
 
 const EncodeParticipant = () => {
-  const [searchInput,  setSearchText] = useState('');
+  const [searchInput, setSearchText] = useState('');
 
   const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
     // convert input text to lower case

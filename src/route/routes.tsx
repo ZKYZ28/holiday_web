@@ -1,5 +1,4 @@
 import { RouterProvider, createBrowserRouter, Outlet } from 'react-router-dom';
-import { useAuth } from '../provider/authProvider';
 import HomePage from '../pages/Home/HomePage.tsx';
 import Login from '../pages/Login/Login.tsx';
 import Register from '../pages/Register/Register.tsx';
@@ -10,6 +9,7 @@ import EncodeHoliday from '../pages/EncodeHoliday/EncodeHoliday.tsx';
 import ChatPage from '../pages/Chat/ChatPage.tsx';
 import ContactPage from '../pages/Contact/ContactPage.tsx';
 import Warden from '../components/common/Warden.tsx';
+import { useAuth } from '../provider/AuthProvider.tsx';
 
 const Routes = () => {
   const { token } = useAuth();
@@ -60,15 +60,27 @@ const Routes = () => {
     },
     {
       path: 'myholiday',
-      element: <Warden><MyHolidayPage /></Warden>,
+      element: (
+        <Warden>
+          <MyHolidayPage />
+        </Warden>
+      ),
     },
     {
       path: 'chats',
-      element: <Warden><ChatPage /></Warden>,
+      element: (
+        <Warden>
+          <ChatPage />
+        </Warden>
+      ),
     },
     {
       path: 'logout',
-      element: <Warden><div>Logout</div></Warden>,
+      element: (
+        <Warden>
+          <div>Logout</div>
+        </Warden>
+      ),
     },
   ];
 

@@ -23,7 +23,9 @@ const HomePage = () => {
 
           <div className="h-1/2 flex flex-col justify-around">
             <form className="mb-6 mt-12">
-              <ButtonForm text="Chercher" />
+              <button className="bg-blue-800 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full">
+                Chercher
+              </button>
             </form>
 
             <form className="">

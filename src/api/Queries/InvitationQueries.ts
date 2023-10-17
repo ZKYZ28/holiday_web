@@ -1,20 +1,19 @@
-import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
-import HolidayApi from "../EndPoints/HolidayApi.ts";
-import {invitationsKeys} from "../Querykeys.ts";
-import {InvitationMutation} from "../Models/Invitation.ts";
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { invitationsKeys } from '../Querykeys.ts';
+import { InvitationMutation } from '../Models/Invitation.ts';
+import InvitationRequestsApi from '../EndPoints/Requests/InvitationRequestsApi.ts';
 
-export const useGetInvitations = (participantId : string) => {
+export const useGetInvitations = (participantId: string) => {
   return useQuery({
-    queryKey: ['invitation'],
-    queryFn: () => HolidayApi.getInvitations(participantId).then((content) => content.data),
+    queryKey: invitationsKeys.all,
+    queryFn: () => InvitationRequestsApi.getInvitations(participantId).then((content) => content.data),
     initialData: [],
   });
 };
 
-
 export const useCreateInvitations = () => {
   const client = useQueryClient();
-  return useMutation((invitations: InvitationMutation[]) => HolidayApi.createInvitations(invitations), {
+  return useMutation((invitations: InvitationMutation[]) => InvitationRequestsApi.createInvitations(invitations), {
     onSuccess: () => {
       client.invalidateQueries(invitationsKeys.all);
     },

@@ -1,12 +1,27 @@
-import React, { ChangeEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import FormInput from './FormInput.tsx';
 import TextAreaInput from './TextAreaInput.tsx';
+import { InitialValues, InputType, OnSubmitFunction } from '../../../typing/inputType.ts';
+import { TextAreaProps } from '../../../typing/textAreaPropsType.ts';
 
-function GenericForm({ fields, initalValues, onSubmit, textAreaProps, buttonText }) {
-  const [valueInputs, setValueInputs] = useState(initalValues);
+function GenericForm({
+  fields,
+  initialValues,
+  onSubmit,
+  textAreaProps,
+  buttonText,
+}: {
+  fields: InputType[];
+  initialValues: object;
+  onSubmit: OnSubmitFunction;
+  textAreaProps: TextAreaProps;
+  buttonText: string;
+}) {
+  console.log(initialValues);
+  const [valueInputs, setValueInputs] = useState(initialValues);
   const [description, setDescription] = useState('');
 
-  const onChange = (evt) => {
+  const onChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setValueInputs({ ...valueInputs, [evt.target.name]: evt.target.value });
   };
 
@@ -14,7 +29,7 @@ function GenericForm({ fields, initalValues, onSubmit, textAreaProps, buttonText
     setDescription(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Récupérer les valeurs des inputs + le text area
     const allValues = {

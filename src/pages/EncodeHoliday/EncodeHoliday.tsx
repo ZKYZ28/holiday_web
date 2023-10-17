@@ -4,6 +4,7 @@ import * as dayjs from 'dayjs';
 import PageWrapper from '../../components/common/PageWrapper.tsx';
 import { useNavigate } from 'react-router-dom';
 import GenericForm from '../../components/common/GenericForm.tsx';
+import { InitialValues } from '../../../typing/inputType.ts';
 
 const inputsHoliday = [
   {
@@ -105,39 +106,40 @@ const EncodeHoliday = () => {
     endDate: '',
   };
 
-  const handleSubmit = (values) => {
+  const handleSubmit = (values: InitialValues) => {
     const { name, country, number, street, postalCode, locality, startDate, endDate, description } = values;
     console.log(values);
 
-    //TODO VERIFIER SI ACTIVITIES EST NECESSAIRE
+    // TODO VERIFIER SI ACTIVITIES EST NECESSAIRE
     mutateHoliday(
-        {
-          name,
-          description,
-          startDate: dayjs(startDate).format(),
-          endDate: dayjs(endDate).format(),
-          location: {
-            street,
-            number,
-            locality,
-            postalCode,
-            country,
-          },
-          activities: []
+      {
+        name,
+        description,
+        startDate: dayjs(startDate).format(),
+        endDate: dayjs(endDate).format(),
+        location: {
+          street,
+          number,
+          locality,
+          postalCode,
+          country,
         },
-      { onError: () => alert('An error occurred') , onSuccess: () => navigate("/holidays") }
+        activities: [],
+      },
+      { onError: () => alert('An error occurred'), onSuccess: () => navigate('/holidays') }
     );
   };
 
+  console.log(`Parent : ${initialValues}`);
   return (
     <PageWrapper>
       <FormContainer title="Encoder vacances">
         <GenericForm
-            fields={inputsHoliday}
-            initalValues={initialValues}
-            onSubmit={handleSubmit}
-            textAreaProps={descriptionTextArea}
-            buttonText="Encoder"
+          fields={inputsHoliday}
+          initialValues={initialValues}
+          onSubmit={handleSubmit}
+          textAreaProps={descriptionTextArea}
+          buttonText="Encoder"
         />
       </FormContainer>
     </PageWrapper>
