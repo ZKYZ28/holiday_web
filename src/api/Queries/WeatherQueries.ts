@@ -1,10 +1,11 @@
-import {useQuery} from "@tanstack/react-query";
-import HolidayApi from "../EndPoints/HolidayApi.ts";
+import { useQuery } from '@tanstack/react-query';
+import WeatherRequetsApi from '../EndPoints/Requests/WeatherRequetsApi.ts';
+import { weatherKeys } from '../Querykeys.ts';
 
-export const usetGetWeather = (id : string) => {
+export const usetGetWeather = (id: string) => {
   return useQuery({
-    queryKey: ['weather'],
-    queryFn: () => HolidayApi.getWeather(id).then((content) => content.data),
+    queryKey: weatherKeys.all,
+    queryFn: () => WeatherRequetsApi.getWeather(id).then((content) => content.data),
     initialData: {},
   });
 };

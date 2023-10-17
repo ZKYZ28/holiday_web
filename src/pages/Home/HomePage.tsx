@@ -1,17 +1,12 @@
 import PageWrapper from '../../components/common/PageWrapper.tsx';
-import Point from '../../components/common/Point.tsx';
-import ButtonForm from '../../components/common/ButtonForm.tsx';
+
 import './HomePage.css';
-import {usetGetParticipantsByHoliday, usetGetParticipantsCount} from "../../api/Queries/ParticipantQueries.ts";
-import FormInput from "../../components/common/FormInput.tsx";
-import React, {useState} from "react";
-import {useGetAllHolidayCountForDate} from "../../api/Queries/HolidayQueries.ts";
+import { usetGetParticipantsCount } from '../../api/Queries/ParticipantQueries.ts';
+import React, { useState } from 'react';
+import { useGetAllHolidayCountForDate } from '../../api/Queries/HolidayQueries.ts';
 
 const HomePage = () => {
-
   const { data: countParticipants, isLoading } = usetGetParticipantsCount();
-
-
 
   const currentDate = new Date();
   const year = currentDate.getFullYear();
@@ -21,13 +16,13 @@ const HomePage = () => {
   const [date, setDate] = useState(defaultDate);
 
   const onChange = (evt) => {
-    setDate(evt.target.value );
+    setDate(evt.target.value);
   };
 
   const onClick = (evt) => {
-    console.log("TEST")
+    console.log('TEST');
     const { data: dateCount, isLoading } = useGetAllHolidayCountForDate(date);
-    console.log(dateCount)
+    console.log(dateCount);
   };
 
   return (
@@ -39,7 +34,7 @@ const HomePage = () => {
             <div>
               <h1 className="lg:text-8xl text-5xl font-bold lg:mb-0 mb-4">
                 Holiday
-                <Point />
+                <span className="text-blue-800">.</span>
               </h1>
             </div>
             <p className="mt-3.5 lg:text-3xl text-lg font-bold">
@@ -56,7 +51,6 @@ const HomePage = () => {
                 className="bg-blue-800 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full"
                 onClick={onClick}
               >Chercher</button>
-
             </form>
 
           </div>

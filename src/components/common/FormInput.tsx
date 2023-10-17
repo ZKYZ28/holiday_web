@@ -1,5 +1,4 @@
 import { ChangeEvent, ChangeEventHandler, useState } from 'react';
-import Span from './Span.tsx';
 import StarsRequired from './StarsRequired.tsx';
 import cn from 'classnames';
 
@@ -38,7 +37,7 @@ function FormInput({ id, errorMessage, label, ...inputProps }: FormInputProps) {
         onFocus={() => setFocused(true)}
         data-focused={focused.toString()}
       />
-      {!isValid && <Span style="text-red-600" text={errorMessage}></Span>}
+      {!isValid && <span className="text-red-600">{errorMessage}</span>}
     </div>
   );
 }

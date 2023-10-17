@@ -5,4 +5,3 @@ export type WeatherHour = {
 };
 
 export type WeatherHourMutation = Omit<WeatherHour, 'id'>;
-// Pick<DATA, Props>

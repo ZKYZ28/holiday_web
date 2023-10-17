@@ -141,20 +141,18 @@ const EncodeActivity = () => {
     );
   };
 
-
-
   return (
-      <PageWrapper>
-        <FormContainer title="Encoder activité">
-          <GenericForm
-            fields={inputsActivity}
-            initalValues={initalValues}
-            textAreaProps={descriptionTextArea}
-            buttonText="Encoder"
-            onSubmit={handleSubmit}
-          />
-        </FormContainer>
-      </PageWrapper>
+    <PageWrapper>
+      <FormContainer title="Encoder activité">
+        <GenericForm
+          fields={inputsActivity}
+          initalValues={initalValues}
+          textAreaProps={descriptionTextArea}
+          buttonText="Encoder"
+          onSubmit={handleSubmit}
+        />
+      </FormContainer>
+    </PageWrapper>
   );
 };
 export default EncodeActivity;

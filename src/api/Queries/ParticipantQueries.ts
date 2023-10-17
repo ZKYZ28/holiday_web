@@ -1,18 +1,20 @@
-import {useQuery} from "@tanstack/react-query";
-import HolidayApi from "../EndPoints/HolidayApi.ts";
+import { useQuery } from '@tanstack/react-query';
+import ParticipantRequestsApi from '../EndPoints/Requests/ParticipantRequestsApi.ts';
+import { participantKeys } from '../Querykeys.ts';
 
+// TODO : JEREM
 export const usetGetParticipants = (holidayId : string) => {
   return useQuery({
-    queryKey: ['participant'],
-    queryFn: () => HolidayApi.getParticipants(holidayId).then((content) => content.data),
+    queryKey: participantKeys.all,
+    queryFn: () => ParticipantRequestsApi.getParticipants(holidayId).then((content) => content.data),
     initialData: [],
   });
 };
 
-export const usetGetParticipantsByHoliday = (holidayId : string) => {
+export const usetGetParticipantsByHoliday = (holidayId: string) => {
   return useQuery({
-    queryKey: ['participant'],
-    queryFn: () => HolidayApi.getParticipantsByHoliday(holidayId).then((content) => content.data),
+    queryKey: participantKeys.all,
+    queryFn: () => ParticipantRequestsApi.getParticipantsByHoliday(holidayId).then((content) => content.data),
     initialData: [],
   });
 };
@@ -20,7 +22,7 @@ export const usetGetParticipantsByHoliday = (holidayId : string) => {
 
 export const usetGetParticipantsCount = () => {
   return useQuery({
-    queryKey: ['participant'],
+    queryKey: participantKeys.all,
     queryFn: () => HolidayApi.getParticipantCount().then((content) => content.data),
     initialData: 0,
   });

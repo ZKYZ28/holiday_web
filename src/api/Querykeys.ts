@@ -9,6 +9,17 @@ export const authentificationKeys = {
 };
 
 export const invitationsKeys = {
-  all: ['invitations'] as const,
+  all: ['invitation'] as const,
   list: () => [...invitationsKeys.all, 'list'] as const,
 };
+
+export const participantKeys = {
+  all: ['participant'] as const,
+  list: () => [...invitationsKeys.all, 'list'] as const,
+};
+
+export const weatherKeys = {
+  all: ['weather'] as const,
+  list: () => [...invitationsKeys.all, 'list'] as const,
+};
+

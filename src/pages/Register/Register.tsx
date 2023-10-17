@@ -1,8 +1,7 @@
 import FormContainer from '../../components/common/FormContainer.tsx';
 import FormInput from '../../components/common/FormInput.tsx';
-import { FormEvent, useState } from 'react';
-import ButtonForm from '../../components/common/ButtonForm.tsx';
-import ButtonLink from '../../components/common/ButtonLink.tsx';
+import { ChangeEvent, FormEvent, useState } from 'react';
+import ButtonLink from '../../components/Header/ButtonLink/ButtonLink.tsx';
 import PageWrapper from '../../components/common/PageWrapper.tsx';
 import { useCreateAccount } from '../../api/Queries/AuthentificationQueries.ts';
 import { useAuth } from '../../provider/AuthProvider.tsx';
@@ -70,7 +69,7 @@ const Register = () => {
     confirmPassword: '',
   });
 
-  const onChange = (e) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
@@ -123,7 +122,9 @@ const Register = () => {
           </div>
 
           <div className="flex justify-center">
-            <ButtonForm text="S'enregister" />
+            <button type="submit" className="bg-blue-800 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full">
+              S'enregistrer
+            </button>
           </div>
         </form>
 

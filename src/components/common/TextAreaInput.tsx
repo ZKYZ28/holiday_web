@@ -1,21 +1,12 @@
-import { ChangeEventHandler, useState } from 'react';
-import Span from './Span.tsx';
+import React, { ChangeEventHandler, useState } from 'react';
 import StarsRequired from './StarsRequired.tsx';
-
-type TextAreaProps = {
-  id: string;
-  name: string;
-  errorMessage: string;
-  label: string;
-  onChange: ChangeEventHandler;
-  value: string;
-};
+import { TextAreaProps } from '../../../typing/textAreaPropsType.ts';
 
 function TextAreaInput({ id, name, errorMessage, label, onChange, ...inputProps }: TextAreaProps) {
   const [focused, setFocused] = useState(false);
   const [isValid, setIsValid] = useState(true);
 
-  const handleBlur = (e: FocusEvent<HTMLTextAreaElement>) => {
+  const handleBlur = (e: React.FocusEvent<HTMLTextAreaElement>) => {
     setFocused(false);
     // Fais la validation, comme ceci car il n'y a pas de pattern en HTML standard pour les balises <text area>
     setIsValid(e.currentTarget.value.length >= 10);
@@ -39,7 +30,7 @@ function TextAreaInput({ id, name, errorMessage, label, onChange, ...inputProps 
         onFocus={() => setFocused(true)}
         data-focused={focused.toString()}
       />
-      {!isValid && <Span style="text-red-600" text={errorMessage}></Span>}
+      {!isValid && <span className="text-red-600">{errorMessage}</span>}
     </div>
   );
 }

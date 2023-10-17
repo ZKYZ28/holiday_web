@@ -1,33 +1,34 @@
-import TitleH2 from '../../components/common/TiteH2.tsx';
 import PageWrapper from '../../components/common/PageWrapper.tsx';
 import PageContent from '../../components/common/PageContent.tsx';
-import {useParams} from 'react-router-dom';
-import {useGetHolidayById} from "../../api/Queries/HolidayQueries.ts";
-import * as dayjs from "dayjs";
-import MyHolidayWeather from "./MyHolidayWeather/MyHolidayWeather.tsx";
-import MyHolidayListMembers from "./MyHolidayMembers/MyHolidayListMembers.tsx";
-import MyHolidayActivities from "./MyHolidayActivities/MyHolidayActivities.tsx";
+import { useParams } from 'react-router-dom';
+import { useGetHolidayById } from '../../api/Queries/HolidayQueries.ts';
+import * as dayjs from 'dayjs';
+import MyHolidayWeather from './MyHolidayWeather/MyHolidayWeather.tsx';
+import MyHolidayListMembers from './MyHolidayMembers/MyHolidayListMembers.tsx';
+import MyHolidayActivities from './MyHolidayActivities/MyHolidayActivities.tsx';
+import { Holiday } from '../../api/Models/Holiday.ts';
 
 function MyHolidayPage() {
-
-  const { id } = useParams();
-  const { data: holidayData , isLoading: holidayIsLoading } = useGetHolidayById(id);
+  const { id }: { id?: string } = useParams();
+  // TODO : JEREM
+  const { data: holidayData, isLoading: holidayIsLoading }: { data: Holiday; isLoading: unknown } = useGetHolidayById(
+    id!
+  );
 
   return (
     <PageWrapper>
       <PageContent pageTitle={holidayData.name}>
         <div>
-          <TitleH2 text={dayjs(holidayData.startDate).format("DD-MM-YYYY")} />
+          <h2 className="text-xl capitalize lg:text-2xl text-blue-800 font-bold mb-4">
+            {dayjs(holidayData.startDate).format('DD-MM-YYYY')}
+          </h2>
 
-          {/*Section du haut avec les membres et la météo*/}
           <div className="w-full flex flex-col items-center md:flex-row md:flex-wrap md:justify-between">
             <MyHolidayListMembers id={id} />
-            <MyHolidayWeather id={id}/>
+            <MyHolidayWeather id={id} />
           </div>
 
-          {/*Section du bas avec les activités*/}
-          <MyHolidayActivities id={id} holidayData={holidayData} holidayIsLoading={holidayIsLoading}/>
-
+          <MyHolidayActivities id={id} holidayData={holidayData} holidayIsLoading={holidayIsLoading} />
         </div>
       </PageContent>
     </PageWrapper>

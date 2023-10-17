@@ -1,4 +1,4 @@
-import {createContext, FC, ReactNode, useCallback, useContext, useMemo, useState} from 'react';
+import { createContext, FC, ReactNode, useCallback, useContext, useMemo, useState } from 'react';
 import axiosInstance from '../api/axios.ts';
 import { UserAuthentificated } from '../api/Models/UserAuthentificated.ts';
 import { decodePayloadJwt, isInvalidToken, JwtPayloadType } from './utils/JwtUtils.ts';
@@ -18,7 +18,7 @@ const initialValues = (() => {
 
   // S'il y a un token mais qu'il invalide autant redémarrer à neuf
   if (payloadJwt && payloadJwt.exp) {
-    if(isInvalidToken(payloadJwt.exp)) {
+    if (isInvalidToken(payloadJwt.exp)) {
       token = undefined;
       payloadJwt = null;
       localStorage.removeItem(LS_TOKEN);

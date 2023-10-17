@@ -1,15 +1,17 @@
-import ButtonLink from '../common/ButtonLink.tsx';
+import ButtonLink from './ButtonLink/ButtonLink.tsx';
 import './Header.css';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../provider/AuthProvider.tsx';
-import { ButtonHTMLAttributes, HTMLProps } from 'react';
 
 function Header() {
   const { user, setJwtToken } = useAuth();
+  const navigate = useNavigate();
 
-  const handleSubmit = (evt) => {
+  const handleSubmit = (evt :  React.MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
     setJwtToken(undefined);
+    // Supprime toute la stack des pages visitées.
+    navigate('/login', { replace: true });
   };
 
   return (

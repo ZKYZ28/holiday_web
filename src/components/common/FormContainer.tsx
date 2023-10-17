@@ -1,4 +1,6 @@
-function FormContainer({ title, children }: { title: string; children: React.ReactNode }) {
+import {ReactNode} from 'react';
+
+function FormContainer({ title, children }: { title: string; children: ReactNode }) {
   return (
     <div className="w-full page-size bg-gray-100 flex justify-center items-center">
       <div className="w-4/5 lg:w-1/2 bg-white p-9 rounded-2xl box-shadow my-5">

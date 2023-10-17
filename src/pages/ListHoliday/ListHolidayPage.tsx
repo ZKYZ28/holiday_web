@@ -3,28 +3,27 @@ import ListHolidayCard from './ListHolidayCard/ListHolidayCard.tsx';
 import PageWrapper from '../../components/common/PageWrapper.tsx';
 import PageContent from '../../components/common/PageContent.tsx';
 import { useGetAllHoliday } from '../../api/Queries/HolidayQueries.ts';
-import {useState} from "react";
-import ModalInvitation from "./MondalInvitation/ModalInvitation.tsx";
-import {useAuth} from "../../provider/AuthProvider.tsx";
-import {useGetInvitations} from "../../api/Queries/InvitationQueries.ts";
-import {usetGetParticipantsCount} from "../../api/Queries/ParticipantQueries.ts";
+import ModalInvitation from './MondalInvitation/ModalInvitation.tsx';
+import { useState } from 'react';
+import { useAuth } from '../../provider/AuthProvider.tsx';
+import { useGetInvitations } from '../../api/Queries/InvitationQueries.ts';
+import { usetGetParticipantsCount } from '../../api/Queries/ParticipantQueries.ts';
 
 const ListHolidayPage = () => {
   const { user } = useAuth();
   const { data: holidays, isLoading } = useGetAllHoliday(user.id!);
   const [showModalInvitation, setShowModalInvitation] = useState(false);
-  const { data: invitations, isLoading : invitationsIsLoading, error : invitationsError } = useGetInvitations(user.id!);
+  const { data: invitations, isLoading: invitationsIsLoading, error: invitationsError } = useGetInvitations(user.id!);
 
-  const openModalInvitation= () => {
+  const openModalInvitation = (): void => {
     setShowModalInvitation(true);
   };
 
-  const closeModalInvitation = () => {
+  const closeModalInvitation = (): void => {
     setShowModalInvitation(false);
   };
 
   const backgroundClass = showModalInvitation ? 'blur-background' : '';
-
 
   return (
     <PageWrapper>
@@ -37,11 +36,15 @@ const ListHolidayPage = () => {
               <>
                 <div className="w-full flex justify-between">
                   <ButtonLink text="Encoder" to="/holidays/create" />
-                  <button onClick={openModalInvitation} type="button" className="inline-block bg-blue-800 hover-bg-blue-700 text-white font-bold py-1 px-4 rounded-full">
+                  <button
+                    onClick={openModalInvitation}
+                    type="button"
+                    className="inline-block bg-blue-800 hover-bg-blue-700 text-white font-bold py-1 px-4 rounded-full"
+                  >
                     Invitations
                     <span className="inline-flex items-center justify-center w-4 h-4 ml-2 text-sm font-semibold text-blue-800 font-bold bg-white rounded-full">
-                    {invitations.length}
-                  </span>
+                      {invitations.length}
+                    </span>
                   </button>
                 </div>
                 <div className={`grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2 ${backgroundClass}`}>
@@ -57,7 +60,9 @@ const ListHolidayPage = () => {
               invitations={invitations}
               invitationsIsLoading={invitationsIsLoading}
               invitationsError={invitationsError}
-              show={showModalInvitation} onClose={closeModalInvitation} />
+              show={showModalInvitation}
+              onClose={closeModalInvitation}
+            />
           )}
         </>
       </PageContent>
