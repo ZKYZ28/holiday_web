@@ -10,6 +10,10 @@ class ParticipantRequestsApi {
   static async getParticipantsByHoliday(holidayId: string) {
     return axiosInstance.get<Participant[]>(`${ENDPOINT}/participant/${holidayId}`);
   }
+
+  static async getParticipantCount() {
+    return axiosInstance.get<number>(`${ENDPOINT}/participant/count`);
+  }
 }
 
 export default ParticipantRequestsApi;

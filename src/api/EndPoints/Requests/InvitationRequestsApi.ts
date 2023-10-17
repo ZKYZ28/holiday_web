@@ -11,6 +11,14 @@ class InvitationRequestsApi {
   static async createInvitations(invitations: InvitationMutation[]) {
     return axiosInstance.post(`${ENDPOINT}/invitation`, invitations);
   }
+
+  static async acceptInvitation(invitation : InvitationMutation) {
+    return axiosInstance.post(`${ENDPOINT}/invitation/accept`, invitation);
+  }
+
+  static async refuseInvitation(invitation : InvitationMutation) {
+    return axiosInstance.post(`${ENDPOINT}/invitation/refuse`, invitation);
+  }
 }
 
 export default InvitationRequestsApi;

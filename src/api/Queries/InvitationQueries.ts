@@ -23,7 +23,7 @@ export const useCreateInvitations = () => {
 
 export const useAcceptInvitation = () => {
   const client = useQueryClient();
-  return useMutation((invitation: InvitationMutation) => HolidayApi.acceptInvitation(invitation), {
+  return useMutation((invitation: InvitationMutation) => InvitationRequestsApi.acceptInvitation(invitation), {
     onSuccess: () => {
       // L'invalidation se fait asynchronement mais ne renvoie pas de données, donc pas besoin du .then()
       client.invalidateQueries(invitationsKeys.all);
@@ -33,7 +33,7 @@ export const useAcceptInvitation = () => {
 
 export const useRefuseInvitation = () => {
   const client = useQueryClient();
-  return useMutation((invitation: InvitationMutation) => HolidayApi.refuseInvitation(invitation), {
+  return useMutation((invitation: InvitationMutation) => InvitationRequestsApi.refuseInvitation(invitation), {
     onSuccess: () => {
       // L'invalidation se fait asynchronement mais ne renvoie pas de données, donc pas besoin du .then()
       client.invalidateQueries(invitationsKeys.all);

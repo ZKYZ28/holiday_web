@@ -23,7 +23,7 @@ export const usetGetParticipantsByHoliday = (holidayId: string) => {
 export const usetGetParticipantsCount = () => {
   return useQuery({
     queryKey: participantKeys.all,
-    queryFn: () => HolidayApi.getParticipantCount().then((content) => content.data),
+    queryFn: () => ParticipantRequestsApi.getParticipantCount().then((content) => content.data),
     initialData: 0,
   });
 };

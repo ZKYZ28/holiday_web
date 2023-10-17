@@ -9,12 +9,16 @@ class HolidayRequestsApi {
     return axiosInstance.post(`${ENDPOINT}/holiday`, holiday);
   }
 
-  static async getAllHoliday() {
-    return axiosInstance.get<Holiday[]>(`${ENDPOINT}/holiday/all`);
+  static async getAllHoliday(participantId: string) {
+    return axiosInstance.get<Holiday[]>(`${ENDPOINT}/holiday/all/${participantId}`);
   }
 
   static async getHolidayById(holidayId: string) {
     return axiosInstance.get<Holiday>(`${ENDPOINT}/holiday/${holidayId}`);
+  }
+
+  static async getAllHolidayCountForDate(date : string) {
+    return axiosInstance.get<number>(`${ENDPOINT}/holiday/date/${date}`);
   }
 }
 
