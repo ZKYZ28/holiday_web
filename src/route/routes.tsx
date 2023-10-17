@@ -10,6 +10,7 @@ import EncodeHoliday from '../pages/EncodeHoliday/EncodeHoliday.tsx';
 import ChatPage from '../pages/Chat/ChatPage.tsx';
 import ContactPage from '../pages/Contact/ContactPage.tsx';
 import Warden from '../components/common/Warden.tsx';
+import EncodeParticipant from "../pages/EncodeParticipant/EncodeParticipant.tsx";
 
 const Routes = () => {
   const { token } = useAuth();
@@ -55,6 +56,10 @@ const Routes = () => {
         {
           path: 'create',
           element: <EncodeHoliday />,
+        },
+        {
+          path: 'participant/:id',
+          element: <EncodeParticipant />,
         },
       ],
     },

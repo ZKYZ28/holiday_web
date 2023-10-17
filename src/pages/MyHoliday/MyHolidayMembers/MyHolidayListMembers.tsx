@@ -10,6 +10,7 @@ import Loading from "../../../components/common/Loading.tsx";
 function MyHolidayListMembers({id}) {
 
     const { data: participants, isLoading } = usetGetParticipantsByHoliday(id);
+    console.log(participants)
 
     return (
         <div className="w-full md:w-5/12 bg-white shadow-lg rounded-sm border border-gray-200 h-96 overflow-x-scroll">
@@ -19,32 +20,36 @@ function MyHolidayListMembers({id}) {
                     <FontAwesomeIcon className="text-blue-800" icon={faPlus} size="xl" />
                 </NavLink>
             </header>
-            <div className="p-3">
-                {isLoading ? (
-                   <Loading/>
+          <div className="p-3">
+            {isLoading ? (
+              <Loading />
+            ) : (
+              <div>
+                {participants ? (
+                  <table className="table-auto w-full">
+                    <thead className="text-xs capitalize font-semibold text-gray-400 bg-gray-50">
+                    <tr>
+                      <MyHolidayColumn name="Nom" />
+                      <MyHolidayColumn name="Email" />
+                    </tr>
+                    </thead>
+                    <tbody className="text-sm divide-y divide-gray-100">
+                    {participants.map((participant) => (
+                      <MyHolidayMember
+                        key={participant.id}
+                        name={participant.name}
+                        email={participant.email}
+                        srcImage={participant.srcImage}
+                      />
+                    ))}
+                    </tbody>
+                  </table>
                 ) : (
-                    <div>
-                        <table className="table-auto w-full">
-                            <thead className="text-xs capitalize font-semibold text-gray-400 bg-gray-50">
-                            <tr>
-                                <MyHolidayColumn name="Nom" />
-                                <MyHolidayColumn name="Email" />
-                            </tr>
-                            </thead>
-                            <tbody className="text-sm divide-y divide-gray-100">
-                            {participants.map((participant) => (
-                                <MyHolidayMember
-                                    key={participant.id} // Assurez-vous de définir une clé unique pour chaque élément
-                                    name={participant.name}
-                                    email={participant.email}
-                                    srcImage={participant.srcImage}
-                                />
-                            ))}
-                            </tbody>
-                        </table>
-                    </div>
+                  <Loading />
                 )}
-            </div>
+              </div>
+            )}
+          </div>
         </div>
     );
 }

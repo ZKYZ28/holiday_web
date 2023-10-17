@@ -13,10 +13,10 @@ export const useCreateHoliday = () => {
   });
 };
 
-export const useGetAllHoliday = () => {
+export const useGetAllHoliday = (participantId : string) => {
   return useQuery({
     queryKey: holidayKeys.list(),
-    queryFn: () => HolidayApi.getAllHoliday().then((content) => content.data),
+    queryFn: () => HolidayApi.getAllHoliday(participantId).then((content) => content.data),
     initialData: [],
   });
 };
@@ -26,5 +26,13 @@ export const useGetHolidayById = (holidayId: string) => {
     queryKey: holidayKeys.all,
     queryFn: () => HolidayApi.getHolidayById(holidayId).then((content) => content.data),
     initialData: {},
+  });
+};
+
+export const useGetAllHolidayCountForDate = (date : string) => {
+  return useQuery({
+    queryKey: ['holiday'],
+    queryFn: () => HolidayApi.getAllHolidayCountForDate(date).then((content) => content.data),
+    initialData: 0,
   });
 };

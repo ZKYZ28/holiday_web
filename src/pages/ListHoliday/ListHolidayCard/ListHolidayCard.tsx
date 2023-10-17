@@ -7,6 +7,9 @@ import * as dayjs from 'dayjs';
 
 
 function ListHolidayCard({ holiday }) {
+  console.log(holiday)
+
+
   const id = `/holidays/${holiday.id}`;
   return (
     <div className="lg:flex bg-white rounded-2xl">

@@ -8,7 +8,6 @@ import {useState} from "react";
 function MyHolidayWeather({id}) {
   const { data : weatherData , isLoading: weatherIsLoading, error : weatherError  } = usetGetWeather(id);
   const [selectedDayIndex, setSelectedDayIndex] = useState(0);
-  console.log(weatherData)
 
   return (
     <div className="w-full mt-10 md:mt-0 md:w-5/12 bg-white shadow-lg rounded-sm border border-gray-200 h-96 overflow-y-scroll">

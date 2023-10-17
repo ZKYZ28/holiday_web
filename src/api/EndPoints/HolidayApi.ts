@@ -16,12 +16,16 @@ class HolidayApi {
     return axiosInstance.post(`${this.ENDPOINT}/holiday`, holiday);
   }
 
-  static async getAllHoliday() {
-    return axiosInstance.get<Holiday[]>(`${this.ENDPOINT}/holiday/all`);
+  static async getAllHoliday(participantId : string) {
+    return axiosInstance.get<Holiday[]>(`${this.ENDPOINT}/holiday/all/${participantId}`);
   }
 
   static async getHolidayById(holidayId: string) {
     return axiosInstance.get<Holiday>(`${this.ENDPOINT}/holiday/${holidayId}`);
+  }
+
+  static async getAllHolidayCountForDate(date : string) {
+    return axiosInstance.get<number>(`${this.ENDPOINT}/holiday/date/${date}`);
   }
 
 
@@ -37,11 +41,15 @@ class HolidayApi {
   }
 
   //PARTICIPANT
-  static async getParticipants() {
-    return axiosInstance.get<Participant>(`${this.ENDPOINT}/participant/all`);
+  static async getParticipants(holidayId : string) {
+    return axiosInstance.get<Participant>(`${this.ENDPOINT}/participant/all/${holidayId}`);
   }
   static async getParticipantsByHoliday(holidayId : string) {
     return axiosInstance.get<Participant>(`${this.ENDPOINT}/participant/${holidayId}`);
+  }
+
+  static async getParticipantCount() {
+    return axiosInstance.get<number>(`${this.ENDPOINT}/participant/count`);
   }
 
 
@@ -54,8 +62,18 @@ class HolidayApi {
   static async createInvitations(invitations : InvitationMutation[]) {
     return axiosInstance.post(`${this.ENDPOINT}/invitation`, invitations);
   }
-}
 
+  static async acceptInvitation(invitation : InvitationMutation) {
+    return axiosInstance.post(`${this.ENDPOINT}/invitation/accept`, invitation);
+  }
+
+  static async refuseInvitation(invitation : InvitationMutation) {
+    return axiosInstance.post(`${this.ENDPOINT}/invitation/refuse`, invitation);
+  }
+
+
+
+  //ACCOUNT
   static async createAccount(newAccount: Register) {
     return axiosInstance.post(`${this.ENDPOINT}/authentification/register`, newAccount);
   }

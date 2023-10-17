@@ -4,16 +4,19 @@ import { faTimes, faAdd } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useNavigate, useParams} from "react-router-dom";
 import {useCreateInvitations} from "../../../api/Queries/InvitationQueries.ts";
+import {useAuth} from "../../../provider/AuthProvider.tsx";
 type ListProps = {
   input: string;
 };
 
 const ListUsers: FC<ListProps> = ({ input }) => {
-
-  //RECUPERATION DE TOUS LES PARTICIPANTS
-  const { data: participants, isLoading } = usetGetParticipants();
+  const { user } = useAuth();
   const { id } = useParams();
   const navigate = useNavigate();
+
+  //RECUPERATION DE TOUS LES PARTICIPANTS
+  const { data: participants, isLoading } = usetGetParticipants(id);
+
 
     //AJOUT ET SUPRESSION DES PARTICIPANTS DANS LES PARTICIPANTS AJOUTES
     const [participantsAdded, setParticipantsAdded] = useState([]);
@@ -60,7 +63,6 @@ const ListUsers: FC<ListProps> = ({ input }) => {
             participantId: participant.id,
         }));
 
-        console.log(invitations)
         await mutateInvitations(invitations, {
             onError: () => alert('An error occurred'),
             onSuccess: () => navigate(`/holidays/${id}`)
@@ -90,7 +92,11 @@ const ListUsers: FC<ListProps> = ({ input }) => {
           <p className="text-white font-bold">Participants</p>
       </div>
       <ul className=" max-h-52 overflow-y-scroll w-full mb-4 ">
-        {filteredData.map((participant) => (
+        {filteredData
+          .filter((participant) => {
+             return participant.id != user.id!;
+          })
+          .map((participant) => (
           <li key={participant.id} className="border-b-2 mb-2 mt-2 cursor-pointer pb-2" onClick={() => addParticipantToAddedList(participant)}>
               <FontAwesomeIcon icon={faAdd} size="lg" className="mx-2.5" /> {participant.firstName}  {participant.lastName} ({participant.email})
           </li>

@@ -1,14 +1,9 @@
 import HolidayInvitation from "../HolidayInvitation/HolidayInvitation.tsx";
-import {useGetInvitations} from "../../../api/Queries/InvitationQueries.ts";
 import ErrorMessage from "../../../components/common/ErrorMessage.tsx";
 import Loading from "../../../components/common/Loading.tsx";
 
 
 const ModalInvitation = (props) => {
-
-  //TODO Ici ajouter l'id du participant connecté dans la méthode
-  const { data: invitations, isLoading : invitationsIsLoading, error : invitationsError } = useGetInvitations("018e01cd-128e-406c-8e02-35473c53c2c2");
-  console.log("INVITATIONS " + invitations)
 
   return (
     <div style={{ display: props.show ? 'block' : 'none' }} id="crypto-modal" className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden bg-blue-800 p-1 rounded-lg shadow-lg w-[400px]">
@@ -32,18 +27,24 @@ const ModalInvitation = (props) => {
 
           {/*Modal body*/}
           <div className="p-6">
-            {invitationsError ? (
-              <ErrorMessage message={invitationsError.response.data} />
+            {props.invitationsError ? (
+              <ErrorMessage message={props.invitationsError.response.data} />
             ) : (
               <>
-                {invitationsIsLoading ? (
+                {props.invitationsIsLoading ? (
                   <Loading />
                 ) : (
-                    <ul className="my-4 space-y-3 overflow-y-scroll h-52 pr-4">
-                      {invitations?.map((invitation) => (
-                        <HolidayInvitation/>
-                      ))}
-                    </ul>
+                  <>
+                    {props.invitations.length === 0 ? (
+                      <p>Aucune invitation disponible.</p>
+                    ) : (
+                      <ul className="my-4 space-y-3 overflow-y-scroll h-52 pr-4">
+                        {props.invitations.map((invitation) => (
+                          <HolidayInvitation key={invitation.Id} invitation={invitation} />
+                        ))}
+                      </ul>
+                    )}
+                  </>
                 )}
               </>
             )}

@@ -2,8 +2,34 @@ import PageWrapper from '../../components/common/PageWrapper.tsx';
 import Point from '../../components/common/Point.tsx';
 import ButtonForm from '../../components/common/ButtonForm.tsx';
 import './HomePage.css';
+import {usetGetParticipantsByHoliday, usetGetParticipantsCount} from "../../api/Queries/ParticipantQueries.ts";
+import FormInput from "../../components/common/FormInput.tsx";
+import React, {useState} from "react";
+import {useGetAllHolidayCountForDate} from "../../api/Queries/HolidayQueries.ts";
 
 const HomePage = () => {
+
+  const { data: countParticipants, isLoading } = usetGetParticipantsCount();
+
+
+
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+  const day = String(currentDate.getDate()).padStart(2, '0');
+  const defaultDate = `${year}-${month}-${day}`;
+  const [date, setDate] = useState(defaultDate);
+
+  const onChange = (evt) => {
+    setDate(evt.target.value );
+  };
+
+  const onClick = (evt) => {
+    console.log("TEST")
+    const { data: dateCount, isLoading } = useGetAllHolidayCountForDate(date);
+    console.log(dateCount)
+  };
+
   return (
     <PageWrapper>
       <div className="page-size flex w-full justify-center items-center background">
@@ -17,18 +43,22 @@ const HomePage = () => {
               </h1>
             </div>
             <p className="mt-3.5 lg:text-3xl text-lg font-bold">
-              Rejoingnez nos ??? membres actifs en cliquant juste ici !
+              Rejoingnez nos {countParticipants} membres actifs  !
             </p>
           </div>
 
           <div className="h-1/2 flex flex-col justify-around">
+
             <form className="mb-6 mt-12">
-              <ButtonForm text="Chercher" />
+              <input id="date" type="date" onChange={onChange} value={date}/>
+              <button
+                type="button"
+                className="bg-blue-800 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full"
+                onClick={onClick}
+              >Chercher</button>
+
             </form>
 
-            <form className="">
-              <ButtonForm text="Chercher" />
-            </form>
           </div>
         </div>
       </div>
