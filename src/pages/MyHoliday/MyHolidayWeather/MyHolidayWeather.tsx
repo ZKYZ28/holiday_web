@@ -26,7 +26,7 @@ function MyHolidayWeather({ id }: {id : string}) {
               <Loading />
             ) : (
               <>
-                {weatherData.weatherDays && weatherData.weatherDays.length > 0 ? (
+                {weatherData.weatherDays ? (
                   <>
                     <div id="currentDay" className="flex w-full justify-around items-center my-4">
                       <div>

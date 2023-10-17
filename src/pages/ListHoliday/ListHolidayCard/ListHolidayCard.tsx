@@ -4,9 +4,9 @@ import peoples from '../../../assets/imgs/icons/peoples.png';
 import location from '../../../assets/imgs/icons/location.png';
 import bgCard from '../../../assets/imgs/bg/bg.jpg';
 import * as dayjs from 'dayjs';
+import { Holiday } from '../../../api/Models/Holiday.ts';
 
-
-function ListHolidayCard({ holiday }) {
+function ListHolidayCard({ holiday }: { holiday: Holiday }) {
   const id = `/holidays/${holiday.id}`;
   return (
     <div className="lg:flex bg-white rounded-2xl">
@@ -19,7 +19,7 @@ function ListHolidayCard({ holiday }) {
         <ul className="flex flex-col justify-around">
           <div className="flex flex-row items-center mb-1.5">
             <img src={calendar} alt="CALENDAR" className="w-5 mr-4" />
-            <li className="font-bold text-base lg:text-xl ">{dayjs(holiday.startDate).format("DD-MM-YYYY")}</li>
+            <li className="font-bold text-base lg:text-xl ">{dayjs(holiday.startDate).format('DD-MM-YYYY')}</li>
           </div>
 
           <div className="flex flex-row items-center mb-1.5">
@@ -29,7 +29,9 @@ function ListHolidayCard({ holiday }) {
 
           <div className="flex flex-row items-center mb-1.5">
             <img src={location} alt="LOCATION" className="w-5 mr-4" />
-            <li className="font-bold text-base lg:text-xl ">{holiday.location.locality}, {holiday.location.country}</li>
+            <li className="font-bold text-base lg:text-xl ">
+              {holiday.location.locality}, {holiday.location.country}
+            </li>
           </div>
         </ul>
 

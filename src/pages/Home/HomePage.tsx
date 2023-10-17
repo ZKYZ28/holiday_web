@@ -1,6 +1,5 @@
 import PageWrapper from '../../components/common/PageWrapper.tsx';
-import Point from '../../components/common/Point.tsx';
-import ButtonForm from '../../components/common/ButtonForm.tsx';
+
 import './HomePage.css';
 
 const HomePage = () => {
@@ -13,7 +12,7 @@ const HomePage = () => {
             <div>
               <h1 className="lg:text-8xl text-5xl font-bold lg:mb-0 mb-4">
                 Holiday
-                <Point />
+                <span className="text-blue-800">.</span>
               </h1>
             </div>
             <p className="mt-3.5 lg:text-3xl text-lg font-bold">
@@ -29,7 +28,9 @@ const HomePage = () => {
             </form>
 
             <form className="">
-              <ButtonForm text="Chercher" />
+              <button className="bg-blue-800 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full">
+                Chercher
+              </button>
             </form>
           </div>
         </div>

@@ -1,8 +1,8 @@
 import {WeatherDay} from './WeatherDay.ts';
 
 export type Weather = {
-  currentDay: WeatherDayMutation;
-  weatherDays: WeatherDayMutation[];
+  currentDay: WeatherDay;
+  weatherDays: WeatherDay[];
 };
 
 // export type WeatherMutation = Omit<Weather, 'id'>;

@@ -1,8 +1,7 @@
 import FormContainer from '../../components/common/FormContainer.tsx';
 import FormInput from '../../components/common/FormInput.tsx';
 import { ChangeEvent, FormEvent, useState } from 'react';
-import ButtonForm from '../../components/common/ButtonForm.tsx';
-import ButtonLink from '../../components/common/ButtonLink.tsx';
+import ButtonLink from '../../components/Header/ButtonLink/ButtonLink.tsx';
 import PageWrapper from '../../components/common/PageWrapper.tsx';
 import { useAuth } from '../../provider/AuthProvider.tsx';
 import {useLocation, useNavigate } from 'react-router-dom';

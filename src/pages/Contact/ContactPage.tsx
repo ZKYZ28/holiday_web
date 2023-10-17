@@ -1,4 +1,3 @@
-import Span from '../../components/common/Span.tsx';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import FormInput from '../../components/common/FormInput.tsx';
 import TextAreaInput from '../../components/common/TextAreaInput.tsx';
@@ -46,13 +45,15 @@ function ContactPage() {
         <div className="flex justify-center items-center w-screen h-screen bg-red">
           <div className="container mx-auto my-4 px-4 lg:px-20">
             <div className="w-full p-8 my-4 md:px-12 lg:w-9/12 lg:pl-20 lg:pr-40 mr-auto rounded-2xl shadow-2xl">
-              <Span style="font-bold uppercase md:text-5xl sm:text-xs" text="Contactez-nous" />
+              <span className="font-bold uppercase md:text-5xl sm:text-xs">Contactez-nous</span>
               <div className="grid grid-cols-1 gap-5 mt-5">
                 <FormInput {...inputEmail} value={emailInput} onChange={handleChangeEmail} />
               </div>
               <TextAreaInput {...textAreaFieldContent} value={textAreaField} onChange={handleChangeTextArea} />
               <div className="my-2 w-1/2 lg:w-1/4">
-                <ButtonForm text="Envoyer" />
+                <button type="submit" className="bg-blue-800 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full">
+                  Envoyer
+                </button>
               </div>
             </div>
 

@@ -1,6 +1,6 @@
-import { ChangeEventHandler, useState } from 'react';
-import Span from './Span.tsx';
+import React, { ChangeEventHandler, useState } from 'react';
 import StarsRequired from './StarsRequired.tsx';
+import { TextAreaProps } from '../../../typing/textAreaPropsType.ts';
 
 function TextAreaInput({ id, name, errorMessage, label, onChange, ...inputProps }: TextAreaProps) {
   const [focused, setFocused] = useState(false);
@@ -30,7 +30,7 @@ function TextAreaInput({ id, name, errorMessage, label, onChange, ...inputProps 
         onFocus={() => setFocused(true)}
         data-focused={focused.toString()}
       />
-      {!isValid && <Span style="text-red-600" text={errorMessage}></Span>}
+      {!isValid && <span className="text-red-600">{errorMessage}</span>}
     </div>
   );
 }
