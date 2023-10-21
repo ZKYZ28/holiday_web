@@ -52,7 +52,6 @@ const Login = () => {
       },
       {
         onSuccess: (data) => {
-          console.log(data);
           setJwtToken(data.data);
           navigate('/holidays', { replace: true });
         },

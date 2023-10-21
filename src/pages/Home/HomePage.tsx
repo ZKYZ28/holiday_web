@@ -20,9 +20,7 @@ const HomePage = () => {
   };
 
   const onClick = (evt) => {
-    console.log('TEST');
     const { data: dateCount, isLoading } = useGetAllHolidayCountForDate(date);
-    console.log(dateCount);
   };
 
   return (

@@ -17,7 +17,7 @@ function GenericForm({
   textAreaProps: TextAreaProps;
   buttonText: string;
 }) {
-  console.log(initialValues);
+
   const [valueInputs, setValueInputs] = useState(initialValues);
   const [description, setDescription] = useState('');
 

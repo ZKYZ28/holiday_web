@@ -87,10 +87,8 @@ const Register = () => {
       {
         // Recuperer le token renvoyé par l'api
         onSuccess: (data) => {
-          // console.log(data);
           setJwtToken(data.data);
           // Récupérer les infos de l'utilisateru ???
-          console.log(token);
           navigate('/holidays', { replace: true });
         },
       }

@@ -1,5 +1,6 @@
 import { LocationMutation } from './Location.ts';
 import {Activity} from './Activity.ts';
+import {Participant} from "./Participant.ts";
 
 export type Holiday = {
   id: string;
@@ -8,8 +9,9 @@ export type Holiday = {
   startDate: string;
   endDate: string;
   location: LocationMutation;
+  participant: Participant;
+  isPublish: boolean;
   activities: Activity[];
 };
 
 export type HolidayMutation = Omit<Holiday, 'id'>;
-// Pick<DATA, Props>

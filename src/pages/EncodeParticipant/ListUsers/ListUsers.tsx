@@ -5,15 +5,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCreateInvitations } from '../../../api/Queries/InvitationQueries.ts';
 import { useAuth } from '../../../provider/AuthProvider.tsx';
+import {Participant} from '../../../api/Models/Participant.ts';
+import {Invitation} from "../../../api/Models/Invitation.ts";
+
 type ListProps = {
   input: string;
 };
 
 const ListUsers: FC<ListProps> = ({ input }) => {
   // RECUPERATION DE TOUS LES PARTICIPANTS
-  const { data: participants, isLoading }: { data: Participant[]; isLoading: boolean } = usetGetParticipants();
   const { user } = useAuth();
   const { id } = useParams();
+  const { data: participants, isLoading }: { data: Participant[]; isLoading: boolean } = usetGetParticipants(id);
   const navigate = useNavigate();
 
   // AJOUT ET SUPRESSION DES PARTICIPANTS DANS LES PARTICIPANTS AJOUTES
@@ -60,7 +63,7 @@ const ListUsers: FC<ListProps> = ({ input }) => {
       participantId: participant.id,
     }));
 
-    await mutateInvitations(invitations as InvitationMutation[], {
+    await mutateInvitations(invitations as Invitation[], {
       onError: () => alert('An error occurred'),
       onSuccess: () => navigate(`/holidays/${id}`),
     });
@@ -109,14 +112,6 @@ const ListUsers: FC<ListProps> = ({ input }) => {
                 </li>
               ))}
           </ul>
-import { usetGetParticipants } from '../../../api/Queries/ParticipantQueries.ts';
-import { FC, useState } from 'react';
-import { faTimes, faAdd } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useCreateInvitations } from '../../../api/Queries/InvitationQueries.ts';
-import { Participant } from '../../../api/Models/Participant.ts';
-import { InvitationMutation } from '../../../api/Models/Invitation.ts';
         </div>
       )}
 

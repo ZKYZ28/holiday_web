@@ -5,4 +5,4 @@ export type Participant = {
   email: string;
 };
 
-// export type ParticipantMutation = Omit<Participant, 'id'>;
+export type ParticipantMutation = Omit<Participant, 'id'>;

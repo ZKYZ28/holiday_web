@@ -13,7 +13,15 @@ function ListHolidayCard({ holiday }: { holiday: Holiday }) {
       <img className="object-cover w-full h-100 rounded-lg lg:w-64" src={bgCard} alt="" />
 
       <div className="flex flex-col justify-between p-6 lg:mx-6">
-        <h3 className="text-xl md:text-3xl font-bold text-blue-800 ">{holiday.name}</h3>
+        <div className="flex items-center">
+          <h3 className="text-xl md:text-3xl font-bold text-blue-800 ">{holiday.name}</h3>
+          {holiday.isPublish ? (
+            <img className="object-cover rounded-lg w-8 h-8 ml-2.5" src="https://cdn-icons-png.flaticon.com/512/3946/3946164.png" alt="" />
+          ) : (
+            <></>
+          )}
+        </div>
+
         <p className="my-8 text-base lg:text-lg"> {holiday.description} </p>
 
         <ul className="flex flex-col justify-around">

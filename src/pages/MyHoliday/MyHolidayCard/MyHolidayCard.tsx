@@ -7,7 +7,7 @@ import { faLocationDot } from '@fortawesome/free-solid-svg-icons/faLocationDot';
 import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Activity } from '../../../api/Models/Activity.ts';
 
-function ListHolidayCard({ activity }: { activity: Activity }) {
+function MyHolidayCard({ activity }: { activity: Activity }) {
   return (
     <div className="lg:flex bg-white rounded-2xl">
       <img className="object-cover w-full h-100 rounded-lg lg:w-64" src={driftCard} alt="" />
@@ -50,4 +50,4 @@ function ListHolidayCard({ activity }: { activity: Activity }) {
   );
 }
 
-export default ListHolidayCard;
+export default MyHolidayCard;

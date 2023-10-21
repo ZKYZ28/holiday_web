@@ -1,10 +1,13 @@
 import FormContainer from '../../components/common/FormContainer.tsx';
-import { useCreateHoliday } from '../../api/Queries/HolidayQueries.ts';
+import {useCreateHoliday} from '../../api/Queries/HolidayQueries.ts';
 import * as dayjs from 'dayjs';
 import PageWrapper from '../../components/common/PageWrapper.tsx';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import GenericForm from '../../components/common/GenericForm.tsx';
-import { InitialValues } from '../../../typing/inputType.ts';
+import {InitialValues} from '../../../typing/inputType.ts';
+import {useAuth} from "../../provider/AuthProvider.tsx";
+import { useMessages } from '../../provider/MessagesProvider.tsx';
+
 
 const inputsHoliday = [
   {
@@ -94,7 +97,7 @@ const descriptionTextArea = {
 const EncodeHoliday = () => {
   const { mutate: mutateHoliday } = useCreateHoliday();
   const navigate = useNavigate();
-
+  const { user } = useAuth();
   const initialValues = {
     name: '',
     country: '',
@@ -108,7 +111,6 @@ const EncodeHoliday = () => {
 
   const handleSubmit = (values: InitialValues) => {
     const { name, country, number, street, postalCode, locality, startDate, endDate, description } = values;
-    console.log(values);
 
     // TODO VERIFIER SI ACTIVITIES EST NECESSAIRE
     mutateHoliday(
@@ -124,13 +126,20 @@ const EncodeHoliday = () => {
           postalCode,
           country,
         },
+        creatorId: user.id,
+        isPublish: false,
         activities: [],
       },
-      { onError: () => alert('An error occurred'), onSuccess: () => navigate('/holidays') }
+      {
+        onError: () => alert('An error occurred'),
+        onSuccess: () => {navigate('/holidays');
+        },
+      }
     );
+
+
   };
 
-  console.log(`Parent : ${initialValues}`);
   return (
     <PageWrapper>
       <FormContainer title="Encoder vacances">

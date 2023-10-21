@@ -4,8 +4,8 @@ import { ENDPOINT } from '../EndPointApi.ts';
 
 class ParticipantRequestsApi {
   // PARTICIPANT
-  static async getParticipants() {
-    return axiosInstance.get<Participant[]>(`${ENDPOINT}/participant/all`);
+  static async getParticipants(id : string) {
+    return axiosInstance.get<Participant[]>(`${ENDPOINT}/participant/all/${id}`);
   }
   static async getParticipantsByHoliday(holidayId: string) {
     return axiosInstance.get<Participant[]>(`${ENDPOINT}/participant/${holidayId}`);
