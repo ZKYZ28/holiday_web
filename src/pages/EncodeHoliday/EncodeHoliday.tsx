@@ -7,7 +7,7 @@ import GenericForm from '../../components/common/GenericForm.tsx';
 import { InitialValues } from '../../../typing/inputType.ts';
 import { validateDatesWithoutHour } from '../../validators/dateValidator.ts';
 import { useState } from 'react';
-import {formattedDate} from "../../components/common/utils/dateUtils.ts";
+import { formattedDate } from '../../components/common/utils/dateUtils.ts';
 
 const inputsHoliday = [
   {
