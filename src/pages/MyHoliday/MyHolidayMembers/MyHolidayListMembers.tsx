@@ -3,12 +3,12 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import MyHolidayMember from './MyHolidayMember.tsx';
 import MyHolidayColumn from '../MyHolidayColumn/MyHolidayColumn.tsx';
 import { NavLink } from 'react-router-dom';
-import { usetGetParticipantsByHoliday } from '../../../api/Queries/ParticipantQueries.ts';
+import {useGetParticipantsByHoliday} from '../../../api/Queries/ParticipantQueries.ts';
 import Loading from '../../../components/common/Loading.tsx';
 import { Participant } from '../../../api/Models/Participant.ts';
 
 function MyHolidayListMembers({ id }: { id: string | undefined }) {
-  const { data: participants, isLoading } = usetGetParticipantsByHoliday(id!);
+  const { data: participants, isLoading } = useGetParticipantsByHoliday(id!);
 
     return (
         <div className="w-full md:w-5/12 bg-white shadow-lg rounded-sm border border-gray-200 h-96 overflow-x-scroll">

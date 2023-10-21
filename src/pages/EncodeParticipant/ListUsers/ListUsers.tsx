@@ -1,4 +1,4 @@
-import { userGetParticipants } from '../../../api/Queries/ParticipantQueries.ts';
+import {useGetParticipants} from '../../../api/Queries/ParticipantQueries.ts';
 import { FC, useState } from 'react';
 import { faTimes, faAdd } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,10 +13,9 @@ type ListProps = {
 
 const ListUsers: FC<ListProps> = ({ input }) => {
   // RECUPERATION DE TOUS LES PARTICIPANTS
-  const { data: participants, isLoading }: { data: Participant[]; isLoading: boolean } = userGetParticipants();
   const { user } = useAuth();
   const { id } = useParams();
-  const { data: participants, isLoading }: { data: Participant[]; isLoading: boolean } = usetGetParticipants(id);
+  const { data: participants, isLoading }: { data: Participant[]; isLoading: boolean } = useGetParticipants(id);
   const navigate = useNavigate();
 
   // AJOUT ET SUPRESSION DES PARTICIPANTS DANS LES PARTICIPANTS AJOUTES

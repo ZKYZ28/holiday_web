@@ -1,14 +1,14 @@
 import PageWrapper from '../../components/common/PageWrapper.tsx';
 
 import './HomePage.css';
-import { usetGetParticipantsCount } from '../../api/Queries/ParticipantQueries.ts';
+import {useGetParticipantsCount} from '../../api/Queries/ParticipantQueries.ts';
 import { ChangeEvent, useState } from 'react';
 import { useGetAllHolidayCountForDate } from '../../api/Queries/HolidayQueries.ts';
 import {formattedDate} from "../../components/common/utils/dateUtils.ts";
 
 const HomePage = () => {
   // TODO : isLoading jamais utilisé ?
-  const { data: countParticipants, isLoading } = usetGetParticipantsCount();
+  const { data: countParticipants, isLoading } = useGetParticipantsCount();
 
   const [date, setDate] = useState(formattedDate);
 

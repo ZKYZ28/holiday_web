@@ -24,10 +24,10 @@ const ChatPage = () => {
 
   return (
     <PageWrapper>
-      <div className="flex h-screen antialiased text-gray-00">
+      <div className="flex antialiased page-chat">
         <div className="flex flex-row w-full overflow-x-hidden">
           {/* Left card with Image + Name*/}
-          <div className="flex flex-col py-8 pl-6 pr-2 w-64 bg-white flex-shrink-0">
+          <div className="flex flex-col py-8 pl-6 h-full pr-2 w-64 bg-white flex-shrink-0">
             <div className="flex flex-col items-center bg-gray-100 border border-gray-200 mt-4 w-full py-6 px-4 rounded-lg">
               <div className="h-20 w-20 rounded-full border overflow-hidden">
                 <img src={chat} alt="ChatPage" className="h-full w-full" />
@@ -44,7 +44,7 @@ const ChatPage = () => {
               </div>
 
               {/* List of groups*/}
-              <div className="flex flex-col space-y-1 mt-4 -mx-2 overflow-y-auto">
+              <div className="flex flex-col space-y-1 mt-4 -mx-2 overflow-y-scroll">
                 {holidays.map((holiday) => (
                   <GroupChat key={holiday.id} text={holiday.name} onClick={() => handleGroupChatClick(holiday.id)}  isActive={holiday.id === activeGroupChat} />
                 ))}
@@ -53,7 +53,7 @@ const ChatPage = () => {
           </div>
 
           {/* Right part*/}
-          <div className="flex flex-col flex-auto h-5/6 p-6">
+          <div className="flex flex-col flex-auto h-full p-6">
             <div className="flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-gray-100 h-full p-4">
               {/*LIVE CHAT*/}
               <LiveChat/>
