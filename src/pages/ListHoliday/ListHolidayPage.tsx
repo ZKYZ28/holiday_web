@@ -11,9 +11,10 @@ import { NavLink } from 'react-router-dom';
 const ListHolidayPage = () => {
   const { user } = useAuth();
   console.log(user?.id)
-  const { data: holidays, isLoading } = useGetAllHoliday(user.id!);
+  // TODO : user!.id ou user.id ?? ''
+  const { data: holidays, isLoading } = useGetAllHoliday(user!.id);
   const [showModalInvitation, setShowModalInvitation] = useState(false);
-  const { data: invitations, isLoading: invitationsIsLoading, error: invitationsError } = useGetInvitations(user.id!);
+  const { data: invitations, isLoading: invitationsIsLoading, error: invitationsError } = useGetInvitations(user!.id);
 
   console.log(holidays);
 

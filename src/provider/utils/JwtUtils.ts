@@ -2,6 +2,7 @@ import { decodeJwt, JWTPayload } from 'jose';
 
 type JwtPayloadType = {
   id: string;
+  fullName: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -16,8 +17,9 @@ function decodePayloadJwt(token: string): JwtPayloadType {
   const claims: JWTPayload = decodeJwt(token);
   return {
     id: claims.nameid as string,
-    firstName: claims.name as string,
-    lastName: claims.name as string,
+    fullName: claims.name as string,
+    firstName: claims.given_name as string,
+    lastName: claims.family_name as string,
     email: claims.email as string,
     exp: claims.exp as number,
     sub: claims.sub as string,

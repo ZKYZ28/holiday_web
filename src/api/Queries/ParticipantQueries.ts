@@ -2,11 +2,10 @@ import { useQuery } from '@tanstack/react-query';
 import ParticipantRequestsApi from '../EndPoints/Requests/ParticipantRequestsApi.ts';
 import { participantKeys } from '../Querykeys.ts';
 
-// TODO : JEREM
-export const usetGetParticipants = (holidayId : string) => {
+export const userGetParticipants = () => {
   return useQuery({
     queryKey: participantKeys.all,
-    queryFn: () => ParticipantRequestsApi.getParticipants(holidayId).then((content) => content.data),
+    queryFn: () => ParticipantRequestsApi.getParticipants().then((content) => content.data),
     initialData: [],
   });
 };
@@ -18,7 +17,6 @@ export const usetGetParticipantsByHoliday = (holidayId: string) => {
     initialData: [],
   });
 };
-
 
 export const usetGetParticipantsCount = () => {
   return useQuery({

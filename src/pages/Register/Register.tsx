@@ -7,53 +7,62 @@ import { useCreateAccount } from '../../api/Queries/AuthentificationQueries.ts';
 import { useAuth } from '../../provider/AuthProvider.tsx';
 import { useNavigate } from 'react-router-dom';
 
-const inputRegister = [
-  {
-    id: 'email',
-    name: 'email',
-    type: 'email',
-    placeholder: 'john.doe@gmail.com',
-    errorMessage: 'L\'adresse mail doit être valide !',
-    label: 'Courriel',
-    required: true,
-  },
-  {
-    id: 'lastName',
-    name: 'lastName',
-    type: 'text',
-    placeholder: 'Doe',
-    errorMessage: 'Votre prénom ne peut pas être vide, ni contenir de chiffres. !',
-    label: 'Nom :',
-    required: true,
-  },
-  {
-    id: 'firstName',
-    name: 'firstName',
-    type: 'text',
-    placeholder: 'John',
-    errorMessage: 'Votre prénom ne peut pas être vide, ni contenir de chiffres.  !',
-    label: 'prénom :',
-    required: true,
-  },
-  {
-    id: 'password',
-    name: 'password',
-    type: 'password',
-    placeholder: '*************',
-    errorMessage: 'Votre mot de passe ne peut pas être vide, au minimum 8 caractères  !',
-    label: 'Mot de passe :',
-    required: true,
-  },
-  {
-    id: 'confirmPassword',
-    name: 'confirmPassword',
-    type: 'password',
-    placeholder: '*************',
-    errorMessage: '',
-    label: 'Mot de passe :',
-    required: true,
-  },
-];
+const buildInputRegister = (password: string) => {
+  return [
+    {
+      id: 'email',
+      name: 'email',
+      type: 'email',
+      placeholder: 'john.doe@gmail.com',
+      errorMessage: 'Veuillez entrer une adresse e-mail valide. Par exemple,"john.doe@gmail.com"',
+      pattern: '^[#$%&\'*+\\/=?^`\\{\\|\\}~\\-\\.\\w]+@[\\-A-Za-z0-9]+(?:\\.[\\-a-zA-Z0-9]+)+$',
+      label: 'Courriel',
+      required: true,
+    },
+    {
+      id: 'lastName',
+      name: 'lastName',
+      type: 'text',
+      placeholder: 'Doe',
+      errorMessage: 'Veuillez saisir un prénom valide. Il ne doit pas être vide et ne doit pas contenir de chiffres.',
+      label: 'Nom :',
+      pattern: '[A-ZÀ-ÿ][-.a-z\' ]{1,48}[a-zÀ-ÿ]',
+      required: true,
+    },
+    {
+      id: 'firstName',
+      name: 'firstName',
+      type: 'text',
+      placeholder: 'John',
+      errorMessage: 'Veuillez saisir un nom valide. Il ne doit pas être vide et ne doit pas contenir de chiffres.',
+      pattern: '[A-ZÀ-ÿ][-.a-z\' ]{1,28}[a-zÀ-ÿ]',
+      label: 'Prénom :',
+      required: true,
+    },
+    {
+      id: 'password',
+      name: 'password',
+      type: 'password',
+      placeholder: '*************',
+      errorMessage:
+        'Votre mot de passe doit comporter au moins 8 caractères, incluant au minimum un caractère spécial, une majuscule, une minuscule et un chiffre ! ',
+      label: 'Mot de passe :',
+      pattern:
+        '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*\\.!@$%^&\\(\\)\\{\\}\\[\\]\\:;<>,\\.?\\/~_\\+\\-=\\|çÇ]).{8,32}$',
+      required: true,
+    },
+    {
+      id: 'confirmPassword',
+      name: 'confirmPassword',
+      type: 'password',
+      placeholder: '*************',
+      errorMessage: 'Oops! Les mots de passe ne correspondent pas. Veuillez réessayer.',
+      label: 'Confirmation de mot de passe :',
+      pattern: password,
+      required: true,
+    },
+  ];
+};
 
 const Register = () => {
   const { token, setJwtToken } = useAuth();
@@ -68,6 +77,8 @@ const Register = () => {
     password: '',
     confirmPassword: '',
   });
+
+  const inputRegister = buildInputRegister(values.password);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [e.target.name]: e.target.value });

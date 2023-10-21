@@ -2,25 +2,23 @@ import PageWrapper from '../../components/common/PageWrapper.tsx';
 
 import './HomePage.css';
 import { usetGetParticipantsCount } from '../../api/Queries/ParticipantQueries.ts';
-import React, { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useGetAllHolidayCountForDate } from '../../api/Queries/HolidayQueries.ts';
+import {formattedDate} from "../../components/common/utils/dateUtils.ts";
 
 const HomePage = () => {
+  // TODO : isLoading jamais utilisé ?
   const { data: countParticipants, isLoading } = usetGetParticipantsCount();
 
-  const currentDate = new Date();
-  const year = currentDate.getFullYear();
-  const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-  const day = String(currentDate.getDate()).padStart(2, '0');
-  const defaultDate = `${year}-${month}-${day}`;
-  const [date, setDate] = useState(defaultDate);
+  const [date, setDate] = useState(formattedDate);
 
-  const onChange = (evt) => {
+  const onChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setDate(evt.target.value);
   };
 
-  const onClick = (evt) => {
+  const onClick = ()=> {
     console.log('TEST');
+    // TODO : isLoading jamais utilisé ?
     const { data: dateCount, isLoading } = useGetAllHolidayCountForDate(date);
     console.log(dateCount);
   };
@@ -37,22 +35,20 @@ const HomePage = () => {
                 <span className="text-blue-800">.</span>
               </h1>
             </div>
-            <p className="mt-3.5 lg:text-3xl text-lg font-bold">
-              Rejoingnez nos {countParticipants} membres actifs  !
-            </p>
+            <p className="mt-3.5 lg:text-3xl text-lg font-bold">Rejoingnez nos {countParticipants} membres actifs !</p>
           </div>
 
           <div className="h-1/2 flex flex-col justify-around">
-
             <form className="mb-6 mt-12">
-              <input id="date" type="date" onChange={onChange} value={date}/>
+              <input id="date" type="date" onChange={onChange} value={date} />
               <button
                 type="button"
                 className="bg-blue-800 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full"
                 onClick={onClick}
-              >Chercher</button>
+              >
+                Chercher
+              </button>
             </form>
-
           </div>
         </div>
       </div>

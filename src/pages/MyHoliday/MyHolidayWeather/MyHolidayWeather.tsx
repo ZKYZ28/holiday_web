@@ -4,7 +4,6 @@ import * as dayjs from 'dayjs';
 import drop from '../../../assets/imgs/icons/drop.png';
 import { usetGetWeather } from '../../../api/Queries/WeatherQueries.ts';
 import { useState } from 'react';
-import {Weather} from "../../../api/Models/Weather.ts";
 
 function MyHolidayWeather({ id }: {id : string}) {
     // TODO JEREM

@@ -1,11 +1,11 @@
 // HOLIDAY
 
-import { Holiday, HolidayMutation } from '../../Models/Holiday.ts';
+import {Holiday, HolidaySendForm} from '../../Models/Holiday.ts';
 import axiosInstance from '../../axios.ts';
 import { ENDPOINT } from '../EndPointApi.ts';
 
 class HolidayRequestsApi {
-  static async createHoliday(holiday: HolidayMutation) {
+  static async createHoliday(holiday: HolidaySendForm) {
     return axiosInstance.post(`${ENDPOINT}/holiday`, holiday);
   }
 

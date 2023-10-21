@@ -1,10 +1,13 @@
-import {HolidayMutation} from "./Holiday.ts";
+import { HolidayMutation } from './Holiday.ts';
 
 export type Invitation = {
-  invitationId: string;
+  Id: string;
   holidayId: string;
   holiday: HolidayMutation;
   participantId: string;
 };
 
-export type InvitationMutation = Omit<Invitation, 'id'>;
+export type InvitationMutation = {
+  holidayId: string;
+  participantId: string;
+};
