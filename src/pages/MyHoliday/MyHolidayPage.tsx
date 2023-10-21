@@ -6,13 +6,12 @@ import * as dayjs from 'dayjs';
 import MyHolidayWeather from './MyHolidayWeather/MyHolidayWeather.tsx';
 import MyHolidayListMembers from './MyHolidayMembers/MyHolidayListMembers.tsx';
 import MyHolidayActivities from './MyHolidayActivities/MyHolidayActivities.tsx';
+import { Holiday } from '../../api/Models/Holiday.ts';
 import {useState} from "react";
 import Modal from '../../components/Modal.tsx';
 
 function MyHolidayPage() {
-  const { id }: { id?: string } = useParams();
-
-
+  const { id } = useParams();
   // TODO : JEREM
   const { data: holidayData, isLoading: holidayIsLoading } = useGetHolidayById(id!);
   const { mutate: mutateExportHoliday } = useGetExportHoliday(id!);
@@ -79,10 +78,10 @@ function MyHolidayPage() {
 
           <div className="w-full flex flex-col items-center md:flex-row md:flex-wrap md:justify-between">
             <MyHolidayListMembers id={id} />
-            <MyHolidayWeather id={id} />
+            <MyHolidayWeather id={id!} />
           </div>
 
-          <MyHolidayActivities id={id} holidayData={holidayData} holidayIsLoading={holidayIsLoading} />
+          <MyHolidayActivities id={id!} holidayData={holidayData} holidayIsLoading={holidayIsLoading} />
 
           {showModalInvitation && (
             <Modal

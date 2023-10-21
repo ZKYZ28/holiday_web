@@ -1,11 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import {Holiday, HolidayMutation} from '../Models/Holiday.ts';
+import {HolidayMutation, HolidaySendForm} from '../Models/Holiday.ts';
 import { holidayKeys } from '../Querykeys.ts';
 import HolidayRequestsApi from '../EndPoints/Requests/HolidayRequestsApi.ts';
 
 export const useCreateHoliday = () => {
   const client = useQueryClient();
-  return useMutation((holiday: HolidayMutation) => HolidayRequestsApi.createHoliday(holiday), {
+  return useMutation((holiday: HolidaySendForm) => HolidayRequestsApi.createHoliday(holiday), {
     onSuccess: () => {
       client.invalidateQueries(holidayKeys.all);
     },

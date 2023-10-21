@@ -20,8 +20,8 @@ const ListHolidayPage = () => {
   const [isPublished, setIsPublished] = useState(false);
   const [pageTitle, setPageTitle] = useState("Mes vacances");
 
-  const { data: invitations, isLoading: invitationsIsLoading, error: invitationsError } = useGetInvitations(user.id!);
-  const { data: holidays, isLoading } = isPublished ? useGetAllHolidayPublished() : useGetAllHolidayByParticipant(user.id!);
+  const { data: invitations, isLoading: invitationsIsLoading, error: invitationsError } = useGetInvitations(user!.id);
+  const { data: holidays, isLoading } = isPublished ? useGetAllHolidayPublished() : useGetAllHolidayByParticipant(user!.id);
 
   //GESTION DE LA MONDALE
   const openModalInvitation = (): void => {

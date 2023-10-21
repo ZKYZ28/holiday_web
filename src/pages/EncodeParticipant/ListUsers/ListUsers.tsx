@@ -1,19 +1,19 @@
-import { usetGetParticipants } from '../../../api/Queries/ParticipantQueries.ts';
+import { userGetParticipants } from '../../../api/Queries/ParticipantQueries.ts';
 import { FC, useState } from 'react';
 import { faTimes, faAdd } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCreateInvitations } from '../../../api/Queries/InvitationQueries.ts';
 import { useAuth } from '../../../provider/AuthProvider.tsx';
-import {Participant} from '../../../api/Models/Participant.ts';
-import {Invitation} from "../../../api/Models/Invitation.ts";
-
+import { Participant } from '../../../api/Models/Participant.ts';
+import { InvitationMutation } from '../../../api/Models/Invitation.ts';
 type ListProps = {
   input: string;
 };
 
 const ListUsers: FC<ListProps> = ({ input }) => {
   // RECUPERATION DE TOUS LES PARTICIPANTS
+  const { data: participants, isLoading }: { data: Participant[]; isLoading: boolean } = userGetParticipants();
   const { user } = useAuth();
   const { id } = useParams();
   const { data: participants, isLoading }: { data: Participant[]; isLoading: boolean } = usetGetParticipants(id);
@@ -58,12 +58,12 @@ const ListUsers: FC<ListProps> = ({ input }) => {
 
   // CREATION DES INVITATIONS
   const handleSubmit = async () => {
-    const invitations = participantsAdded.map((participant: Participant) => ({
-      holidayId: id,
+    const invitations: InvitationMutation[] = participantsAdded.map((participant: Participant) => ({
+      holidayId: id ?? '', // TODO : value '' is good ?
       participantId: participant.id,
     }));
 
-    await mutateInvitations(invitations as Invitation[], {
+    await mutateInvitations(invitations, {
       onError: () => alert('An error occurred'),
       onSuccess: () => navigate(`/holidays/${id}`),
     });
@@ -99,7 +99,7 @@ const ListUsers: FC<ListProps> = ({ input }) => {
           <ul className=" max-h-52 overflow-y-scroll w-full mb-4 ">
             {filteredData
               .filter((participant) => {
-                return participant.id != user.id!;
+                return participant.id != user?.id!;
               })
               .map((participant) => (
                 <li

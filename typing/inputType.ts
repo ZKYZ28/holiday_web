@@ -10,7 +10,16 @@ export type InputType = {
 };
 
 export type InitialValues = {
-  [key: string]: string | number | boolean;
+  name: string;
+  country?: string;
+  number?: string;
+  street?: string;
+  postalCode?: string;
+  locality?: string;
+  startDate: string;
+  endDate: string;
+  description?: string;
+  price?: number;
 };
 
 export type OnSubmitFunction = (values: InitialValues) => void;

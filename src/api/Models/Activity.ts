@@ -1,4 +1,4 @@
-import { LocationMutation } from './Location.ts';
+import {LocationMutation, LocationSendFormActivity} from './Location.ts';
 
 export type Activity = {
   id: string;
@@ -8,6 +8,15 @@ export type Activity = {
   startDate: string;
   endDate: string;
   location: LocationMutation;
+};
+
+export type ActivitySendForm = {
+  name: string;
+  description?: string;
+  price?: number;
+  startDate?: string;
+  endDate?: string;
+  location?: LocationSendFormActivity;
 };
 
 export type ActivityMutation = Omit<Activity, 'id'>;

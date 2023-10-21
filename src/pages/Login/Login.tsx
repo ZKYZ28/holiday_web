@@ -4,15 +4,16 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import ButtonLink from '../../components/Header/ButtonLink/ButtonLink.tsx';
 import PageWrapper from '../../components/common/PageWrapper.tsx';
 import { useAuth } from '../../provider/AuthProvider.tsx';
-import {useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useLoginAccount } from '../../api/Queries/AuthentificationQueries.ts';
 
 const inputEmail = {
   id: 'email',
   name: 'email',
-  type: 'email',
+  type: 'text',
   placeholder: 'john.doe@gmail.com',
-  errorMessage: 'Ça doit être une adresse mail valide !',
+  pattern: '^[#$%&\'*+\\/=?^`\\{\\|\\}~\\-\\.\\w]+@[\\-A-Za-z0-9]+(?:\\.[\\-a-zA-Z0-9]+)+$',
+  errorMessage: 'Veuillez entrer une adresse e-mail valide. Par exemple,"john.doe@gmail.com"',
   label: 'Courriel :',
   required: true,
 };
@@ -22,7 +23,9 @@ const inputPassword = {
   name: 'password',
   type: 'password',
   placeholder: '',
-  errorMessage: 'Votre mot de passe ne peut pas être vide, au minimum 8 caractères  !',
+  errorMessage:
+    'Votre mot de passe doit comporter au moins 8 caractères, incluant au minimum un caractère spécial, une majuscule, une minuscule et un chiffre ! ',
+  pattern: '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*\\.!@$%^&\\(\\)\\{\\}\\[\\]\\:;<>,\\.?\\/~_\\+\\-=\\|çÇ]).{8,32}$',
   label: 'Mot de passe :',
   required: true,
 };
@@ -69,7 +72,9 @@ const Login = () => {
           <FormInput {...inputPassword} value={passwordInput} onChange={handleChangePassword} />
 
           <div className="flex justify-center">
-            <button type="submit" className="bg-blue-800 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full">Se connecter</button>
+            <button type="submit" className="bg-blue-800 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full">
+              Se connecter
+            </button>
           </div>
         </form>
 

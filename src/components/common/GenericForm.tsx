@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import FormInput from './FormInput.tsx';
 import TextAreaInput from './TextAreaInput.tsx';
-import { InitialValues, InputType, OnSubmitFunction } from '../../../typing/inputType.ts';
+import { InputType, OnSubmitFunction } from '../../../typing/inputType.ts';
 import { TextAreaProps } from '../../../typing/textAreaPropsType.ts';
 
 function GenericForm({
@@ -10,12 +10,14 @@ function GenericForm({
   onSubmit,
   textAreaProps,
   buttonText,
+  error,
 }: {
   fields: InputType[];
   initialValues: object;
   onSubmit: OnSubmitFunction;
   textAreaProps: TextAreaProps;
   buttonText: string;
+  error: string;
 }) {
 
   const [valueInputs, setValueInputs] = useState(initialValues);
@@ -32,7 +34,7 @@ function GenericForm({
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Récupérer les valeurs des inputs + le text area
-    const allValues = {
+    const allValues: { description: string } = {
       ...valueInputs,
       description,
     };
@@ -58,7 +60,8 @@ function GenericForm({
       )}
       {textAreaProps && <TextAreaInput {...textAreaProps} value={description} onChange={handleChangeDescription} />}
 
-      <div className="flex justify-center">
+      <div className="flex flex-col items-center">
+        {error && <span className="font-bold text-red-600 mb-2">{error}</span>}
         <button type="submit" className="bg-blue-800 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full">
           {buttonText}
         </button>
