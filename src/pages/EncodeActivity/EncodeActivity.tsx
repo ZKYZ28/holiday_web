@@ -125,7 +125,7 @@ const EncodeActivity = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const initalValues = {
+  const initialValues = {
     name: '',
     description: '',
     country: '',
@@ -173,7 +173,7 @@ const EncodeActivity = () => {
       <FormContainer title="Encoder activité">
         <GenericForm
           fields={inputsActivity}
-          initalValues={initalValues}
+          initialValues={initialValues}
           textAreaProps={descriptionTextArea}
           buttonText="Encoder"
           onSubmit={handleSubmit}
