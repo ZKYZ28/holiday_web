@@ -5,22 +5,19 @@ import { faCalendarDays } from '@fortawesome/free-solid-svg-icons/faCalendarDays
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons/faLocationDot';
 import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Activity } from '../../../api/Models/Activity.ts';
-import {useDeleteActivity} from "../../../api/Queries/ActivityQueries.ts";
-import Modal from "../../../components/Modal.tsx";
-import {useState} from "react";
+import { useDeleteActivity } from '../../../api/Queries/ActivityQueries.ts';
+import Modal from '../../../components/Modal.tsx';
+import { useState } from 'react';
 import { urlApi } from '../../../api/EndPoints/HolidayApi.ts';
 
 function MyHolidayCard({ activity }: { activity: Activity }) {
   const { mutate: mutateActivity } = useDeleteActivity();
 
   function handleDeleteClick() {
-    mutateActivity(
-      activity,
-      { onError: () => alert('An error occurred')}
-    )
+    mutateActivity(activity, { onError: () => alert('An error occurred') });
   }
 
-  //GESTION DE LA MONDAL
+  // GESTION DE LA MONDAL
   const [showModalInvitation, setShowModalInvitation] = useState(false);
   const openModalInvitation = (): void => {
     setShowModalInvitation(true);
@@ -33,16 +30,19 @@ function MyHolidayCard({ activity }: { activity: Activity }) {
   return (
     <div className="block h-auto justify-between bg-white rounded-2xl box-shadow">
       <div className="w-full">
-        <img className="object-cover w-full h-100 rounded-lg"
-             src={`${urlApi()}${activity.activityPath}`}
-             alt="IMAGE" />
+        <img className="object-cover w-full h-100 rounded-lg" src={`${urlApi()}${activity.activityPath}`} alt="IMAGE" />
       </div>
       <div className="flex flex-col justify-between p-6 lg:mx-6">
         <div className="flex flex-row justify-between">
           <h3 className="text-xl md:text-3xl font-bold text-blue-800 ">{activity.name}</h3>
           <div>
             <FontAwesomeIcon icon={faPencil} size="xl" className="text-blue-800" />
-            <FontAwesomeIcon icon={faTrash} size="xl" className="text-red-600 ml-3 cursor-pointer" onClick={openModalInvitation}/>
+            <FontAwesomeIcon
+              icon={faTrash}
+              size="xl"
+              className="text-red-600 ml-3 cursor-pointer"
+              onClick={openModalInvitation}
+            />
           </div>
         </div>
         <p className="my-8 text-base lg:text-lg"> {activity.description} </p>
@@ -73,10 +73,7 @@ function MyHolidayCard({ activity }: { activity: Activity }) {
       </div>
 
       {showModalInvitation && (
-        <Modal
-          show={showModalInvitation}
-          onClose={closeModalInvitation}
-        >
+        <Modal show={showModalInvitation} onClose={closeModalInvitation}>
           <div className="flex flex-col justify-center items-center w-full">
             <p className="text-center">Etes-vous sûr de vouloir supprimer cette activité?</p>
 

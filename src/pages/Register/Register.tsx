@@ -27,7 +27,7 @@ const buildInputRegister = (password: string) => {
       placeholder: 'Doe',
       errorMessage: 'Veuillez saisir un nom valide. Il ne doit pas être vide et ne doit pas contenir de chiffres.',
       label: 'Nom :',
-      pattern: '[a-zA-ZÀ-ÿ][\\-\\.a-z\' ]{1,48}[a-zÀ-ÿ]',
+      pattern: '[a-zA-ZÀ-ÿ][çÇ\\-\\.a-z\' ]{1,48}[a-zÀ-ÿ]',
       required: true,
     },
     {
@@ -36,7 +36,7 @@ const buildInputRegister = (password: string) => {
       type: 'text',
       placeholder: 'John',
       errorMessage: 'Veuillez saisir un nom valide. Il ne doit pas être vide et ne doit pas contenir de chiffres.',
-      pattern: '[a-zA-ZÀ-ÿ][\\-\\.a-z\' ]{1,28}[a-zÀ-ÿ]',
+      pattern: '[a-zA-ZÀ-ÿ][çÇ\\-\\.a-z\' ]{1,28}[a-zÀ-ÿ]',
       label: 'Prénom :',
       required: true,
     },
