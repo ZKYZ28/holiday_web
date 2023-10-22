@@ -2,15 +2,15 @@ import ButtonLink from '../../../components/Header/ButtonLink/ButtonLink.tsx';
 import calendar from '../../../assets/imgs/icons/calendar.png';
 import peoples from '../../../assets/imgs/icons/peoples.png';
 import location from '../../../assets/imgs/icons/location.png';
-import bgCard from '../../../assets/imgs/bg/bg.jpg';
 import * as dayjs from 'dayjs';
 import { Holiday } from '../../../api/Models/Holiday.ts';
+import {urlApi} from '../../../api/EndPoints/HolidayApi.ts';
 
 function ListHolidayCard({ holiday }: { holiday: Holiday }) {
   const id = `/holidays/${holiday.id}`;
   return (
     <div className="lg:flex bg-white rounded-2xl">
-      <img className="object-cover w-full h-100 rounded-lg lg:w-64" src={bgCard} alt="" />
+      <img className="object-cover w-full h-100 rounded-lg lg:w-64" src={`${urlApi()}${holiday.holidayPath}`} alt="" />
 
       <div className="flex flex-col justify-between p-6 lg:mx-6">
         <div className="flex items-center">

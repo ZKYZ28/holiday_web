@@ -22,6 +22,7 @@ const ListHolidayPage = () => {
 
   const { data: invitations, isLoading: invitationsIsLoading, error: invitationsError } = useGetInvitations(user!.id);
   const { data: holidays, isLoading } = isPublished ? useGetAllHolidayPublished() : useGetAllHolidayByParticipant(user!.id);
+  console.log(holidays)
 
   //GESTION DE LA MONDALE
   const openModalInvitation = (): void => {

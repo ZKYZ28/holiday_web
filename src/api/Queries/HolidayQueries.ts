@@ -5,7 +5,7 @@ import HolidayRequestsApi from '../EndPoints/Requests/HolidayRequestsApi.ts';
 
 export const useCreateHoliday = () => {
   const client = useQueryClient();
-  return useMutation((holiday: HolidaySendForm) => HolidayRequestsApi.createHoliday(holiday), {
+  return useMutation((holiday: FormData) => HolidayRequestsApi.createHoliday(holiday), {
     onSuccess: () => {
       client.invalidateQueries(holidayKeys.all);
     },

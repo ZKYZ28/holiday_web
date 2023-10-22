@@ -20,6 +20,7 @@ export type InitialValues = {
   endDate: string;
   description?: string;
   price?: number;
+  file: File | null;
 };
 
 export type OnSubmitFunction = (values: InitialValues) => void;

@@ -8,6 +8,7 @@ export type Activity = {
   startDate: string;
   endDate: string;
   location: LocationMutation;
+  activityPath: string;
 };
 
 export type ActivitySendForm = {

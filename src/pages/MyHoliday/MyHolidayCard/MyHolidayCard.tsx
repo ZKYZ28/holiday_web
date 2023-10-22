@@ -1,16 +1,21 @@
 import ButtonLink from '../../../components/Header/ButtonLink/ButtonLink.tsx';
-import driftCard from '../../../assets/imgs/bg/drift.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEuroSign } from '@fortawesome/free-solid-svg-icons/faEuroSign';
 import { faCalendarDays } from '@fortawesome/free-solid-svg-icons/faCalendarDays';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons/faLocationDot';
 import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Activity } from '../../../api/Models/Activity.ts';
+import { urlApi } from '../../../api/EndPoints/HolidayApi.ts';
 
 function MyHolidayCard({ activity }: { activity: Activity }) {
+  console.log(activity);
   return (
     <div className="lg:flex bg-white rounded-2xl">
-      <img className="object-cover w-full h-100 rounded-lg lg:w-64" src={driftCard} alt="" />
+      <img
+        className="object-cover w-full h-100 rounded-lg lg:w-64"
+        src={`${urlApi()}${activity.activityPath}`}
+        alt=""
+      />
 
       <div className="flex flex-col justify-between p-6 lg:mx-6">
         <div className="flex flex-row justify-between">

@@ -1,24 +1,28 @@
 import chat from '../../assets/imgs/others/chat.png';
 import GroupChat from './GroupChat/GroupChat.tsx';
 import PageWrapper from '../../components/common/PageWrapper.tsx';
-import LiveChat from "./LiveChat/LiveChat.tsx";
-import SendChat from "./SendChat/SendChat.tsx";
-import {useAuth} from "../../provider/AuthProvider.tsx";
-import {useMessages} from "../../provider/MessagesProvider.tsx";
-import {Dispatch, SetStateAction, useState} from "react";
-import {useGetAllHolidayByParticipant} from "../../api/Queries/HolidayQueries.ts";
+import LiveChat from './LiveChat/LiveChat.tsx';
+import SendChat from './SendChat/SendChat.tsx';
+import { useAuth } from '../../provider/AuthProvider.tsx';
+import { useMessages } from '../../provider/MessagesProvider.tsx';
+import { Dispatch, SetStateAction, useState } from 'react';
+import { useGetAllHolidayByParticipant } from '../../api/Queries/HolidayQueries.ts';
 
 const ChatPage = () => {
-
   const { user } = useAuth();
-  const { joinRoom } = useMessages()
+  const { joinRoom } = useMessages();
   const { data: holidays } = useGetAllHolidayByParticipant(user!.id);
-  const [activeGroupChat, setActiveGroupChat]: [activeGroupChat: string, setActiveGroupChat: Dispatch<SetStateAction<string>>] = useState('');
-  const [holidayId, setHolidayId]: [holidayId: string, setHolidayId: Dispatch<SetStateAction<string>>] = useState(holidays[0]?.id);
+  const [activeGroupChat, setActiveGroupChat]: [
+    activeGroupChat: string,
+    setActiveGroupChat: Dispatch<SetStateAction<string>>,
+  ] = useState('');
+  const [holidayId, setHolidayId]: [holidayId: string, setHolidayId: Dispatch<SetStateAction<string>>] = useState(
+    holidays[0]?.id
+  );
 
-  const handleGroupChatClick = (holidayId : string) => {
+  const handleGroupChatClick = (holidayId: string) => {
     setActiveGroupChat(holidayId);
-    joinRoom(holidayId, user!)
+    joinRoom(holidayId, user!);
     setHolidayId(holidayId);
   };
 
@@ -46,7 +50,12 @@ const ChatPage = () => {
               {/* List of groups*/}
               <div className="flex flex-col space-y-1 mt-4 -mx-2 overflow-y-scroll">
                 {holidays.map((holiday) => (
-                  <GroupChat key={holiday.id} text={holiday.name} onClick={() => handleGroupChatClick(holiday.id)}  isActive={holiday.id === activeGroupChat} />
+                  <GroupChat
+                    key={holiday.id}
+                    text={holiday.name}
+                    onClick={() => handleGroupChatClick(holiday.id)}
+                    isActive={holiday.id === activeGroupChat}
+                  />
                 ))}
               </div>
             </div>
@@ -55,13 +64,12 @@ const ChatPage = () => {
           {/* Right part*/}
           <div className="flex flex-col flex-auto h-full p-6">
             <div className="flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-gray-100 h-full p-4">
-              {/*LIVE CHAT*/}
-              <LiveChat/>
+              {/* LIVE CHAT*/}
+              <LiveChat />
               {/* Send message part*/}
               <SendChat holidayId={holidayId} />
             </div>
           </div>
-
         </div>
       </div>
     </PageWrapper>
