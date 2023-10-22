@@ -14,6 +14,7 @@ export type Holiday = {
   participant: Participant;
   isPublish: boolean;
   activities: Activity[];
+  holidayPath: string;
 };
 
 export type HolidaySendForm = {
@@ -22,6 +23,7 @@ export type HolidaySendForm = {
   startDate: string;
   endDate: string;
   location: LocationSendFormHoliday;
+  uploadedHolidayPicture: File | null;
 };
 
 export type HolidayMutation = Omit<Holiday, 'id'>;

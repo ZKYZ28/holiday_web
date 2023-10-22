@@ -2,7 +2,6 @@ import ButtonLink from '../../../components/Header/ButtonLink/ButtonLink.tsx';
 import calendar from '../../../assets/imgs/icons/calendar.png';
 import peoples from '../../../assets/imgs/icons/peoples.png';
 import location from '../../../assets/imgs/icons/location.png';
-import bgCard from '../../../assets/imgs/bg/bg.jpg';
 import * as dayjs from 'dayjs';
 import { Holiday } from '../../../api/Models/Holiday.ts';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -10,6 +9,7 @@ import {faTrash} from "@fortawesome/free-solid-svg-icons";
 import {useState} from "react";
 import Modal from "../../../components/Modal.tsx";
 import {useDeleteHoliday} from "../../../api/Queries/HolidayQueries.ts";
+import {urlApi} from '../../../api/EndPoints/HolidayApi.ts';
 
 function ListHolidayCard({ holiday, isPersonalHoliday }: { holiday: Holiday, isPersonalHoliday: boolean }) {
   const id = `/holidays/${holiday.id}`;
@@ -33,7 +33,7 @@ function ListHolidayCard({ holiday, isPersonalHoliday }: { holiday: Holiday, isP
 
   return (
     <div className="lg:flex bg-white rounded-2xl">
-      <img className="object-cover w-full h-100 rounded-lg lg:w-64" src={bgCard} alt="" />
+      <img className="object-cover w-full h-100 rounded-lg lg:w-64" src={`${urlApi()}${holiday.holidayPath}`} alt="" />
 
       <div className="flex flex-col justify-between p-6 lg:mx-6 w-full">
         <div className="flex items-center justify-between">

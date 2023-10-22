@@ -6,6 +6,7 @@ import PageWrapper from '../../components/common/PageWrapper.tsx';
 import { useCreateAccount } from '../../api/Queries/AuthentificationQueries.ts';
 import { useAuth } from '../../provider/AuthProvider.tsx';
 import { useNavigate } from 'react-router-dom';
+import UploadFile from "../../components/common/UploadFile.tsx";
 
 const buildInputRegister = (password: string) => {
   return [

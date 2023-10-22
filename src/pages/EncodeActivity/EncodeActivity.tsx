@@ -139,7 +139,7 @@ const EncodeActivity = () => {
   };
 
   const handleSubmit = (values: InitialValues) => {
-    const { name, description, country, number, street, postalCode, locality, startDate, endDate, price } = values;
+    const { name, description, country, number, street, postalCode, locality, startDate, endDate, price, file } = values;
 
     const datesValid = validateDatesWithoutHour(startDate as string, endDate as string, true);
     if (datesValid) {
@@ -148,23 +148,25 @@ const EncodeActivity = () => {
     }
     setError('');
 
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('description', description ?? '');
+    formData.append('price', price);
+    formData.append('startDate', dayjs(startDate).format());
+    formData.append('endDate', dayjs(endDate).format());
+    formData.append('location.street', street ?? '');
+    formData.append('location.number', number ?? '');
+    formData.append('location.locality', locality!);
+    formData.append('location.postalCode', postalCode!);
+    formData.append('location.country', country!);
+    formData.append('holidayId', id);
+    if (file) {
+      formData.append('uploadedActivityPicture', file);
+    }
+
     // CALL TO API TO REGITER THE ACTIVITY
     mutateActivity(
-      {
-        name,
-        description,
-        price,
-        startDate: dayjs(startDate).format(),
-        endDate: dayjs(endDate).format(),
-        location: {
-          street,
-          number,
-          locality,
-          postalCode,
-          country,
-        },
-        holidayId: id,
-      },
+      formData,
       { onError: () => alert('An error occurred'), onSuccess: () => navigate(`/holidays/${id}`) }
     );
   };

@@ -1,5 +1,4 @@
 import ButtonLink from '../../../components/Header/ButtonLink/ButtonLink.tsx';
-import driftCard from '../../../assets/imgs/bg/drift.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEuroSign } from '@fortawesome/free-solid-svg-icons/faEuroSign';
 import { faCalendarDays } from '@fortawesome/free-solid-svg-icons/faCalendarDays';
@@ -9,6 +8,7 @@ import { Activity } from '../../../api/Models/Activity.ts';
 import {useDeleteActivity} from "../../../api/Queries/ActivityQueries.ts";
 import Modal from "../../../components/Modal.tsx";
 import {useState} from "react";
+import { urlApi } from '../../../api/EndPoints/HolidayApi.ts';
 
 function MyHolidayCard({ activity }: { activity: Activity }) {
   const { mutate: mutateActivity } = useDeleteActivity();
@@ -33,7 +33,9 @@ function MyHolidayCard({ activity }: { activity: Activity }) {
   return (
     <div className="block h-auto justify-between bg-white rounded-2xl box-shadow">
       <div className="w-full">
-        <img className="object-cover w-full h-100 rounded-lg" src={driftCard} alt="" />
+        <img className="object-cover w-full h-100 rounded-lg"
+             src={`${urlApi()}${activity.activityPath}`}
+             alt="IMAGE" />
       </div>
       <div className="flex flex-col justify-between p-6 lg:mx-6">
         <div className="flex flex-row justify-between">

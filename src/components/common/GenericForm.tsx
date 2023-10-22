@@ -3,6 +3,7 @@ import FormInput from './FormInput.tsx';
 import TextAreaInput from './TextAreaInput.tsx';
 import { InputType, OnSubmitFunction } from '../../../typing/inputType.ts';
 import { TextAreaProps } from '../../../typing/textAreaPropsType.ts';
+import UploadFile from './UploadFile.tsx';
 
 function GenericForm({
   fields,
@@ -19,9 +20,14 @@ function GenericForm({
   buttonText: string;
   error: string;
 }) {
-
   const [valueInputs, setValueInputs] = useState(initialValues);
   const [description, setDescription] = useState('');
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const handleFileSelect = (file: File | null) => {
+    console.log(file);
+    setSelectedFile(file);
+  };
 
   const onChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setValueInputs({ ...valueInputs, [evt.target.name]: evt.target.value });
@@ -37,12 +43,14 @@ function GenericForm({
     const allValues: { description: string } = {
       ...valueInputs,
       description,
+      file: selectedFile,
     };
     onSubmit(allValues);
   };
 
   return (
     <form onSubmit={handleSubmit}>
+      <UploadFile onFileSelected={handleFileSelect} />
       {fields.map(
         (input, index) =>
           index % 2 === 0 && (

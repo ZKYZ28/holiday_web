@@ -8,10 +8,9 @@ import { InitialValues } from '../../../typing/inputType.ts';
 import { validateDatesWithoutHour } from '../../validators/dateValidator.ts';
 import { useState } from 'react';
 import { formattedDate } from '../../components/common/utils/dateUtils.ts';
-import {InitialValues} from '../../../typing/inputType.ts';
-import {useAuth} from "../../provider/AuthProvider.tsx";
+import { InitialValues } from '../../../typing/inputType.ts';
+import { useAuth } from '../../provider/AuthProvider.tsx';
 import { useMessages } from '../../provider/MessagesProvider.tsx';
-
 
 const inputsHoliday = [
   {
@@ -129,7 +128,7 @@ const EncodeHoliday = () => {
   };
 
   const handleSubmit = (values: InitialValues) => {
-    const { name, country, number, street, postalCode, locality, startDate, endDate, description } = values;
+    const { name, country, number, street, postalCode, locality, startDate, endDate, description, file } = values;
 
     const datesValid = validateDatesWithoutHour(startDate as string, endDate as string);
     if (datesValid) {
@@ -137,27 +136,46 @@ const EncodeHoliday = () => {
       return;
     }
     setError('');
+    console.log(`IMAGE : ${file}`);
 
     // TODO VERIFIER SI ACTIVITIES EST NECESSAIRE
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('description', description ?? '');
+    formData.append('startDate', dayjs(startDate).format());
+    formData.append('endDate', dayjs(endDate).format());
+    formData.append('location.street', street ?? '');
+    formData.append('location.number', number ?? '');
+    formData.append('location.locality', locality!);
+    formData.append('location.postalCode', postalCode!);
+    formData.append('location.country', country!);
+    formData.append('creatorId', user!.id);
+    if (file) {
+      formData.append('uploadedHolidayPicture', file);
+    }
+
     mutateHoliday(
-      {
-        name,
-        description,
-        startDate: dayjs(startDate).format(),
-        endDate: dayjs(endDate).format(),
-        location: {
-          street,
-          number,
-          locality: locality!,
-          postalCode: postalCode!,
-          country: country!,
-        },
-        creatorId: user.id,
-        isPublish: false,
-      },
+      // {
+      //   name,
+      //   description,
+      //   startDate: dayjs(startDate).format(),
+      //   endDate: dayjs(endDate).format(),
+      //   location: {
+      //     street,
+      //     number,
+      //     locality: locality!,
+      //     postalCode: postalCode!,
+      //     country: country!,
+      //   },
+      //   creatorId: user.id,
+      //   isPublish: false,
+      //   uploadedHolidayPicture: file,
+      // },
+      formData,
       {
         onError: () => alert('An error occurred'),
-        onSuccess: () => {navigate('/holidays');
+        onSuccess: () => {
+          navigate('/holidays');
         },
       }
     );
