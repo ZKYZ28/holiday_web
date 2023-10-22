@@ -16,7 +16,7 @@ const buildInputRegister = (password: string) => {
       type: 'email',
       placeholder: 'john.doe@gmail.com',
       errorMessage: 'Veuillez entrer une adresse e-mail valide. Par exemple,"john.doe@gmail.com"',
-      pattern: '^[#$%&\'*+\\/=?^`\\{\\|\\}~\\-\\.\\w]+@[\\-A-Za-z0-9]+(?:\\.[\\-a-zA-Z0-9]+)+$',
+      pattern: '^[#$%&\'*+\\/=?^`\\{\\|\\}~\\-\\.\\w]+@[\\-A-Za-z0-9Çç]+(?:\\.[\\-a-zA-Z0-9]+)+$',
       label: 'Courriel',
       required: true,
     },
