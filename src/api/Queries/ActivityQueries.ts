@@ -1,13 +1,22 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { holidayKeys } from '../Querykeys.ts';
-import {ActivitySendForm} from '../Models/Activity.ts';
+import {Activity, ActivitySendForm} from '../Models/Activity.ts';
 import ActivityRequestsApi from '../EndPoints/Requests/ActivityRequestsApi.ts';
 
-export const useCreateActivity = (holidayId: string) => {
+export const useCreateActivity = () => {
   const client = useQueryClient();
-  return useMutation((activity: ActivitySendForm) => ActivityRequestsApi.createActivity(activity, holidayId), {
+  return useMutation((activity: ActivitySendForm) => ActivityRequestsApi.createActivity(activity), {
     onSuccess: () => {
       // L'invalidation se fait asynchronement mais ne renvoie pas de données, donc pas besoin du .then()
+      client.invalidateQueries(holidayKeys.all);
+    },
+  });
+};
+
+export const useDeleteActivity = () => {
+  const client = useQueryClient();
+  return useMutation((activity: Activity) => ActivityRequestsApi.deleteActivity(activity), {
+    onSuccess: () => {
       client.invalidateQueries(holidayKeys.all);
     },
   });

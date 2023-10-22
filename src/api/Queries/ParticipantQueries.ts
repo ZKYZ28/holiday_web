@@ -1,6 +1,7 @@
-import { useQuery } from '@tanstack/react-query';
+import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import ParticipantRequestsApi from '../EndPoints/Requests/ParticipantRequestsApi.ts';
-import { participantKeys } from '../Querykeys.ts';
+import {participantKeys} from '../Querykeys.ts';
+import {Holiday} from "../Models/Holiday.ts";
 
 export const useGetParticipants = (id : string) => {
   return useQuery({
@@ -23,5 +24,15 @@ export const useGetParticipantsCount = () => {
     queryKey: participantKeys.all,
     queryFn: () => ParticipantRequestsApi.getParticipantCount().then((content) => content.data),
     initialData: 0,
+  });
+};
+
+
+export const useLeaveHoliday = (participantId: string) => {
+  const client = useQueryClient();
+  return useMutation((holiday: Holiday) => ParticipantRequestsApi.leaveHoliday(participantId, holiday), {
+    onSuccess: () => {
+      client.invalidateQueries(participantKeys.all);
+    },
   });
 };

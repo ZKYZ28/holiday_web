@@ -1,16 +1,18 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faUser} from "@fortawesome/free-solid-svg-icons";
+
 type MyHolidayMembersProps = {
   name: string;
   email: string;
-  srcImage: string;
 };
 
-function MyHolidayMember({ name, email, srcImage }: MyHolidayMembersProps) {
+function MyHolidayMember({ name, email }: MyHolidayMembersProps) {
   return (
     <tr>
       <td className="p-2 whitespace-nowrap">
         <div className="flex items-center">
-          <div className="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3">
-            <img className="rounded-full" src={srcImage} width="40" height="40" alt="Philip Harbach" />
+          <div className="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3 flex justify-center items-center">
+            <FontAwesomeIcon icon={faUser} size="xl" />
           </div>
           <div className="font-medium text-gray-800">{name}</div>
         </div>

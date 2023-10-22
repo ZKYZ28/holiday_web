@@ -27,6 +27,9 @@
   align-items: center;
 }
 
+.max-height-list-activities{
+  max-height: 1200px;
+}
 
 /* width */
 ::-webkit-scrollbar {

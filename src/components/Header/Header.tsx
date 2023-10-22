@@ -23,15 +23,14 @@ function Header() {
         </h2>
       </NavLink>
 
-      <ul className="flex justify-around w-full md:w-1/3 mb-3 md:m-0">
-        <ButtonLink text="ContactPage" to="/contact" />
-        <ButtonLink text="Holidays" to="/holidays" />
-        <ButtonLink text="Chats" to="/chats" />
-        <ButtonLink text="ContactPage" to="/contact" />
         {user ? (
+        <>
+          <div>
+            <ButtonLink text="Holidays" to="/holidays" />
+            <ButtonLink text="Chats" to="/chats" />
+          </div>
           <div>
             <p>
-              Bonjour,{' '}
               <span className="font-bold">
                 {' '}
                 {user.firstName} {user.lastName}
@@ -41,13 +40,14 @@ function Header() {
               Se déconnecter
             </button>
           </div>
-        ) : (
-          <>
-            <ButtonLink text="Login" to="/login" />
-            <ButtonLink text="Register" to="/register" />
           </>
+        ) : (
+          <div>
+            <ButtonLink text="Nous contacter" to="/contact" />
+            <ButtonLink text="Se conecter" to="/login" />
+            <ButtonLink text="S'enregister" to="/register" />
+          </div>
         )}
-      </ul>
     </header>
   );
 }

@@ -35,6 +35,9 @@ class HolidayRequestsApi {
     });
   }
 
+  static async deleteHoliday(holiday: Holiday) {
+    return axiosInstance.post(`${ENDPOINT}/holiday/delete`, holiday);
+  }
 
 }
 

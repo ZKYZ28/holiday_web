@@ -163,6 +163,7 @@ const EncodeActivity = () => {
           postalCode,
           country,
         },
+        holidayId: id,
       },
       { onError: () => alert('An error occurred'), onSuccess: () => navigate(`/holidays/${id}`) }
     );

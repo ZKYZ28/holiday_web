@@ -8,6 +8,7 @@ export type Activity = {
   startDate: string;
   endDate: string;
   location: LocationMutation;
+  holidayId: string;
 };
 
 export type ActivitySendForm = {
@@ -17,6 +18,7 @@ export type ActivitySendForm = {
   startDate?: string;
   endDate?: string;
   location?: LocationSendFormActivity;
+  holidayId: string;
 };
 
 export type ActivityMutation = Omit<Activity, 'id'>;

@@ -17,7 +17,6 @@ const HomePage = () => {
   };
 
   const onClick = ()=> {
-    console.log('TEST');
     // TODO : isLoading jamais utilisé ?
     const { data: dateCount, isLoading } = useGetAllHolidayCountForDate(date);
   };

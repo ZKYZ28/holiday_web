@@ -1,6 +1,7 @@
 import axiosInstance from '../../axios.ts';
 import { Participant } from '../../Models/Participant.ts';
 import { ENDPOINT } from '../EndPointApi.ts';
+import {Holiday} from "../../Models/Holiday.ts";
 
 class ParticipantRequestsApi {
   // PARTICIPANT
@@ -13,6 +14,10 @@ class ParticipantRequestsApi {
 
   static async getParticipantCount() {
     return axiosInstance.get<number>(`${ENDPOINT}/participant/count`);
+  }
+
+  static async leaveHoliday(participantId: string, holiday: Holiday) {
+    return axiosInstance.post(`${ENDPOINT}/participant/leave/${participantId}`, holiday);
   }
 }
 

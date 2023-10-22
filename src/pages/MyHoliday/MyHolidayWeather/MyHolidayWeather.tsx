@@ -60,7 +60,7 @@ function MyHolidayWeather({ id }: {id : string}) {
 
                     <table className="w-full mt-3.5 m-3">
                       {weatherData?.weatherDays?.map((weatherDay, index) => (
-                        <tr
+                        <thead
                           className="flex justify-around cursor-pointer border-solid"
                           key={index}
                           onClick={() => setSelectedDayIndex(index)}
@@ -74,7 +74,7 @@ function MyHolidayWeather({ id }: {id : string}) {
                           </td>
                           <td className="td-width">{weatherDay.maxTemp}°</td>
                           <td className="td-width">{weatherDay.minTemp}°</td>
-                        </tr>
+                        </thead>
                       ))}
                     </table>
                   </>

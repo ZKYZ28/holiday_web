@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import {HolidayMutation, HolidaySendForm} from '../Models/Holiday.ts';
+import {Holiday, HolidaySendForm} from '../Models/Holiday.ts';
 import { holidayKeys } from '../Querykeys.ts';
 import HolidayRequestsApi from '../EndPoints/Requests/HolidayRequestsApi.ts';
 
@@ -61,12 +61,19 @@ export const useGetAllHolidayCountForDate = (date: string) => {
   });
 };
 
+export const useDeleteHoliday = () => {
+  const client = useQueryClient();
+  return useMutation((holiday: Holiday) => HolidayRequestsApi.deleteHoliday(holiday), {
+    onSuccess: () => {
+      client.invalidateQueries(holidayKeys.all);
+    },
+  });
+};
+
 export const useGetExportHoliday = (holidayId: string) => {
   return useMutation({
     mutationFn: () => HolidayRequestsApi.getExportHoliday(holidayId).then((content) => {
       const href = URL.createObjectURL(content.data);
-
-      console.log(content.data)
 
       const link = document.createElement('a');
       link.href = href;

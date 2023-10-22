@@ -8,6 +8,10 @@ export const authentificationKeys = {
   all: ['authentification'] as const,
 };
 
+export const mailKeys = {
+  all: ['mail'] as const,
+};
+
 export const invitationsKeys = {
   all: ['invitation'] as const,
   list: () => [...invitationsKeys.all, 'list'] as const,

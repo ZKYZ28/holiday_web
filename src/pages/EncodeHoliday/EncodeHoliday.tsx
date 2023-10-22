@@ -161,8 +161,6 @@ const EncodeHoliday = () => {
         },
       }
     );
-
-
   };
 
   return (

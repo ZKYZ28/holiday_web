@@ -1,5 +1,4 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import HolidayApi from '../EndPoints/HolidayApi.ts';
 import { invitationsKeys } from '../Querykeys.ts';
 import { InvitationMutation } from '../Models/Invitation.ts';
 import InvitationRequestsApi from '../EndPoints/Requests/InvitationRequestsApi.ts';

@@ -3,10 +3,12 @@ import FormInput from '../../components/common/FormInput.tsx';
 import TextAreaInput from '../../components/common/TextAreaInput.tsx';
 import SideContact from './SideContact/SideContact.tsx';
 import PageWrapper from '../../components/common/PageWrapper.tsx';
+import {useSendMail} from "../../api/Queries/MailQueries.ts";
 
 function ContactPage() {
   const [emailInput, setEmailInput] = useState('');
   const [textAreaField, setTextAreaFild] = useState('');
+  const {mutate: Mail} = useSendMail();
 
   const inputEmail = {
     id: 'email',
@@ -15,7 +17,7 @@ function ContactPage() {
     placeholder: 'john.doe@gmail.com',
     errorMessage: 'Veuillez entrer une adresse e-mail valide. Par exemple,"john.doe@gmail.com"',
     pattern: '^[#$%&\'*+\\/=?^`\\{\\|\\}~\\-\\.\\w]+@[\\-A-Za-z0-9]+(?:\\.[\\-a-zA-Z0-9]+)+$',
-    label: 'Courriel',
+    label: 'Votre adresse mail',
     required: true,
   };
 
@@ -31,6 +33,19 @@ function ContactPage() {
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+    console.log(textAreaField.length)
+    if(textAreaField.length > 10){
+      Mail(
+        {
+          senderEmail : emailInput,
+          content : textAreaField
+        },
+        {
+          onError: () => alert('An error occurred'),
+          onSuccess: () => alert("SUCCES"),
+        }
+      );
+    }
   };
 
   const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
@@ -43,8 +58,8 @@ function ContactPage() {
 
   return (
     <PageWrapper>
-      <form onSubmit={handleSubmit}>
-        <div className="flex justify-center items-center w-screen bg-red pb-10">
+      <form onSubmit={handleSubmit} className="page-chat">
+        <div className="flex justify-center items-center w-screen bg-red pb-10 h-full">
           <div className="container mx-auto my-4 px-4 lg:px-20">
             <div className="w-full p-8 my-4 md:px-12 lg:w-9/12 lg:pl-20 lg:pr-40 mr-auto rounded-2xl shadow-2xl">
               <span className="font-bold uppercase md:text-5xl sm:text-xs">Contactez-nous</span>
