@@ -36,8 +36,8 @@ const inputsActivity = [
   {
     id: 'number',
     name: 'number',
-    type: 'number',
-    placeholder: '77',
+    type: 'text',
+    placeholder: '77 A',
     errorMessage: 'Veuillez entrer un numéro de boîte valide. Exemples : 77, 77A, PO Box 123, PMB 456B.',
     pattern: '^(PO\\s?Box|PMB|BP)?\\s?\\d{1,6}([A-Za-z\\s\\-]{0,5})?$',
     label: 'Numéro de boite :',
