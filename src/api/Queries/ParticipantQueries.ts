@@ -19,6 +19,14 @@ export const useGetParticipantsByHoliday = (holidayId: string) => {
   });
 };
 
+export const useGetParticipantsNotYetActivity = (activityId: string) => {
+  return useQuery({
+    queryKey: participantKeys.all,
+    queryFn: () => ParticipantRequestsApi.getParticipantsNotYetActivity(activityId).then((content) => content.data),
+    initialData: [],
+  });
+};
+
 export const useGetParticipantsCount = () => {
   return useQuery({
     queryKey: participantKeys.all,

@@ -9,8 +9,10 @@ import {useDeleteActivity} from "../../../api/Queries/ActivityQueries.ts";
 import Modal from "../../../components/Modal.tsx";
 import {useState} from "react";
 import { urlApi } from '../../../api/EndPoints/HolidayApi.ts';
+import {useParams} from "react-router-dom";
 
 function MyHolidayCard({ activity }: { activity: Activity }) {
+  const{id} = useParams();
   const { mutate: mutateActivity } = useDeleteActivity();
 
   function handleDeleteClick() {
@@ -68,7 +70,7 @@ function MyHolidayCard({ activity }: { activity: Activity }) {
         </ul>
 
         <div className="flex justify-center items-center mt-8">
-          <ButtonLink text="Participant(s)" to="/myholiday" />
+          <ButtonLink text="Participant(s)" to={`/activity/participants/${activity.id}`} />
         </div>
       </div>
 

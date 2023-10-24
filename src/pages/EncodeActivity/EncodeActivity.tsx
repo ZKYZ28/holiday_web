@@ -120,8 +120,9 @@ const descriptionTextArea = {
 
 const EncodeActivity = () => {
   const { id } = useParams();
+  console.log(id)
   // TODO : id! ou id ?? ''
-  const { mutate: mutateActivity } = useCreateActivity(id!);
+  const { mutate: mutateActivity } = useCreateActivity();
   const [error, setError] = useState('');
   const navigate = useNavigate();
 

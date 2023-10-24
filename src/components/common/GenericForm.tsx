@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import {ChangeEvent, FormEvent, useEffect, useState} from 'react';
 import FormInput from './FormInput.tsx';
 import TextAreaInput from './TextAreaInput.tsx';
 import { InputType, OnSubmitFunction } from '../../../typing/inputType.ts';
@@ -8,6 +8,7 @@ import UploadFile from './UploadFile.tsx';
 function GenericForm({
   fields,
   initialValues,
+  descriptionValue,
   onSubmit,
   textAreaProps,
   buttonText,
@@ -15,14 +16,23 @@ function GenericForm({
 }: {
   fields: InputType[];
   initialValues: object;
+  descriptionValue: string;
   onSubmit: OnSubmitFunction;
   textAreaProps: TextAreaProps;
   buttonText: string;
   error: string;
 }) {
   const [valueInputs, setValueInputs] = useState(initialValues);
-  const [description, setDescription] = useState('');
+  const [description, setDescription] = useState(descriptionValue);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  useEffect(() => {
+    setValueInputs(initialValues);
+  }, [initialValues]);
+
+  useEffect(() => {
+    setDescription(descriptionValue);
+  }, [descriptionValue]);
 
   const handleFileSelect = (file: File | null) => {
     console.log(file);

@@ -1,4 +1,4 @@
-import { ChangeEvent, ChangeEventHandler, FC, useState } from 'react';
+import { ChangeEvent, FC, useState } from 'react';
 import { faX } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { isAllowedTypes, isHigherFiveMo } from './utils/imageUtils.ts';

@@ -4,13 +4,11 @@ import * as dayjs from 'dayjs';
 import PageWrapper from '../../components/common/PageWrapper.tsx';
 import { useNavigate } from 'react-router-dom';
 import GenericForm from '../../components/common/GenericForm.tsx';
-import { InitialValues } from '../../../typing/inputType.ts';
 import { validateDatesWithoutHour } from '../../validators/dateValidator.ts';
 import { useState } from 'react';
 import { formattedDate } from '../../components/common/utils/dateUtils.ts';
 import { InitialValues } from '../../../typing/inputType.ts';
 import { useAuth } from '../../provider/AuthProvider.tsx';
-import { useMessages } from '../../provider/MessagesProvider.tsx';
 
 const inputsHoliday = [
   {
@@ -19,7 +17,7 @@ const inputsHoliday = [
     type: 'text',
     placeholder: 'Vacances 2023-2024',
     errorMessage:
-      'Le nom doit contenir entre 3 et 50 caractères et peut inclure des lettres, des chiffres, des apostrophes, des tirets et des espaces.',
+        'Le nom doit contenir entre 3 et 50 caractères et peut inclure des lettres, des chiffres, des apostrophes, des tirets et des espaces.',
     label: 'Nom :',
     pattern: '^[A-Za-z0-9À-ÿ\\s\'\\-]{3,50}$',
     required: true,
@@ -30,7 +28,7 @@ const inputsHoliday = [
     type: 'text',
     placeholder: 'Pays',
     errorMessage:
-      'Veuillez entrer un nom de pays valide entre 3 et 50 caractères. Les lettres, chiffres, apostrophes, tirets et espaces sont autorisés.',
+        'Veuillez entrer un nom de pays valide entre 3 et 50 caractères. Les lettres, chiffres, apostrophes, tirets et espaces sont autorisés.',
     pattern: '^[A-Za-z0-9À-ÿ\\s\'\\-]{3,50}$',
     label: 'Pays :',
     required: true,
@@ -51,7 +49,7 @@ const inputsHoliday = [
     type: 'text',
     placeholder: 'Rue du port',
     errorMessage:
-      'Veuillez saisir une adresse de rue valide contenant entre 1 et 100 caractères. Seules les lettres, chiffres, espaces, apostrophes, points, virgules, slashes et tirets sont autorisés.',
+        'Veuillez saisir une adresse de rue valide contenant entre 1 et 100 caractères. Seules les lettres, chiffres, espaces, apostrophes, points, virgules, slashes et tirets sont autorisés.',
     pattern: '^[A-Za-zÀ-ÿ0-9\\s\'.\\,\\/\\-]{1,100}$',
     label: 'Rue :',
     required: true,
@@ -62,7 +60,7 @@ const inputsHoliday = [
     type: 'number',
     placeholder: '4000',
     errorMessage:
-      'Veuillez saisir un code postal valide. Exemples : 4000 (Belgique), 75000 (France), 90210 (USA), K8N 5W6 (Canada).',
+        'Veuillez saisir un code postal valide. Exemples : 4000 (Belgique), 75000 (France), 90210 (USA), K8N 5W6 (Canada).',
     pattern: '^(?:\\d{4}|\\d{5}(-\\d{4})?|[A-Za-z]\\d[A-Za-z] ?\\d[A-Za-z]\\d|[A-Za-z]{2}\\d{2,4}[A-Za-z]{0,2})$',
     label: 'Code postal :',
     required: true,
@@ -73,7 +71,7 @@ const inputsHoliday = [
     type: 'text',
     placeholder: 'Liège',
     errorMessage:
-      'Veuillez saisir une localité valide contenant entre 1 et 100 caractères. Seules les lettres, espaces, apostrophes, tirets et points sont autorisés.',
+        'Veuillez saisir une localité valide contenant entre 1 et 100 caractères. Seules les lettres, espaces, apostrophes, tirets et points sont autorisés.',
     pattern: '^[A-Za-zÀ-ÿ0-9\\s\'\\.,\\/\\-]{1,100}$',
     label: 'Lieu :',
     required: true,
@@ -84,7 +82,7 @@ const inputsHoliday = [
     type: 'date',
     placeholder: '20/10/2023',
     errorMessage:
-      'La date de début doit respecter le format de valide comme JJ/MM/YYYY (20/10/2023) ou YYYY/MM/DD(2023/10/20)',
+        'La date de début doit respecter le format de valide comme JJ/MM/YYYY (20/10/2023) ou YYYY/MM/DD(2023/10/20)',
     label: 'Date de début :',
     required: true,
   },
@@ -94,7 +92,7 @@ const inputsHoliday = [
     type: 'date',
     placeholder: '23/10/2023',
     errorMessage:
-      'La date de fin doit respecter le format de valide comme JJ/MM/YYYY (23/10/2023) ou YYYY/MM/DD (2023/10/23)',
+        'La date de fin doit respecter le format de valide comme JJ/MM/YYYY (23/10/2023) ou YYYY/MM/DD (2023/10/23)',
     label: 'Date de fin :',
     required: true,
   },
@@ -155,45 +153,29 @@ const EncodeHoliday = () => {
     }
 
     mutateHoliday(
-      // {
-      //   name,
-      //   description,
-      //   startDate: dayjs(startDate).format(),
-      //   endDate: dayjs(endDate).format(),
-      //   location: {
-      //     street,
-      //     number,
-      //     locality: locality!,
-      //     postalCode: postalCode!,
-      //     country: country!,
-      //   },
-      //   creatorId: user.id,
-      //   isPublish: false,
-      //   uploadedHolidayPicture: file,
-      // },
-      formData,
-      {
-        onError: () => alert('An error occurred'),
-        onSuccess: () => {
-          navigate('/holidays');
-        },
-      }
+        formData,
+        {
+          onError: () => alert('An error occurred'),
+          onSuccess: () => {
+            navigate('/holidays');
+          },
+        }
     );
   };
 
   return (
-    <PageWrapper>
-      <FormContainer title="Encoder vacances">
-        <GenericForm
-          fields={inputsHoliday}
-          initialValues={initialValues}
-          onSubmit={handleSubmit}
-          textAreaProps={descriptionTextArea}
-          buttonText="Encoder"
-          error={error}
-        />
-      </FormContainer>
-    </PageWrapper>
+      <PageWrapper>
+        <FormContainer title="Encoder vacances">
+          <GenericForm
+              fields={inputsHoliday}
+              initialValues={initialValues}
+              onSubmit={handleSubmit}
+              textAreaProps={descriptionTextArea}
+              buttonText="Encoder"
+              error={error}
+          />
+        </FormContainer>
+      </PageWrapper>
   );
 };
 export default EncodeHoliday;

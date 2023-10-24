@@ -12,6 +12,10 @@ class ParticipantRequestsApi {
     return axiosInstance.get<Participant[]>(`${ENDPOINT}/participant/${holidayId}`);
   }
 
+  static async getParticipantsNotYetActivity(activityId: string) {
+    return axiosInstance.get<Participant[]>(`${ENDPOINT}/participant/activity/${activityId}`);
+  }
+
   static async getParticipantCount() {
     return axiosInstance.get<number>(`${ENDPOINT}/participant/count`);
   }

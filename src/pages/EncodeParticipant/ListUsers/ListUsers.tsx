@@ -7,16 +7,21 @@ import { useCreateInvitations } from '../../../api/Queries/InvitationQueries.ts'
 import { useAuth } from '../../../provider/AuthProvider.tsx';
 import { Participant } from '../../../api/Models/Participant.ts';
 import { InvitationMutation } from '../../../api/Models/Invitation.ts';
+import {useCreateParticipates} from "../../../api/Queries/ParticipateQueries.ts";
+import {ParticipateMutation} from "../../../api/Models/Participate.ts";
+
 type ListProps = {
   input: string;
+  participants: Participant[];
+  isLoading: boolean;
+  isForHoliday: boolean;
 };
 
-const ListUsers: FC<ListProps> = ({ input }) => {
-  // RECUPERATION DE TOUS LES PARTICIPANTS
+const ListUsers: FC<ListProps> = ({ input, participants, isLoading, isForHoliday }) => {
   const { user } = useAuth();
   const { id } = useParams();
-  const { data: participants, isLoading }: { data: Participant[]; isLoading: boolean } = useGetParticipants(id);
   const navigate = useNavigate();
+  const [showAlert, setShowAlert] = useState(false);
 
   // AJOUT ET SUPRESSION DES PARTICIPANTS DANS LES PARTICIPANTS AJOUTES
   const [participantsAdded, setParticipantsAdded] = useState<Participant[]>([]);
@@ -56,7 +61,7 @@ const ListUsers: FC<ListProps> = ({ input }) => {
   const { mutate: mutateInvitations } = useCreateInvitations();
 
   // CREATION DES INVITATIONS
-  const handleSubmit = async () => {
+  const handleSubmitHoliday = async () => {
     const invitations: InvitationMutation[] = participantsAdded.map((participant: Participant) => ({
       holidayId: id ?? '', // TODO : value '' is good ?
       participantId: participant.id,
@@ -67,6 +72,20 @@ const ListUsers: FC<ListProps> = ({ input }) => {
       onSuccess: () => navigate(`/holidays/${id}`),
     });
   };
+
+  const {mutate : mutateParticipates} = useCreateParticipates();
+  const handleSubmitActivity = async () => {
+    const participates: ParticipateMutation[] = participantsAdded.map((participant: Participant) => ({
+      activityId: id ?? '', // TODO : value '' is good ?
+      participantId: participant.id,
+    }));
+
+    await mutateParticipates(participates, {
+      onError: () => alert('An error occurred'),
+      onSuccess: () => {navigate(-1)
+      },
+    });
+  }
 
   return (
     <div id="addedParticipant" className="mb-6">
@@ -81,7 +100,7 @@ const ListUsers: FC<ListProps> = ({ input }) => {
           <ul className="flex w-full flex-wrap justify-center max-h-52 overflow-y-scroll">
             {participantsAdded.map((participant: Participant) => (
               <li
-                className="text-blue-800 hover:text-white border border-blue-700 hover:border-red-900 hover-bg-red-700 focus-ring-4 focus-outline-none focus-ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center mr-2 mb-2"
+                className="text-blue-800 hover:text-black border border-blue-700 hover:border-black hover:bg-red-600 focus-ring-4 focus-outline-none focus-ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center mr-2 mb-2"
                 key={participant.id}
                 onClick={() => removeParticipantFromAddedList(participant.id)}
               >
@@ -92,15 +111,27 @@ const ListUsers: FC<ListProps> = ({ input }) => {
           </ul>
 
           <div className="w-full bg-blue-800 rounded-t-lg p-2">
-            <p className="text-white font-bold">Participants</p>
+            <p className="text-white font-bold">Participants ajoutables</p>
           </div>
 
           <ul className=" max-h-52 overflow-y-scroll w-full mb-4 ">
-            {filteredData
-              .filter((participant) => {
-                return participant.id != user?.id!;
-              })
-              .map((participant) => (
+            {isForHoliday ? (
+              filteredData
+                .filter((participant) => {
+                  return participant.id !== user?.id!;
+                })
+                .map((participant) => (
+                  <li
+                    key={participant.id}
+                    className="border-b-2 mb-2 mt-2 cursor-pointer pb-2"
+                    onClick={() => addParticipantToAddedList(participant)}
+                  >
+                    <FontAwesomeIcon icon={faAdd} size="lg" className="mx-2.5" /> {participant.firstName}{' '}
+                    {participant.lastName} ({participant.email})
+                  </li>
+                ))
+            ) : (
+              filteredData.map((participant) => (
                 <li
                   key={participant.id}
                   className="border-b-2 mb-2 mt-2 cursor-pointer pb-2"
@@ -109,7 +140,8 @@ const ListUsers: FC<ListProps> = ({ input }) => {
                   <FontAwesomeIcon icon={faAdd} size="lg" className="mx-2.5" /> {participant.firstName}{' '}
                   {participant.lastName} ({participant.email})
                 </li>
-              ))}
+              ))
+            )}
           </ul>
         </div>
       )}
@@ -117,7 +149,7 @@ const ListUsers: FC<ListProps> = ({ input }) => {
       <div className="flex w-full justify-center">
         <button
           className="bg-blue-800 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full"
-          onClick={handleSubmit}
+          onClick={isForHoliday ? handleSubmitHoliday : handleSubmitActivity}
         >
           Ajouter
         </button>
