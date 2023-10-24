@@ -11,6 +11,7 @@ import { formattedDate } from '../../components/common/utils/dateUtils.ts';
 import { InitialValues } from '../../../typing/inputType.ts';
 import { useAuth } from '../../provider/AuthProvider.tsx';
 import { useMessages } from '../../provider/MessagesProvider.tsx';
+import {MODELS} from "../../api/Models/Enums/ModelsEnum.ts";
 
 const inputsHoliday = [
   {
@@ -191,6 +192,7 @@ const EncodeHoliday = () => {
           textAreaProps={descriptionTextArea}
           buttonText="Encoder"
           error={error}
+          modelType={MODELS.Holiday}
         />
       </FormContainer>
     </PageWrapper>

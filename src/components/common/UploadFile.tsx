@@ -2,13 +2,24 @@ import { ChangeEvent, ChangeEventHandler, FC, useState } from 'react';
 import { faX } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { isAllowedTypes, isHigherFiveMo } from './utils/imageUtils.ts';
+import { urlApi } from '../../api/EndPoints/HolidayApi.ts';
 
 type UploadFileProps = {
-  onFileSelected: (file: File | null) => void;
+  onFileSelected: (file: FileWithAction | null) => void;
+  initialPicturePath: string;
 };
 
-const UploadFile: FC<UploadFileProps> = ({onFileSelected}) => {
-  const [imageSrc, setImageSrc] = useState<string | null>(null);
+type FileAction = 'DELETE_IMAGE' | 'UPLOAD_IMAGE' | 'NO_CHANGE';
+
+export type FileWithAction = {
+  file: File | null;
+  action: FileAction;
+};
+
+const UploadFile: FC<UploadFileProps> = ({ onFileSelected, initialPicturePath }) => {
+  const [imageSrc, setImageSrc] = useState<string | null>(
+    initialPicturePath ? `${urlApi()}${initialPicturePath}` : null
+  );
   const [error, setError] = useState<string>('');
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -32,7 +43,7 @@ const UploadFile: FC<UploadFileProps> = ({onFileSelected}) => {
         reader.readAsDataURL(file);
       }
       // Renvoyer l'image vers le parent
-      onFileSelected(file);
+      onFileSelected({ file: file, action: 'UPLOAD_IMAGE' });
       return;
     }
     onFileSelected(null);
@@ -40,6 +51,7 @@ const UploadFile: FC<UploadFileProps> = ({onFileSelected}) => {
 
   const removeImage = () => {
     setImageSrc(null);
+    onFileSelected({ file: null, action: 'DELETE_IMAGE' });
   };
 
   return (

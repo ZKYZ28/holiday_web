@@ -3,7 +3,10 @@ import FormInput from './FormInput.tsx';
 import TextAreaInput from './TextAreaInput.tsx';
 import { InputType, OnSubmitFunction } from '../../../typing/inputType.ts';
 import { TextAreaProps } from '../../../typing/textAreaPropsType.ts';
-import UploadFile from './UploadFile.tsx';
+import UploadFile, { FileWithAction } from './UploadFile.tsx';
+import { Holiday } from '../../api/Models/Holiday.ts';
+import { Activity } from '../../api/Models/Activity.ts';
+import { MODELS } from '../../api/Models/Enums/ModelsEnum.ts';
 
 function GenericForm({
   fields,
@@ -12,6 +15,7 @@ function GenericForm({
   textAreaProps,
   buttonText,
   error,
+  modelType,
 }: {
   fields: InputType[];
   initialValues: object;
@@ -19,14 +23,15 @@ function GenericForm({
   textAreaProps: TextAreaProps;
   buttonText: string;
   error: string;
+  modelType: string;
 }) {
-  const [valueInputs, setValueInputs] = useState(initialValues);
+  const [valueInputs, setValueInputs] = useState<Holiday | Activity>(initialValues);
   const [description, setDescription] = useState('');
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedFile, setSelectedFile] = useState<FileWithAction | null>(null);
 
-  const handleFileSelect = (file: File | null) => {
+  const handleFileSelect = (file: FileWithAction) => {
     console.log(file);
-    setSelectedFile(file);
+    setSelectedFile({ ...file });
   };
 
   const onChange = (evt: ChangeEvent<HTMLInputElement>) => {
@@ -50,7 +55,10 @@ function GenericForm({
 
   return (
     <form onSubmit={handleSubmit}>
-      <UploadFile onFileSelected={handleFileSelect} />
+      <UploadFile
+        onFileSelected={handleFileSelect}
+        initialPicturePath={modelType === MODELS.Holiday ? valueInputs.holidayPath : valueInputs.activityPath}
+      />
       {fields.map(
         (input, index) =>
           index % 2 === 0 && (
