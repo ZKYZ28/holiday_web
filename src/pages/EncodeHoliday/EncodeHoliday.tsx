@@ -4,7 +4,6 @@ import * as dayjs from 'dayjs';
 import PageWrapper from '../../components/common/PageWrapper.tsx';
 import { useNavigate } from 'react-router-dom';
 import GenericForm from '../../components/common/GenericForm.tsx';
-import { InitialValues } from '../../../typing/inputType.ts';
 import { validateDatesWithoutHour } from '../../validators/dateValidator.ts';
 import { useState } from 'react';
 import { formattedDate } from '../../components/common/utils/dateUtils.ts';
@@ -156,46 +155,30 @@ const EncodeHoliday = () => {
     }
 
     mutateHoliday(
-      // {
-      //   name,
-      //   description,
-      //   startDate: dayjs(startDate).format(),
-      //   endDate: dayjs(endDate).format(),
-      //   location: {
-      //     street,
-      //     number,
-      //     locality: locality!,
-      //     postalCode: postalCode!,
-      //     country: country!,
-      //   },
-      //   creatorId: user.id,
-      //   isPublish: false,
-      //   uploadedHolidayPicture: file,
-      // },
-      formData,
-      {
-        onError: () => alert('An error occurred'),
-        onSuccess: () => {
-          navigate('/holidays');
-        },
-      }
+        formData,
+        {
+          onError: () => alert('An error occurred'),
+          onSuccess: () => {
+            navigate('/holidays');
+          },
+        }
     );
   };
 
   return (
-    <PageWrapper>
-      <FormContainer title="Encoder vacances">
-        <GenericForm
-          fields={inputsHoliday}
-          initialValues={initialValues}
-          onSubmit={handleSubmit}
-          textAreaProps={descriptionTextArea}
-          buttonText="Encoder"
-          error={error}
-          modelType={MODELS.Holiday}
-        />
-      </FormContainer>
-    </PageWrapper>
+      <PageWrapper>
+        <FormContainer title="Encoder vacances">
+          <GenericForm
+              fields={inputsHoliday}
+              initialValues={initialValues}
+              onSubmit={handleSubmit}
+              textAreaProps={descriptionTextArea}
+              buttonText="Encoder"
+              error={error}
+              modelType={MODELS.Holiday}
+          />
+        </FormContainer>
+      </PageWrapper>
   );
 };
 export default EncodeHoliday;

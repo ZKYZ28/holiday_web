@@ -4,8 +4,8 @@ import axiosInstance from '../../axios.ts';
 
 class ActivityRequestsApi {
   // ACTIVITY
-  static async createActivity(activity: FormData, holidayId: string) {
-    return axiosInstance.post(`${ENDPOINT}/activity/${holidayId}`, activity, {
+  static async createActivity(activity: FormData) {
+    return axiosInstance.post(`${ENDPOINT}/activity/create`, activity, {
       headers: {
         'Content-type': 'multipart/form-data',
       },

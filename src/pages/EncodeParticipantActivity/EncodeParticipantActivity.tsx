@@ -1,17 +1,20 @@
 import FormContainer from '../../components/common/FormContainer.tsx';
 import { ChangeEvent, useState } from 'react';
 import FormInput from '../../components/common/FormInput.tsx';
-import ListUsers from './ListUsers/ListUsers.tsx';
 import PageWrapper from '../../components/common/PageWrapper.tsx';
 import PageContent from '../../components/common/PageContent.tsx';
-import {Participant} from "../../api/Models/Participant.ts";
-import {useGetParticipants} from "../../api/Queries/ParticipantQueries.ts";
+import ListUsers from "../EncodeParticipant/ListUsers/ListUsers.tsx";
 import {useParams} from "react-router-dom";
+import {
+  useGetParticipantsNotYetActivity,
+} from "../../api/Queries/ParticipantQueries.ts";
+import MembersActivity from "./MembersActivity/MembersActivity.tsx";
 
-const EncodeParticipant = () => {
-  const { id } = useParams();
+const EncodeParticipantActivity = () => {
+  const { id} = useParams();
+
   const [searchInput, setSearchText] = useState('');
-  const { data: participants, isLoading }: { data: Participant[]; isLoading: boolean } = useGetParticipants(id);
+  const {data : participantsNotYetActivity, isLoading: isLoadingNotYetActivity} = useGetParticipantsNotYetActivity(id!);
 
   const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
     // convert input text to lower case
@@ -30,15 +33,16 @@ const EncodeParticipant = () => {
 
   return (
     <PageWrapper>
-      <PageContent pageTitle="Encoder participant">
+      <PageContent pageTitle="Gestion des participants">
         <FormContainer title="Encoder participant">
           <div className="search">
             <FormInput {...inputSearch} id="outlined-basic" value={searchInput} onChange={searchHandler} />
           </div>
-          <ListUsers input={searchInput} participants={participants} isLoading={isLoading} isForHoliday={true} />
+          <ListUsers input={searchInput} participants={participantsNotYetActivity} isLoading={isLoadingNotYetActivity} isForHoliday={false} />
+            <MembersActivity />
         </FormContainer>
       </PageContent>
     </PageWrapper>
   );
 };
-export default EncodeParticipant;
+export default EncodeParticipantActivity;

@@ -11,6 +11,7 @@ import { MODELS } from '../../api/Models/Enums/ModelsEnum.ts';
 function GenericForm({
   fields,
   initialValues,
+  descriptionValue,
   onSubmit,
   textAreaProps,
   buttonText,
@@ -19,15 +20,24 @@ function GenericForm({
 }: {
   fields: InputType[];
   initialValues: object;
+  descriptionValue: string;
   onSubmit: OnSubmitFunction;
   textAreaProps: TextAreaProps;
   buttonText: string;
   error: string;
   modelType: string;
 }) {
-  const [valueInputs, setValueInputs] = useState<Holiday | Activity>(initialValues);
-  const [description, setDescription] = useState('');
+  const [valueInputs, setValueInputs] = useState(initialValues);
+  const [description, setDescription] = useState(descriptionValue);
   const [selectedFile, setSelectedFile] = useState<FileWithAction | null>(null);
+
+  useEffect(() => {
+    setValueInputs(initialValues);
+  }, [initialValues]);
+
+  useEffect(() => {
+    setDescription(descriptionValue);
+  }, [descriptionValue]);
 
   const handleFileSelect = (file: FileWithAction) => {
     console.log(file);

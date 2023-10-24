@@ -11,6 +11,8 @@ import ContactPage from '../pages/Contact/ContactPage.tsx';
 import Warden from '../components/common/Warden.tsx';
 import EncodeParticipant from '../pages/EncodeParticipant/EncodeParticipant.tsx';
 import { useAuth } from '../provider/AuthProvider.tsx';
+import EncodeParticipantActivity from "../pages/EncodeParticipantActivity/EncodeParticipantActivity.tsx";
+import EditHoliday from "../pages/EditHoliday/EditHoliday.tsx";
 
 const Routes = () => {
   const { token } = useAuth();
@@ -54,14 +56,22 @@ const Routes = () => {
           element: <EncodeActivity />,
         },
         {
-          path: 'create',
+          path: 'holiday',
           element: <EncodeHoliday />,
+        },
+        {
+          path: 'holiday/:id',
+          element: <EditHoliday />,
         },
         {
           path: 'participant/:id',
           element: <EncodeParticipant />,
         },
       ],
+    },
+    {
+      path: 'activity/participants/:id',
+      element: <EncodeParticipantActivity />
     },
     {
       path: 'myholiday',

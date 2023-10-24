@@ -5,11 +5,12 @@ import location from '../../../assets/imgs/icons/location.png';
 import * as dayjs from 'dayjs';
 import { Holiday } from '../../../api/Models/Holiday.ts';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faTrash} from "@fortawesome/free-solid-svg-icons";
+import {faTrash, faEdit} from "@fortawesome/free-solid-svg-icons";
 import {useState} from "react";
 import Modal from "../../../components/Modal.tsx";
 import {useDeleteHoliday} from "../../../api/Queries/HolidayQueries.ts";
 import {urlApi} from '../../../api/EndPoints/HolidayApi.ts';
+import {NavLink} from "react-router-dom";
 
 function ListHolidayCard({ holiday, isPersonalHoliday }: { holiday: Holiday, isPersonalHoliday: boolean }) {
   const id = `/holidays/${holiday.id}`;
@@ -45,7 +46,12 @@ function ListHolidayCard({ holiday, isPersonalHoliday }: { holiday: Holiday, isP
               <></>
             )}
             {isPersonalHoliday ? (
-              <FontAwesomeIcon icon={faTrash} size="xl" className="text-red-600 ml-3 cursor-pointer" onClick={openModalInvitation}/>
+              <>
+                <NavLink to={`/holidays/holiday/${holiday.id}`}>
+                  <FontAwesomeIcon icon={faEdit} size="xl" className="text-blue-700 ml-3 cursor-pointer" />
+                </NavLink>
+                <FontAwesomeIcon icon={faTrash} size="xl" className="text-red-600 ml-3 cursor-pointer" onClick={openModalInvitation}/>
+              </>
             ) : (
               <></>
             )}

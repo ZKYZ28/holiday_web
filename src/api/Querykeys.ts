@@ -22,6 +22,11 @@ export const participantKeys = {
   list: () => [...invitationsKeys.all, 'list'] as const,
 };
 
+export const participateKeys = {
+  all: ['participate'] as const,
+  list: () => [...participateKeys.all, 'list'] as const,
+};
+
 export const weatherKeys = {
   all: ['weather'] as const,
   list: () => [...invitationsKeys.all, 'list'] as const,
