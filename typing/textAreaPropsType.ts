@@ -1,5 +1,7 @@
 //import { ChangeEventHandler } from 'react';
 
+import {ChangeEventHandler} from "react";
+
 export type TextAreaProps = {
   id: string;
   name: string;
@@ -7,6 +9,6 @@ export type TextAreaProps = {
   errorMessage: string;
   placeholder: string;
   label: string;
+  onChangeDescritpion: ChangeEventHandler;
   value: string;
-//  onChange: ChangeEventHandler;
 };

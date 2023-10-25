@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { invitationsKeys } from '../Querykeys.ts';
-import { InvitationMutation } from '../Models/Invitation.ts';
+import {Invitation, InvitationMutation} from '../Models/Invitation.ts';
 import InvitationRequestsApi from '../EndPoints/Requests/InvitationRequestsApi.ts';
 
 export const useGetInvitations = (participantId: string) => {
@@ -22,9 +22,8 @@ export const useCreateInvitations = () => {
 
 export const useAcceptInvitation = () => {
   const client = useQueryClient();
-  return useMutation((invitation: InvitationMutation) => InvitationRequestsApi.acceptInvitation(invitation), {
+  return useMutation((invitation: Invitation) => InvitationRequestsApi.acceptInvitation(invitation), {
     onSuccess: () => {
-      // L'invalidation se fait asynchronement mais ne renvoie pas de données, donc pas besoin du .then()
       client.invalidateQueries(invitationsKeys.all);
     },
   });
@@ -32,9 +31,8 @@ export const useAcceptInvitation = () => {
 
 export const useRefuseInvitation = () => {
   const client = useQueryClient();
-  return useMutation((invitation: InvitationMutation) => InvitationRequestsApi.refuseInvitation(invitation), {
+  return useMutation((invitation: Invitation) => InvitationRequestsApi.refuseInvitation(invitation), {
     onSuccess: () => {
-      // L'invalidation se fait asynchronement mais ne renvoie pas de données, donc pas besoin du .then()
       client.invalidateQueries(invitationsKeys.all);
     },
   });

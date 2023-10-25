@@ -1,4 +1,3 @@
-import {useGetParticipants} from '../../../api/Queries/ParticipantQueries.ts';
 import { FC, useState } from 'react';
 import { faTimes, faAdd } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

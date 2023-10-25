@@ -9,7 +9,6 @@ import { useState } from 'react';
 import { formattedDate } from '../../components/common/utils/dateUtils.ts';
 import { InitialValues } from '../../../typing/inputType.ts';
 import { useAuth } from '../../provider/AuthProvider.tsx';
-import { MODELS } from '../../api/Models/Enums/ModelsEnum.ts';
 
 const inputsHoliday = [
   {
@@ -161,6 +160,7 @@ const EncodeHoliday = () => {
     });
   };
 
+
   return (
     <PageWrapper>
       <FormContainer title="Encoder vacances">
@@ -171,7 +171,6 @@ const EncodeHoliday = () => {
           textAreaProps={descriptionTextArea}
           buttonText="Encoder"
           error={error}
-          modelType={MODELS.Holiday}
         />
       </FormContainer>
     </PageWrapper>

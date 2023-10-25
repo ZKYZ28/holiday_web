@@ -13,6 +13,7 @@ import { NavLink } from 'react-router-dom';
 import ErrorMessage from "../../components/common/ErrorMessage.tsx";
 import Loading from "../../components/common/Loading.tsx";
 import HolidayInvitation from "./HolidayInvitation/HolidayInvitation.tsx";
+import {AxiosError} from "axios";
 
 const ListHolidayPage = () => {
   const { user } = useAuth();
@@ -22,6 +23,14 @@ const ListHolidayPage = () => {
 
   const { data: invitations, isLoading: invitationsIsLoading, error: invitationsError } = useGetInvitations(user!.id);
   const { data: holidays, isLoading } = isPersonalHoliday ? useGetAllHolidayPublished() : useGetAllHolidayByParticipant(user!.id);
+  const [errorMessage, setErrorMessage] = useState<string>('');
+
+  if (invitationsError) {
+    const axiosError = invitationsError as AxiosError;
+    if (axiosError.response) {
+      setErrorMessage(axiosError.response.data as string);
+    }
+  }
 
   //GESTION DE LA MONDALE
   const openModalInvitation = (): void => {
@@ -33,7 +42,6 @@ const ListHolidayPage = () => {
   };
 
   //FILTER DES VACANCES PUBLIEES
-
   const handleCheckboxChange = () => {
     setIsPersonalHoliday(!isPersonalHoliday);
     if(isPersonalHoliday){
@@ -67,7 +75,7 @@ const ListHolidayPage = () => {
                     className="inline-block bg-blue-800 hover-bg-blue-700 text-white font-bold py-1 px-4 rounded-full"
                   >
                     Invitations
-                    <span className="inline-flex items-center justify-center w-4 h-4 ml-2 text-sm font-semibold text-blue-800 font-bold bg-white rounded-full">
+                    <span className="inline-flex items-center justify-center w-4 h-4 ml-2 text-sm text-blue-800 font-bold bg-white rounded-full">
                       {invitations.length}
                     </span>
                   </button>
@@ -102,8 +110,7 @@ const ListHolidayPage = () => {
               onClose={closeModalInvitation}
             >
               {invitationsError ? (
-                // TODO JEREM
-                <ErrorMessage message={invitationsError.response.data} />
+                  <ErrorMessage message={errorMessage}/>
               ) : (
                 <>
                   {invitationsIsLoading ? (
@@ -114,8 +121,8 @@ const ListHolidayPage = () => {
                         <p>Aucune invitation disponible.</p>
                       ) : (
                         <ul className="my-4 space-y-3 overflow-y-scroll h-52 pr-4">
-                          {invitations?.map((invitation ) => (
-                            <HolidayInvitation key={invitation.Id} invitation={invitation} />
+                          {invitations?.map((invitation) => (
+                              <HolidayInvitation key={invitation.id} invitation={invitation} />
                           ))}
                         </ul>
                       )}

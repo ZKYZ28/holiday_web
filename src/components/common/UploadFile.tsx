@@ -37,7 +37,9 @@ const UploadFile: FC<UploadFileProps> = ({ onFileSelected, initialPicturePath })
 
         const reader = new FileReader();
         reader.onloadend = () => {
-          setImageSrc(reader.result);
+          if (typeof reader.result === 'string') {
+            setImageSrc(reader.result);
+          }
         };
         reader.readAsDataURL(file);
       }

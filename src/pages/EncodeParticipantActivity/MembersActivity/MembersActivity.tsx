@@ -12,7 +12,7 @@ const MembersActivity = () => {
     const { id} = useParams();
     const {data : participates, isLoading: isLoadingParticipates}: {data: Participate[], isLoading: boolean} = useGetAllParticipatesByActivity(id!)
     const [showModalInvitation, setShowModalInvitation] = useState(false);
-    const [selectedParticipate, setSelectedParticipate] = useState(null);
+    const [selectedParticipate, setSelectedParticipate] = useState<Participate | null>(null);
     const {mutate: mutateParticipate} = useDeleteParticipate();
     console.log(participates)
 

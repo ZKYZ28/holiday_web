@@ -9,7 +9,7 @@ import { useDeleteActivity } from '../../../api/Queries/ActivityQueries.ts';
 import Modal from '../../../components/Modal.tsx';
 import { useState } from 'react';
 import { urlApi } from '../../../api/EndPoints/HolidayApi.ts';
-import {NavLink, useParams} from "react-router-dom";
+import {NavLink, useParams} from 'react-router-dom';
 
 function MyHolidayCard({ activity }: { activity: Activity }) {
   const{id} = useParams();

@@ -153,7 +153,7 @@ const EncodeActivity = () => {
     const formData = new FormData();
     formData.append('name', name);
     formData.append('description', description ?? '');
-    formData.append('price', price!.toString());
+    formData.append('price', String(price)); // FormData n'accepete pas de number
     formData.append('startDate', dayjs(startDate).format());
     formData.append('endDate', dayjs(endDate).format());
     formData.append('location.street', street ?? '');
