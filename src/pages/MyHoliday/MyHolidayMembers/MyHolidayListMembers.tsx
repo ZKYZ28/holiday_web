@@ -32,7 +32,7 @@ function MyHolidayListMembers({ id }: { id: string | undefined }) {
                                 </tr>
                                 </thead>
                                 <tbody className="text-sm divide-y divide-gray-100 overflow-y-scroll">
-                                {participants.map((participant: Participant) => (
+                                {participants && participants.length > 0 && participants.map((participant: Participant) => (
                                     <MyHolidayMember
                                         key={participant.id}
                                         name={`${participant.firstName} ${participant.lastName}`}

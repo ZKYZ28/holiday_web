@@ -9,8 +9,7 @@ import { useState } from 'react';
 import { formattedDate } from '../../components/common/utils/dateUtils.ts';
 import { InitialValues } from '../../../typing/inputType.ts';
 import { useAuth } from '../../provider/AuthProvider.tsx';
-import { useMessages } from '../../provider/MessagesProvider.tsx';
-import {MODELS} from "../../api/Models/Enums/ModelsEnum.ts";
+import { MODELS } from '../../api/Models/Enums/ModelsEnum.ts';
 
 const inputsHoliday = [
   {
@@ -154,31 +153,28 @@ const EncodeHoliday = () => {
       formData.append('uploadedHolidayPicture', file);
     }
 
-    mutateHoliday(
-        formData,
-        {
-          onError: () => alert('An error occurred'),
-          onSuccess: () => {
-            navigate('/holidays');
-          },
-        }
-    );
+    mutateHoliday(formData, {
+      onError: () => alert('An error occurred'),
+      onSuccess: () => {
+        navigate('/holidays');
+      },
+    });
   };
 
   return (
-      <PageWrapper>
-        <FormContainer title="Encoder vacances">
-          <GenericForm
-              fields={inputsHoliday}
-              initialValues={initialValues}
-              onSubmit={handleSubmit}
-              textAreaProps={descriptionTextArea}
-              buttonText="Encoder"
-              error={error}
-              modelType={MODELS.Holiday}
-          />
-        </FormContainer>
-      </PageWrapper>
+    <PageWrapper>
+      <FormContainer title="Encoder vacances">
+        <GenericForm
+          fields={inputsHoliday}
+          initialValues={initialValues}
+          onSubmit={handleSubmit}
+          textAreaProps={descriptionTextArea}
+          buttonText="Encoder"
+          error={error}
+          modelType={MODELS.Holiday}
+        />
+      </FormContainer>
+    </PageWrapper>
   );
 };
 export default EncodeHoliday;

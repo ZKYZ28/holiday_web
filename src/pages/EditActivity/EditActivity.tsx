@@ -2,13 +2,14 @@ import FormContainer from '../../components/common/FormContainer.tsx';
 import PageWrapper from '../../components/common/PageWrapper.tsx';
 import GenericForm from '../../components/common/GenericForm.tsx';
 import * as dayjs from 'dayjs';
-import { useCreateActivity } from '../../api/Queries/ActivityQueries.ts';
+import { useCreateActivity, useGetActivityById, useUpdateActivity } from '../../api/Queries/ActivityQueries.ts';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { InitialValues } from '../../../typing/inputType.ts';
 import { validateDatesWithoutHour } from '../../validators/dateValidator.ts';
 import { useState } from 'react';
 import { formattedDate } from '../../components/common/utils/dateUtils.ts';
+import Loading from '../../components/common/Loading.tsx';
 
 const inputsActivity = [
   {
@@ -118,30 +119,46 @@ const descriptionTextArea = {
   required: false,
 };
 
-const EncodeActivity = () => {
+// TODO : passer l'objet activité depuis MyHolidayCard ou call api ?
+const EditActivity = () => {
   const { id } = useParams();
   console.log(id);
   // TODO : id! ou id ?? ''
-  const { mutate: mutateActivity } = useCreateActivity();
+  const { data: activityData, isLoading } = useGetActivityById(id!);
+  const { mutate: mutateUpdateActivity } = useUpdateActivity();
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const initialValues = {
-    name: '',
-    description: '',
-    country: '',
-    number: '',
-    street: '',
-    postalCode: '',
-    locality: '',
-    price: '',
-    startDate: formattedDate(false, true),
-    endDate: formattedDate(true, true),
+    name: activityData?.name ?? '',
+    country: activityData?.location?.country ?? '',
+    number: activityData?.location?.number ?? '',
+    street: activityData?.location?.street ?? '',
+    postalCode: activityData?.location?.postalCode ?? '',
+    locality: activityData?.location?.locality ?? '',
+    startDate: dayjs(activityData?.startDate).format('YYYY-MM-DD HH:mm:ss') ?? '',
+    endDate: dayjs(activityData?.endDate).format('YYYY-MM-DD HH:mm:ss') ?? '',
+    price: activityData!.price!
   };
 
+  const descriptionValue = activityData?.description ?? '';
+  const pathPicture = activityData?.activityPath;
+
   const handleSubmit = (values: InitialValues) => {
-    const { name, description, country, number, street, postalCode, locality, startDate, endDate, price, file } =
-      values;
+    const {
+      name,
+      description,
+      country,
+      number,
+      street,
+      postalCode,
+      locality,
+      startDate,
+      endDate,
+      price,
+      file,
+      deleteImage,
+    } = values;
 
     const datesValid = validateDatesWithoutHour(startDate as string, endDate as string, true);
     if (datesValid) {
@@ -156,36 +173,48 @@ const EncodeActivity = () => {
     formData.append('price', price!.toString());
     formData.append('startDate', dayjs(startDate).format());
     formData.append('endDate', dayjs(endDate).format());
+    formData.append('location.Id', activityData!.location!.id!);
     formData.append('location.street', street ?? '');
     formData.append('location.number', number ?? '');
     formData.append('location.locality', locality!);
     formData.append('location.postalCode', postalCode!);
     formData.append('location.country', country!);
-    formData.append('holidayId', id!);
+    formData.append('holidayId', activityData!.holidayId!);
     if (file) {
       formData.append('uploadedActivityPicture', file);
     }
+    formData.append('deleteImage', deleteImage.toString());
+    formData.append('initialPath', pathPicture!);
 
     // CALL TO API TO REGITER THE ACTIVITY
-    mutateActivity(formData, {
-      onError: () => alert('An error occurred'),
-      onSuccess: () => navigate(`/holidays/${id}`),
-    });
+    mutateUpdateActivity(
+      { activityId: id!, updatedActivity: formData },
+      {
+        onError: () => alert('An error occurred'),
+        onSuccess: () => navigate(`/holidays/${activityData!.holidayId!}`),
+      }
+    );
   };
 
   return (
     <PageWrapper>
-      <FormContainer title="Encoder activité">
-        <GenericForm
-          fields={inputsActivity}
-          initialValues={initialValues}
-          textAreaProps={descriptionTextArea}
-          buttonText="Encoder"
-          onSubmit={handleSubmit}
-          error={error}
-        />
-      </FormContainer>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <FormContainer title={`Mettre à jour : ${activityData!.name}`}>
+          <GenericForm
+            fields={inputsActivity}
+            initialValues={initialValues}
+            textAreaProps={descriptionTextArea}
+            descriptionValue={descriptionValue}
+            buttonText="Encoder"
+            onSubmit={handleSubmit}
+            error={error}
+            picturePath={pathPicture}
+          />
+        </FormContainer>
+      )}
     </PageWrapper>
   );
 };
-export default EncodeActivity;
+export default EditActivity;

@@ -1,8 +1,6 @@
-import { LocationMutation, LocationSendFormHoliday } from './Location.ts';
+import { Location, LocationSendFormHoliday } from './Location.ts';
 import { Activity } from './Activity.ts';
-import { LocationMutation } from './Location.ts';
-import {Activity} from './Activity.ts';
-import {Participant} from "./Participant.ts";
+import { Participant } from './Participant.ts';
 
 export type Holiday = {
   id: string;
@@ -10,7 +8,7 @@ export type Holiday = {
   description: string;
   startDate: string;
   endDate: string;
-  location: LocationMutation;
+  location: Location;
   participant: Participant;
   isPublish: boolean;
   activities: Activity[];

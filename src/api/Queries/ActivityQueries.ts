@@ -1,6 +1,6 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { holidayKeys } from '../Querykeys.ts';
-import {Activity} from '../Models/Activity.ts';
+import { Activity } from '../Models/Activity.ts';
 import ActivityRequestsApi from '../EndPoints/Requests/ActivityRequestsApi.ts';
 
 export const useCreateActivity = () => {
@@ -10,6 +10,27 @@ export const useCreateActivity = () => {
       // L'invalidation se fait asynchronement mais ne renvoie pas de données, donc pas besoin du .then()
       client.invalidateQueries(holidayKeys.all);
     },
+  });
+};
+
+export const useUpdateActivity = () => {
+  const client = useQueryClient();
+  return useMutation(
+    (data: { activityId: string; updatedActivity: FormData }) =>
+      ActivityRequestsApi.updateActivity(data.activityId, data.updatedActivity),
+    {
+      onSuccess: () => {
+        client.invalidateQueries(holidayKeys.all);
+      },
+    }
+  );
+};
+
+export const useGetActivityById = (activityId: string) => {
+  return useQuery({
+    queryKey: holidayKeys.all,
+    queryFn: () => ActivityRequestsApi.getActivityById(activityId).then((content) => content.data),
+    initialData: {},
   });
 };
 

@@ -1,4 +1,4 @@
-import {LocationMutation, LocationSendFormActivity} from './Location.ts';
+import {Location, LocationSendFormActivity} from './Location.ts';
 
 export type Activity = {
   id: string;
@@ -7,7 +7,7 @@ export type Activity = {
   price: number;
   startDate: string;
   endDate: string;
-  location: LocationMutation;
+  location: Location;
   activityPath: string;
   holidayId: string;
 };

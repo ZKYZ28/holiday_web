@@ -13,6 +13,14 @@ class HolidayRequestsApi {
     });
   }
 
+  static async updateHoliday(holidayId: string, updatedHoliday: FormData) {
+    return axiosInstance.put(`${ENDPOINT}/holiday/${holidayId}`, updatedHoliday, {
+      headers: {
+        'Content-type': 'multipart/form-data',
+      },
+    });
+  }
+
   static async getAllHolidayByParticipant(participantId: string) {
     return axiosInstance.get<Holiday[]>(`${ENDPOINT}/holiday/allByParticipant/${participantId}`);
   }
@@ -42,7 +50,6 @@ class HolidayRequestsApi {
   static async deleteHoliday(holiday: Holiday) {
     return axiosInstance.post(`${ENDPOINT}/holiday/delete`, holiday);
   }
-
 }
 
 export default HolidayRequestsApi;

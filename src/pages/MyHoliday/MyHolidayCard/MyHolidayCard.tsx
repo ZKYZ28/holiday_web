@@ -9,7 +9,7 @@ import { useDeleteActivity } from '../../../api/Queries/ActivityQueries.ts';
 import Modal from '../../../components/Modal.tsx';
 import { useState } from 'react';
 import { urlApi } from '../../../api/EndPoints/HolidayApi.ts';
-import {useParams} from "react-router-dom";
+import {NavLink, useParams} from "react-router-dom";
 
 function MyHolidayCard({ activity }: { activity: Activity }) {
   const{id} = useParams();
@@ -38,7 +38,9 @@ function MyHolidayCard({ activity }: { activity: Activity }) {
         <div className="flex flex-row justify-between">
           <h3 className="text-xl md:text-3xl font-bold text-blue-800 ">{activity.name}</h3>
           <div>
-            <FontAwesomeIcon icon={faPencil} size="xl" className="text-blue-800" />
+            <NavLink to={`/holidays/${id}/activity/${activity.id}`} >
+            <FontAwesomeIcon icon={faPencil} size="xl" className="text-blue-800"/>
+          </NavLink>
             <FontAwesomeIcon
               icon={faTrash}
               size="xl"

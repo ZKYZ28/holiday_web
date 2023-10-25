@@ -1,25 +1,24 @@
-import { ChangeEvent, FC, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useState } from 'react';
 import { faX } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { isAllowedTypes, isHigherFiveMo } from './utils/imageUtils.ts';
 import { urlApi } from '../../api/EndPoints/HolidayApi.ts';
 
 type UploadFileProps = {
-  onFileSelected: (file: FileWithAction | null) => void;
+  onFileSelected: (file: File | null, deleteImage?: boolean) => void;
   initialPicturePath: string;
 };
 
-type FileAction = 'DELETE_IMAGE' | 'UPLOAD_IMAGE' | 'NO_CHANGE';
-
-export type FileWithAction = {
-  file: File | null;
-  action: FileAction;
-};
-
 const UploadFile: FC<UploadFileProps> = ({ onFileSelected, initialPicturePath }) => {
-  const [imageSrc, setImageSrc] = useState<string | null>(
-    initialPicturePath ? `${urlApi()}${initialPicturePath}` : null
-  );
+  let [imageSrc, setImageSrc] = useState<string | null>(initialPicturePath ? `${urlApi()}${initialPicturePath}` : null);
+  useEffect(() => {
+    setImageSrc(initialPicturePath ? `${urlApi()}${initialPicturePath}` : null);
+    return () => {
+      imageSrc = null;
+    };
+  }, [initialPicturePath]);
+
+  const isEditMode = !!initialPicturePath;
   const [error, setError] = useState<string>('');
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -43,15 +42,15 @@ const UploadFile: FC<UploadFileProps> = ({ onFileSelected, initialPicturePath })
         reader.readAsDataURL(file);
       }
       // Renvoyer l'image vers le parent
-      onFileSelected({ file: file, action: 'UPLOAD_IMAGE' });
+      onFileSelected(file, true);
       return;
     }
-    onFileSelected(null);
+    isEditMode ? onFileSelected(null, true) : onFileSelected(null);
   };
 
   const removeImage = () => {
     setImageSrc(null);
-    onFileSelected({ file: null, action: 'DELETE_IMAGE' });
+    isEditMode ? onFileSelected(null, true) : onFileSelected(null);
   };
 
   return (

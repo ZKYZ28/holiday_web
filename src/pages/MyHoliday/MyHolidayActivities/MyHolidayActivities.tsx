@@ -19,7 +19,7 @@ function MyHolidayActivities({
     <div className="w-full bg-white shadow-lg rounded-sm border border-gray-200 mt-10">
       <header className="flex justify-between items-center px-5 py-4 border-b border-gray-100 ">
         <h2 className="text-xl capitalize lg:text-2xl text-blue-800 font-bold ">Activités prévues</h2>
-        <NavLink to={`/holidays/activity/${id}`}>
+        <NavLink to={`/holidays/${id}/activity`}>
           <FontAwesomeIcon className="text-blue-800 cursor-pointer" icon={faPlus} size="xl"  />
         </NavLink>
       </header>

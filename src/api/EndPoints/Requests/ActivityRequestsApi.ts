@@ -15,6 +15,18 @@ class ActivityRequestsApi {
   static async deleteActivity(activity: Activity) {
     return axiosInstance.post(`${ENDPOINT}/activity/delete`, activity);
   }
+
+  static async getActivityById(activityId: string) {
+    return axiosInstance.get<Activity>(`${ENDPOINT}/activity/${activityId}`);
+  }
+
+  static updateActivity(activityId: string, updatedActivity: FormData) {
+    return axiosInstance.put(`${ENDPOINT}/activity/${activityId}`, updatedActivity, {
+      headers: {
+        'Content-type': 'multipart/form-data',
+      },
+    });
+  }
 }
 
 export default ActivityRequestsApi;

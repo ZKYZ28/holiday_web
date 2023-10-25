@@ -1,3 +1,5 @@
+import {FileWithAction} from "../src/components/common/UploadFile.tsx";
+
 export type InputType = {
   id: string;
   name: string;
@@ -21,6 +23,7 @@ export type InitialValues = {
   description?: string;
   price?: number;
   file: File | null;
+  deleteImage: boolean;
 };
 
 export type OnSubmitFunction = (values: InitialValues) => void;

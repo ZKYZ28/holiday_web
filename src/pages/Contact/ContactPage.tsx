@@ -3,12 +3,12 @@ import FormInput from '../../components/common/FormInput.tsx';
 import TextAreaInput from '../../components/common/TextAreaInput.tsx';
 import SideContact from './SideContact/SideContact.tsx';
 import PageWrapper from '../../components/common/PageWrapper.tsx';
-import {useSendMail} from "../../api/Queries/MailQueries.ts";
+import { useSendMail } from '../../api/Queries/MailQueries.ts';
 
 function ContactPage() {
   const [emailInput, setEmailInput] = useState('');
   const [textAreaField, setTextAreaFild] = useState('');
-  const {mutate: Mail} = useSendMail();
+  const { mutate: Mail } = useSendMail();
 
   const inputEmail = {
     id: 'email',
@@ -33,16 +33,16 @@ function ContactPage() {
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    console.log(textAreaField.length)
-    if(textAreaField.length > 10){
+    console.log(textAreaField.length);
+    if (textAreaField.length > 10) {
       Mail(
         {
-          senderEmail : emailInput,
-          content : textAreaField
+          senderEmail: emailInput,
+          content: textAreaField,
         },
         {
           onError: () => alert('An error occurred'),
-          onSuccess: () => alert("SUCCES"),
+          onSuccess: () => alert('SUCCES'),
         }
       );
     }

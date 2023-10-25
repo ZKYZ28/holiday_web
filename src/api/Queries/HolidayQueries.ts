@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import {Holiday, HolidaySendForm} from '../Models/Holiday.ts';
+import { Holiday, HolidaySendForm } from '../Models/Holiday.ts';
 import { holidayKeys } from '../Querykeys.ts';
 import HolidayRequestsApi from '../EndPoints/Requests/HolidayRequestsApi.ts';
 
@@ -10,6 +10,19 @@ export const useCreateHoliday = () => {
       client.invalidateQueries(holidayKeys.all);
     },
   });
+};
+
+export const useUpdateHoliday = () => {
+  const client = useQueryClient();
+  return useMutation(
+    (data: { holidayId: string; updatedHoliday: FormData }) =>
+      HolidayRequestsApi.updateHoliday(data.holidayId, data.updatedHoliday),
+    {
+      onSuccess: () => {
+        client.invalidateQueries(holidayKeys.all);
+      },
+    }
+  );
 };
 
 export const usePublishHoliday = () => {
@@ -72,17 +85,18 @@ export const useDeleteHoliday = () => {
 
 export const useGetExportHoliday = (holidayId: string) => {
   return useMutation({
-    mutationFn: () => HolidayRequestsApi.getExportHoliday(holidayId).then((content) => {
-      const href = URL.createObjectURL(content.data);
+    mutationFn: () =>
+      HolidayRequestsApi.getExportHoliday(holidayId).then((content) => {
+        const href = URL.createObjectURL(content.data);
 
-      const link = document.createElement('a');
-      link.href = href;
-      link.setAttribute('download', 'myHoliday.ics');
-      document.body.appendChild(link);
-      link.click();
+        const link = document.createElement('a');
+        link.href = href;
+        link.setAttribute('download', 'myHoliday.ics');
+        document.body.appendChild(link);
+        link.click();
 
-      document.body.removeChild(link);
-      URL.revokeObjectURL(href);
-    }),
+        document.body.removeChild(link);
+        URL.revokeObjectURL(href);
+      }),
   });
 };

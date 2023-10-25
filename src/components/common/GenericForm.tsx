@@ -1,12 +1,9 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import FormInput from './FormInput.tsx';
 import TextAreaInput from './TextAreaInput.tsx';
 import { InputType, OnSubmitFunction } from '../../../typing/inputType.ts';
 import { TextAreaProps } from '../../../typing/textAreaPropsType.ts';
-import UploadFile, { FileWithAction } from './UploadFile.tsx';
-import { Holiday } from '../../api/Models/Holiday.ts';
-import { Activity } from '../../api/Models/Activity.ts';
-import { MODELS } from '../../api/Models/Enums/ModelsEnum.ts';
+import UploadFile from './UploadFile.tsx';
 
 function GenericForm({
   fields,
@@ -16,7 +13,7 @@ function GenericForm({
   textAreaProps,
   buttonText,
   error,
-  modelType,
+  picturePath,
 }: {
   fields: InputType[];
   initialValues: object;
@@ -25,11 +22,12 @@ function GenericForm({
   textAreaProps: TextAreaProps;
   buttonText: string;
   error: string;
-  modelType: string;
+  picturePath: string;
 }) {
   const [valueInputs, setValueInputs] = useState(initialValues);
   const [description, setDescription] = useState(descriptionValue);
-  const [selectedFile, setSelectedFile] = useState<FileWithAction | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [deleteImage, setDeleteImage] = useState<boolean>(false);
 
   useEffect(() => {
     setValueInputs(initialValues);
@@ -39,9 +37,9 @@ function GenericForm({
     setDescription(descriptionValue);
   }, [descriptionValue]);
 
-  const handleFileSelect = (file: FileWithAction) => {
-    console.log(file);
-    setSelectedFile({ ...file });
+  const handleFileSelect = (file: File | null, deleteImage: boolean = false) => {
+    setSelectedFile(file);
+    setDeleteImage(deleteImage);
   };
 
   const onChange = (evt: ChangeEvent<HTMLInputElement>) => {
@@ -59,16 +57,14 @@ function GenericForm({
       ...valueInputs,
       description,
       file: selectedFile,
+      deleteImage: deleteImage,
     };
     onSubmit(allValues);
   };
-
+  console.log(picturePath);
   return (
     <form onSubmit={handleSubmit}>
-      <UploadFile
-        onFileSelected={handleFileSelect}
-        initialPicturePath={modelType === MODELS.Holiday ? valueInputs.holidayPath : valueInputs.activityPath}
-      />
+      <UploadFile onFileSelected={handleFileSelect} initialPicturePath={picturePath} />
       {fields.map(
         (input, index) =>
           index % 2 === 0 && (
