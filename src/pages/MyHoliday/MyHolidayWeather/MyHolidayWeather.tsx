@@ -4,11 +4,20 @@ import * as dayjs from 'dayjs';
 import drop from '../../../assets/imgs/icons/drop.png';
 import { usetGetWeather } from '../../../api/Queries/WeatherQueries.ts';
 import { useState } from 'react';
+import {AxiosError} from "axios";
 
 function MyHolidayWeather({ id }: {id : string}) {
-    // TODO JEREM
+
   const { data: weatherData, isLoading: weatherIsLoading, error: weatherError } = usetGetWeather(id);
   const [selectedDayIndex, setSelectedDayIndex] = useState(0);
+  const [errorMessage, setErrorMessage] = useState<string>('');
+
+    if (weatherError) {
+        const axiosError = weatherError as AxiosError;
+        if (axiosError.response) {
+            setErrorMessage(axiosError.response.data as string);
+        }
+    }
 
   return (
     <div className="w-full mt-10 md:mt-0 md:w-5/12 bg-white shadow-lg rounded-sm border border-gray-200 h-96 overflow-y-scroll">
@@ -17,14 +26,14 @@ function MyHolidayWeather({ id }: {id : string}) {
       </header>
       <div className="flex flex-row flex-wrap">
         {weatherError ? (
-          <ErrorMessage message={weatherError.response.data} />
+            <ErrorMessage message={errorMessage}/>
         ) : (
           <>
             {weatherIsLoading ? (
               <Loading />
             ) : (
               <>
-                {weatherData.weatherDays ? (
+                {weatherData?.weatherDays ? (
                   <>
                     <div id="currentDay" className="flex w-full justify-around items-center my-4">
                       <div>

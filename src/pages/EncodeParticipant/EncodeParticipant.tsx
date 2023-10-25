@@ -11,7 +11,7 @@ import {useParams} from "react-router-dom";
 const EncodeParticipant = () => {
   const { id } = useParams();
   const [searchInput, setSearchText] = useState('');
-  const { data: participants, isLoading }: { data: Participant[]; isLoading: boolean } = useGetParticipants(id);
+  const { data: participants, isLoading }: { data: Participant[]; isLoading: boolean } = useGetParticipants(id!);
 
   const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
     // convert input text to lower case

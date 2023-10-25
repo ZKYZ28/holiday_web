@@ -4,8 +4,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import MyHolidayCard from '../MyHolidayCard/MyHolidayCard.tsx';
 import { Holiday } from '../../../api/Models/Holiday.ts';
 import { Activity } from '../../../api/Models/Activity.ts';
-import ErrorMessage from "../../../components/common/ErrorMessage.tsx";
-// TOOD JEREM : holidayIsLoading => boolean ?
+
 function MyHolidayActivities({
   id,
   holidayData,

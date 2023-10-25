@@ -152,7 +152,7 @@ const EncodeActivity = () => {
     const formData = new FormData();
     formData.append('name', name);
     formData.append('description', description ?? '');
-    formData.append('price', price);
+    formData.append('price', String(price)); // FormData n'accepete pas de number
     formData.append('startDate', dayjs(startDate).format());
     formData.append('endDate', dayjs(endDate).format());
     formData.append('location.street', street ?? '');
@@ -160,7 +160,7 @@ const EncodeActivity = () => {
     formData.append('location.locality', locality!);
     formData.append('location.postalCode', postalCode!);
     formData.append('location.country', country!);
-    formData.append('holidayId', id);
+    formData.append('holidayId', id!);
     if (file) {
       formData.append('uploadedActivityPicture', file);
     }

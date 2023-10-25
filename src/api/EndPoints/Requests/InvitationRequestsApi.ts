@@ -12,11 +12,11 @@ class InvitationRequestsApi {
     return axiosInstance.post(`${ENDPOINT}/invitation`, invitations);
   }
 
-  static async acceptInvitation(invitation : InvitationMutation) {
+  static async acceptInvitation(invitation : Invitation) {
     return axiosInstance.post(`${ENDPOINT}/invitation/accept`, invitation);
   }
 
-  static async refuseInvitation(invitation : InvitationMutation) {
+  static async refuseInvitation(invitation : Invitation) {
     return axiosInstance.post(`${ENDPOINT}/invitation/refuse`, invitation);
   }
 }

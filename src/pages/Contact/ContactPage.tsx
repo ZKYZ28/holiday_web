@@ -66,7 +66,7 @@ function ContactPage() {
               <div className="grid grid-cols-1 gap-5 mt-5">
                 <FormInput {...inputEmail} value={emailInput} onChange={handleChangeEmail} />
               </div>
-              <TextAreaInput {...textAreaFieldContent} value={textAreaField} onChange={handleChangeTextArea} />
+              <TextAreaInput {...textAreaFieldContent} value={textAreaField} onChangeDescritpion={handleChangeTextArea} />
               <div className="my-2 w-1/2 lg:w-1/4">
                 <button
                   type="submit"

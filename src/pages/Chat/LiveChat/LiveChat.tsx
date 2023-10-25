@@ -5,11 +5,13 @@ import { useEffect, useRef } from 'react';
 const LiveMessage = () => {
   const { messages } = useMessages();
   const { user } = useAuth();
-  const messagesRef = useRef(null);
+  const messagesRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    // Scroll to the most recent message when new messages are added
-    messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+    if (messagesRef.current) {
+      messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+    }
+
   }, [messages]);
 
   return (

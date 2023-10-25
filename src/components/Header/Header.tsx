@@ -26,7 +26,7 @@ function Header() {
         {user ? (
         <>
           <div>
-            <ButtonLink text="Holidays" to="/holidays" />
+            <ButtonLink text="Vacances" to="/holidays" />
             <ButtonLink text="Chats" to="/chats" />
           </div>
           <div>

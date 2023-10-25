@@ -163,6 +163,7 @@ const EncodeHoliday = () => {
     );
   };
 
+
   return (
       <PageWrapper>
         <FormContainer title="Encoder vacances">
@@ -171,6 +172,7 @@ const EncodeHoliday = () => {
               initialValues={initialValues}
               onSubmit={handleSubmit}
               textAreaProps={descriptionTextArea}
+              descriptionValue={''}
               buttonText="Encoder"
               error={error}
           />

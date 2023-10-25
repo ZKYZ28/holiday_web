@@ -7,10 +7,12 @@ const SendChat = ({holidayId}: {holidayId: string}) => {
   const { sendMessage } = useMessages();
   const [message, setMessage] = useState('');
 
-  const handleSubmit = (e) => {
-   e.preventDefault();
-   sendMessage(user, holidayId, message);
-   setMessage('');
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (user) {
+      sendMessage(user, holidayId, message);
+    }
+    setMessage('');
   };
 
   // Méthode appelée lorsqu'il y a un changement dans le champ de texte
