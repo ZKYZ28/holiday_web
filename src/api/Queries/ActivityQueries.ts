@@ -29,7 +29,6 @@ export const useGetActivityById = (activityId: string) => {
   return useQuery({
     queryKey: holidayKeys.all,
     queryFn: () => ActivityRequestsApi.getActivityById(activityId).then((content) => content.data),
-    initialData: {},
   });
 };
 

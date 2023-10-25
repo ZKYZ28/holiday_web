@@ -8,5 +8,10 @@ export type Participate = {
   participantId: string;
   participant: Participant;
 };
+export type ParticipateListUser = {
+  activityId: string;
+  participantId: string;
+};
+
 
 export type ParticipateMutation = Omit<Participant, 'id'>;

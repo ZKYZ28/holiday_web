@@ -1,5 +1,5 @@
-import {Holiday} from './Holiday.ts';
-import {Participant} from "./Participant.ts";
+import { Holiday } from './Holiday.ts';
+import { Participant } from './Participant.ts';
 
 export type Invitation = {
   id: string;
@@ -13,4 +13,3 @@ export type InvitationMutation = {
   holidayId: string;
   participantId: string;
 };
-

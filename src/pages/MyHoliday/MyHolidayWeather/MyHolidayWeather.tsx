@@ -4,20 +4,20 @@ import * as dayjs from 'dayjs';
 import drop from '../../../assets/imgs/icons/drop.png';
 import { usetGetWeather } from '../../../api/Queries/WeatherQueries.ts';
 import { useState } from 'react';
-import {AxiosError} from "axios";
+import { AxiosError } from 'axios';
+import { Weather } from '../../../api/Models/Weather.ts';
 
-function MyHolidayWeather({ id }: {id : string}) {
-
-  const { data: weatherData, isLoading: weatherIsLoading, error: weatherError } = usetGetWeather(id);
+function MyHolidayWeather({ id }: { id: string }) {
+  const {
+    data: weatherData,
+    isLoading: weatherIsLoading,
+    error: weatherError,
+  } = usetGetWeather(id) as {
+    data: Weather | undefined;
+    isLoading: boolean;
+    error: AxiosError<unknown>;
+  };
   const [selectedDayIndex, setSelectedDayIndex] = useState(0);
-  const [errorMessage, setErrorMessage] = useState<string>('');
-
-    if (weatherError) {
-        const axiosError = weatherError as AxiosError;
-        if (axiosError.response) {
-            setErrorMessage(axiosError.response.data as string);
-        }
-    }
 
   return (
     <div className="w-full mt-10 md:mt-0 md:w-5/12 bg-white shadow-lg rounded-sm border border-gray-200 h-96 overflow-y-scroll">
@@ -26,11 +26,13 @@ function MyHolidayWeather({ id }: {id : string}) {
       </header>
       <div className="flex flex-row flex-wrap">
         {weatherError ? (
-            <ErrorMessage message={errorMessage}/>
+          <ErrorMessage message={weatherError?.response?.data as string} />
         ) : (
           <>
             {weatherIsLoading ? (
-              <Loading />
+              <>
+                <Loading />
+              </>
             ) : (
               <>
                 {weatherData?.weatherDays ? (
@@ -88,7 +90,9 @@ function MyHolidayWeather({ id }: {id : string}) {
                     </table>
                   </>
                 ) : (
-                  <Loading />
+                  <>
+                    <Loading />
+                  </>
                 )}
               </>
             )}

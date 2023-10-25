@@ -2,13 +2,12 @@ import FormContainer from '../../components/common/FormContainer.tsx';
 import PageWrapper from '../../components/common/PageWrapper.tsx';
 import GenericForm from '../../components/common/GenericForm.tsx';
 import * as dayjs from 'dayjs';
-import { useCreateActivity, useGetActivityById, useUpdateActivity } from '../../api/Queries/ActivityQueries.ts';
+import { useGetActivityById, useUpdateActivity } from '../../api/Queries/ActivityQueries.ts';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { InitialValues } from '../../../typing/inputType.ts';
 import { validateDatesWithoutHour } from '../../validators/dateValidator.ts';
 import { useState } from 'react';
-import { formattedDate } from '../../components/common/utils/dateUtils.ts';
 import Loading from '../../components/common/Loading.tsx';
 
 const inputsActivity = [
@@ -142,7 +141,7 @@ const EditActivity = () => {
   };
 
   const descriptionValue = activityData?.description ?? '';
-  const pathPicture = activityData?.activityPath;
+  const pathPicture = activityData?.activityPath!;
 
   const handleSubmit = (values: InitialValues) => {
     const {

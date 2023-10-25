@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import StarsRequired from './StarsRequired.tsx';
 import { TextAreaProps } from '../../../typing/textAreaPropsType.ts';
 
-function TextAreaInput({ id, name, errorMessage, label, onChangeDescritpion, ...inputProps }: TextAreaProps) {
+function TextAreaInput({ id, name, errorMessage, label, onChange, placeholder, value }: TextAreaProps) {
   const [focused, setFocused] = useState(false);
   const [isValid, setIsValid] = useState(true);
 
@@ -19,13 +19,14 @@ function TextAreaInput({ id, name, errorMessage, label, onChangeDescritpion, ...
         <StarsRequired />
       </label>
       <textarea
-        {...inputProps}
         className={`my-4 w-full h-32 bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline ${
           !isValid && focused ? 'border-red-500' : ''
         }`}
         id={id}
         name={name}
-        onChange={onChangeDescritpion}
+        defaultValue={value}
+        placeholder={placeholder}
+        onChange={onChange}
         onBlur={handleBlur}
         onFocus={() => setFocused(true)}
         data-focused={focused.toString()}

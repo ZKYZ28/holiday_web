@@ -6,8 +6,8 @@ import { useCreateInvitations } from '../../../api/Queries/InvitationQueries.ts'
 import { useAuth } from '../../../provider/AuthProvider.tsx';
 import { Participant } from '../../../api/Models/Participant.ts';
 import { InvitationMutation } from '../../../api/Models/Invitation.ts';
-import {useCreateParticipates} from "../../../api/Queries/ParticipateQueries.ts";
-import {ParticipateMutation} from "../../../api/Models/Participate.ts";
+import { useCreateParticipates } from '../../../api/Queries/ParticipateQueries.ts';
+import {ParticipateListUser, ParticipateMutation} from '../../../api/Models/Participate.ts';
 
 type ListProps = {
   input: string;
@@ -72,19 +72,20 @@ const ListUsers: FC<ListProps> = ({ input, participants, isLoading, isForHoliday
     });
   };
 
-  const {mutate : mutateParticipates} = useCreateParticipates();
+  const { mutate: mutateParticipates } = useCreateParticipates();
   const handleSubmitActivity = async () => {
-    const participates: ParticipateMutation[] = participantsAdded.map((participant: Participant) => ({
+    const participates: ParticipateListUser[] = participantsAdded.map((participant: Participant) => ({
       activityId: id ?? '', // TODO : value '' is good ?
       participantId: participant.id,
     }));
 
     await mutateParticipates(participates, {
       onError: () => alert('An error occurred'),
-      onSuccess: () => {navigate(-1)
+      onSuccess: () => {
+        navigate(-1);
       },
     });
-  }
+  };
 
   return (
     <div id="addedParticipant" className="mb-6">
@@ -114,12 +115,22 @@ const ListUsers: FC<ListProps> = ({ input, participants, isLoading, isForHoliday
           </div>
 
           <ul className=" max-h-52 overflow-y-scroll w-full mb-4 ">
-            {isForHoliday ? (
-              filteredData
-                .filter((participant) => {
-                  return participant.id !== user?.id!;
-                })
-                .map((participant) => (
+            {isForHoliday
+              ? filteredData
+                  .filter((participant) => {
+                    return participant.id !== user?.id!;
+                  })
+                  .map((participant) => (
+                    <li
+                      key={participant.id}
+                      className="border-b-2 mb-2 mt-2 cursor-pointer pb-2"
+                      onClick={() => addParticipantToAddedList(participant)}
+                    >
+                      <FontAwesomeIcon icon={faAdd} size="lg" className="mx-2.5" /> {participant.firstName}{' '}
+                      {participant.lastName} ({participant.email})
+                    </li>
+                  ))
+              : filteredData.map((participant) => (
                   <li
                     key={participant.id}
                     className="border-b-2 mb-2 mt-2 cursor-pointer pb-2"
@@ -128,19 +139,7 @@ const ListUsers: FC<ListProps> = ({ input, participants, isLoading, isForHoliday
                     <FontAwesomeIcon icon={faAdd} size="lg" className="mx-2.5" /> {participant.firstName}{' '}
                     {participant.lastName} ({participant.email})
                   </li>
-                ))
-            ) : (
-              filteredData.map((participant) => (
-                <li
-                  key={participant.id}
-                  className="border-b-2 mb-2 mt-2 cursor-pointer pb-2"
-                  onClick={() => addParticipantToAddedList(participant)}
-                >
-                  <FontAwesomeIcon icon={faAdd} size="lg" className="mx-2.5" /> {participant.firstName}{' '}
-                  {participant.lastName} ({participant.email})
-                </li>
-              ))
-            )}
+                ))}
           </ul>
         </div>
       )}

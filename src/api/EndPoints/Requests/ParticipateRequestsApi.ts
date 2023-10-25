@@ -1,10 +1,9 @@
 import axiosInstance from '../../axios.ts';
 import { ENDPOINT } from '../EndPointApi.ts';
-import {Participate, ParticipateMutation} from "../../Models/Participate.ts";
+import { Participate, ParticipateListUser } from '../../Models/Participate.ts';
 
 class ParticipateRequestsApi {
-
-  static async createParticipates(participates: ParticipateMutation[]) {
+  static async createParticipates(participates: ParticipateListUser[]) {
     return axiosInstance.post(`${ENDPOINT}/participate`, participates);
   }
 

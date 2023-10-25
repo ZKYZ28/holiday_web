@@ -117,7 +117,6 @@ const EditHoliday = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
 
-  console.log(holidayData)
   // ASSIGNATION DES VALEURS DE BASE
   const initialValues = {
     name: holidayData?.name ?? '',

@@ -172,7 +172,6 @@ const EncodeActivity = () => {
       onSuccess: () => navigate(`/holidays/${id}`),
     });
   };
-
   return (
     <PageWrapper>
       <FormContainer title="Encoder activité">

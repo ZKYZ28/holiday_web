@@ -1,11 +1,11 @@
 import axiosInstance from '../../axios.ts';
 import { Participant } from '../../Models/Participant.ts';
 import { ENDPOINT } from '../EndPointApi.ts';
-import {Holiday} from "../../Models/Holiday.ts";
+import { Holiday } from '../../Models/Holiday.ts';
 
 class ParticipantRequestsApi {
   // PARTICIPANT
-  static async getParticipants(id : string) {
+  static async getParticipants(id: string) {
     return axiosInstance.get<Participant[]>(`${ENDPOINT}/participant/all/${id}`);
   }
   static async getParticipantsByHoliday(holidayId: string) {

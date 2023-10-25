@@ -54,17 +54,10 @@ export const useGetHolidayById = (holidayId: string) => {
   return useQuery({
     queryKey: holidayKeys.all,
     queryFn: () => HolidayRequestsApi.getHolidayById(holidayId).then((content) => content.data),
-    initialData: {},
+    // initialData: {} as Holiday,
   });
 };
-// TODO : mieux la version du dessus ou du dessous ?
-// export const useGetHolidayById = (holidayId: string) => {
-//   return useQuery({
-//     queryKey:  holidayKeys.all ,
-//     queryFn: () => HolidayRequestsApi.getHolidayById(holidayId).then((content) => content.data),
-//     initialData: {},
-//   });
-// };
+
 
 export const useGetAllHolidayCountForDate = () => {
   const client = useQueryClient();

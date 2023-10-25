@@ -6,6 +6,6 @@ export const usetGetWeather = (id: string) => {
   return useQuery({
     queryKey: weatherKeys.all,
     queryFn: () => WeatherRequetsApi.getWeather(id).then((content) => content.data),
-    initialData: {},
+    // initialData: {},
   });
 };

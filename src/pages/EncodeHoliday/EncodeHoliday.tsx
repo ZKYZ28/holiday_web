@@ -139,7 +139,8 @@ const EncodeHoliday = () => {
     // TODO VERIFIER SI ACTIVITIES EST NECESSAIRE
     const formData = new FormData();
     formData.append('name', name);
-    formData.append('description', description ?? '');
+    console.log(description);
+    formData.append('description', description ?? 'bla');
     formData.append('startDate', dayjs(startDate).format());
     formData.append('endDate', dayjs(endDate).format());
     formData.append('location.street', street ?? '');
@@ -160,7 +161,7 @@ const EncodeHoliday = () => {
     });
   };
 
-
+  console.log('ici')
   return (
     <PageWrapper>
       <FormContainer title="Encoder vacances">
@@ -170,6 +171,7 @@ const EncodeHoliday = () => {
           onSubmit={handleSubmit}
           textAreaProps={descriptionTextArea}
           buttonText="Encoder"
+          descriptionValue=""
           error={error}
         />
       </FormContainer>
