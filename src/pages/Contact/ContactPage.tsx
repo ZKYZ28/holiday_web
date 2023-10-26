@@ -42,7 +42,7 @@ function ContactPage() {
         },
         {
           onError: () => alert('An error occurred'),
-          onSuccess: () => alert('SUCCES'),
+          onSuccess: () => alert('Votre mail a été envoyé avec succès.')
         }
       );
     }
@@ -66,7 +66,7 @@ function ContactPage() {
               <div className="grid grid-cols-1 gap-5 mt-5">
                 <FormInput {...inputEmail} value={emailInput} onChange={handleChangeEmail} />
               </div>
-              <TextAreaInput {...textAreaFieldContent} value={textAreaField} onChangeDescritpion={handleChangeTextArea} />
+              <TextAreaInput {...textAreaFieldContent} value={textAreaField} onChange={handleChangeTextArea} />
               <div className="my-2 w-1/2 lg:w-1/4">
                 <button
                   type="submit"

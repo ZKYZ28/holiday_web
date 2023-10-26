@@ -28,14 +28,12 @@ function GenericForm({
   const [description, setDescription] = useState(descriptionValue);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [deleteImage, setDeleteImage] = useState<boolean>(false);
-  console.log('while true');
 
   useEffect(() => {
     setValueInputs(initialValues);
   }, [initialValues]);
 
   useEffect(() => {
-    console.log('coucou');
     setDescription(descriptionValue);
   }, [descriptionValue]);
 
@@ -49,21 +47,22 @@ function GenericForm({
   };
 
   const handleChangeDescription = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    console.log('test');
     setDescription(e.target.value);
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Récupérer les valeurs des inputs + le text area
-    const allValues: { description: string } = {
+    const allValues: { description: string; file?: File | null; deleteImage: boolean } = {
       ...valueInputs,
       description,
       file: selectedFile,
       deleteImage: deleteImage,
     };
     onSubmit(allValues);
+    console.log(valueInputs)
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <UploadFile onFileSelected={handleFileSelect} initialPicturePath={picturePath} />

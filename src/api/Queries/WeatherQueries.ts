@@ -4,7 +4,7 @@ import { weatherKeys } from '../Querykeys.ts';
 
 export const usetGetWeather = (id: string) => {
   return useQuery({
-    queryKey: weatherKeys.all,
+    queryKey: weatherKeys.get(id),
     queryFn: () => WeatherRequetsApi.getWeather(id).then((content) => content.data),
     // initialData: {},
   });

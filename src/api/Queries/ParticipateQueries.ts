@@ -24,6 +24,7 @@ export const useDeleteParticipate = () => {
   const client = useQueryClient();
   return useMutation((participate: Participate) => ParticipateRequestsApi.deleteParticipate(participate), {
     onSuccess: () => {
+      client.invalidateQueries(participateKeys.all);
       client.invalidateQueries(participantKeys.all);
     },
   });

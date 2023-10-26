@@ -36,7 +36,7 @@ export const usePublishHoliday = () => {
 
 export const useGetAllHolidayByParticipant = (participantId: string) => {
   return useQuery({
-    queryKey: [...holidayKeys.list(), participantId],
+    queryKey: holidayKeys.getParticipant(participantId),
     queryFn: () => HolidayRequestsApi.getAllHolidayByParticipant(participantId).then((content) => content.data),
     initialData: [],
   });
@@ -52,7 +52,7 @@ export const useGetAllHolidayPublished = () => {
 
 export const useGetHolidayById = (holidayId: string) => {
   return useQuery({
-    queryKey: holidayKeys.all,
+    queryKey: holidayKeys.get(holidayId),
     queryFn: () => HolidayRequestsApi.getHolidayById(holidayId).then((content) => content.data),
     // initialData: {} as Holiday,
   });

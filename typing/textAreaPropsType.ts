@@ -6,6 +6,6 @@ export type TextAreaProps = {
   errorMessage: string;
   placeholder: string;
   label: string;
-  onChange: ChangeEventHandler;
-  value: string;
+  onChange?: ChangeEventHandler;
+  value?: string;
 };

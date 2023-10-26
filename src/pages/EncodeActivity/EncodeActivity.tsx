@@ -179,9 +179,11 @@ const EncodeActivity = () => {
           fields={inputsActivity}
           initialValues={initialValues}
           textAreaProps={descriptionTextArea}
+          descriptionValue={''}
           buttonText="Encoder"
           onSubmit={handleSubmit}
           error={error}
+          picturePath={''}
         />
       </FormContainer>
     </PageWrapper>

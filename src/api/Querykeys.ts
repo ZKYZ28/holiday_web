@@ -1,6 +1,7 @@
 export const holidayKeys = {
   all: ['holiday'] as const,
   get: (id: string) => [...holidayKeys.all, id] as const,
+  getParticipant: (id: string) => [...holidayKeys.all, 'participant', id] as const,
   list: () => [...holidayKeys.all, 'list'] as const,
 };
 
@@ -15,11 +16,16 @@ export const mailKeys = {
 export const invitationsKeys = {
   all: ['invitation'] as const,
   list: () => [...invitationsKeys.all, 'list'] as const,
+  queryList: (id: string) => [...invitationsKeys.all, 'list', id] as const,
 };
 
 export const participantKeys = {
   all: ['participant'] as const,
-  list: () => [...invitationsKeys.all, 'list'] as const,
+  queryList: (id: string) => [...participantKeys.all, 'list', id] as const,
+  queryListByHoliday: (id: string) => [...participantKeys.all, 'list-holiday', id] as const,
+  queryListNotYet: (id: string) => [...participantKeys.all, 'list-not-yet', id] as const,
+  list: () => [...participantKeys.all, 'list'] as const,
+  count: () => [...participantKeys.all, 'count'] as const,
 };
 
 export const participateKeys = {
@@ -29,6 +35,7 @@ export const participateKeys = {
 
 export const weatherKeys = {
   all: ['weather'] as const,
-  list: () => [...invitationsKeys.all, 'list'] as const,
+  get: (id: string) => [...weatherKeys.all, 'list', id] as const,
+  list: () => [...weatherKeys.all, 'list'] as const,
 };
 
