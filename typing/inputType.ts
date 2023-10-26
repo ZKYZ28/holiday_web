@@ -1,5 +1,3 @@
-import {FileWithAction} from "../src/components/common/UploadFile.tsx";
-
 export type InputType = {
   id: string;
   name: string;
