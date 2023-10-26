@@ -1,4 +1,4 @@
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import('dayjs/plugin/isSameOrBefore');
 
 const validateDatesWithoutHour = (startDate: string, endDate: string, withHour: boolean = false): string | null => {

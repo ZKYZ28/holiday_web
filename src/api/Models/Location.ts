@@ -1,9 +1,9 @@
 export type Location = {
   id: string;
-  number: number;
+  number: string;
   street: string;
   locality: string;
-  postalCode: number;
+  postalCode: string;
   country: string;
 };
 

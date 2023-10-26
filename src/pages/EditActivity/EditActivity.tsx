@@ -1,13 +1,13 @@
 import FormContainer from '../../components/common/FormContainer.tsx';
 import PageWrapper from '../../components/common/PageWrapper.tsx';
 import GenericForm from '../../components/common/GenericForm.tsx';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import { useGetActivityById, useUpdateActivity } from '../../api/Queries/ActivityQueries.ts';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { InitialValues } from '../../../typing/inputType.ts';
 import { validateDatesWithoutHour } from '../../validators/dateValidator.ts';
-import {useState} from 'react';
+import { useState } from 'react';
 import Loading from '../../components/common/Loading.tsx';
 
 const inputsActivity = [
@@ -137,11 +137,11 @@ const EditActivity = () => {
     locality: activityData?.location?.locality ?? '',
     startDate: dayjs(activityData?.startDate).format('YYYY-MM-DD HH:mm:ss') ?? '',
     endDate: dayjs(activityData?.endDate).format('YYYY-MM-DD HH:mm:ss') ?? '',
-    price: activityData?.price
+    price: String(activityData?.price),
   };
 
   const descriptionValue = activityData?.description ?? '';
-  const pathPicture = activityData?.activityPath!;
+  const pathPicture = activityData?.activityPath;
 
   const handleSubmit = (values: InitialValues) => {
     const {
@@ -167,7 +167,7 @@ const EditActivity = () => {
     setError('');
 
     const formData = new FormData();
-    formData.append('name', name);
+    formData.append('name', name ?? '');
     formData.append('description', description ?? '');
     formData.append('price', price!.toString());
     formData.append('startDate', dayjs(startDate).format());
@@ -209,7 +209,7 @@ const EditActivity = () => {
             buttonText="Encoder"
             onSubmit={handleSubmit}
             error={error}
-            picturePath={pathPicture}
+            picturePath={pathPicture ?? ''}
           />
         </FormContainer>
       )}

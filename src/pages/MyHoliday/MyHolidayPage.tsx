@@ -1,70 +1,70 @@
 import PageWrapper from '../../components/common/PageWrapper.tsx';
 import PageContent from '../../components/common/PageContent.tsx';
-import {useParams} from 'react-router-dom';
-import {useGetExportHoliday, useGetHolidayById, usePublishHoliday} from '../../api/Queries/HolidayQueries.ts';
-import * as dayjs from 'dayjs';
+import { useParams } from 'react-router-dom';
+import { useGetExportHoliday, useGetHolidayById, usePublishHoliday } from '../../api/Queries/HolidayQueries.ts';
+import dayjs from 'dayjs';
 import MyHolidayWeather from './MyHolidayWeather/MyHolidayWeather.tsx';
 import MyHolidayListMembers from './MyHolidayMembers/MyHolidayListMembers.tsx';
 import MyHolidayActivities from './MyHolidayActivities/MyHolidayActivities.tsx';
-import {useState} from "react";
+import { useState } from 'react';
 import Modal from '../../components/Modal.tsx';
-import {useLeaveHoliday} from "../../api/Queries/ParticipantQueries.ts";
-import {useAuth} from "../../provider/AuthProvider.tsx";
+import { useLeaveHoliday } from '../../api/Queries/ParticipantQueries.ts';
+import { useAuth } from '../../provider/AuthProvider.tsx';
 import { useNavigate } from 'react-router-dom';
-import Loading from "../../components/common/Loading.tsx";
+import Loading from '../../components/common/Loading.tsx';
 
 function MyHolidayPage() {
   const { id } = useParams();
-  const {user} = useAuth();
+  const { user } = useAuth();
 
   const [showModalPublish, setShowModalPublish] = useState(false);
   const [showModalLeave, setShowModalLeave] = useState(false);
   const { data: holidayData, isLoading: holidayIsLoading } = useGetHolidayById(id!);
   const { mutate: mutateExportHoliday } = useGetExportHoliday(id!);
-  const{mutate: mutatePusblishHoliday} = usePublishHoliday();
-  const{mutate: mutateLeaveHoliday} = useLeaveHoliday(user!.id);
+  const { mutate: mutatePusblishHoliday } = usePublishHoliday();
+  const { mutate: mutateLeaveHoliday } = useLeaveHoliday(user!.id);
   const navigate = useNavigate();
 
-  //EXPORT DE L'AGENDA
+  // EXPORT DE L'AGENDA
   const handleDownload = async () => {
     await mutateExportHoliday(undefined, {
-      onError: () => alert('Erreur lors de l export de la holiday dans l agenda')
+      onError: () => alert('Erreur lors de l export de la holiday dans l agenda'),
     });
   };
 
-    const openModalPublish= (): void => {
-      setShowModalPublish(true);
-    };
+  const openModalPublish = (): void => {
+    setShowModalPublish(true);
+  };
 
-    const closeModalPublish = (): void => {
-      setShowModalPublish(false);
-    };
+  const closeModalPublish = (): void => {
+    setShowModalPublish(false);
+  };
 
-    const handlePublish = async () => {
-      if (holidayData) {
-        await mutatePusblishHoliday(holidayData, {
-            onError: () => alert('Erreur lors de la publication de la holiday'),
-            onSuccess: () => closeModalPublish(),
-        });
-      }
-    };
+  const handlePublish = async () => {
+    if (holidayData) {
+      await mutatePusblishHoliday(holidayData, {
+        onError: () => alert('Erreur lors de la publication de la holiday'),
+        onSuccess: () => closeModalPublish(),
+      });
+    }
+  };
 
-    const closeModalLeave = (): void => {
-        setShowModalLeave(false);
-    };
+  const closeModalLeave = (): void => {
+    setShowModalLeave(false);
+  };
 
-    const openModalLeave = (): void => {
-        setShowModalLeave(true);
-    };
+  const openModalLeave = (): void => {
+    setShowModalLeave(true);
+  };
 
-    const handleLeave = async () => {
-      if (holidayData) {
-        await mutateLeaveHoliday(holidayData, {
-          onError: () => alert('Erreur'), onSuccess : () => navigate(`/holidays`)
-        });
-      }
-    };
-
+  const handleLeave = async () => {
+    if (holidayData) {
+      await mutateLeaveHoliday(holidayData, {
+        onError: () => alert('Erreur'),
+        onSuccess: () => navigate('/holidays'),
+      });
+    }
+  };
 
   return (
     <PageWrapper>
@@ -88,7 +88,7 @@ function MyHolidayPage() {
                     onClick={openModalPublish}
                     type="button"
                     className="inline-block bg-blue-800 hover-bg-blue-700 text-white font-bold py-1 px-4 rounded-full ml-3.5"
-                   >
+                  >
                     Publier
                   </button>
                 )}
@@ -119,66 +119,65 @@ function MyHolidayPage() {
             <MyHolidayActivities id={id!} holidayData={holidayData} holidayIsLoading={holidayIsLoading} />
 
             {showModalPublish && (
-              <Modal
-                show={showModalPublish}
-                onClose={closeModalPublish}
-              >
-              <div className="flex flex-col justify-center items-center w-full">
-                <p className="text-center">Etes-vous sûr de vouloir publier cette période de vacance ? Cela veut dire que tout les utilisateurs pourront la voir. </p>
+              <Modal show={showModalPublish} onClose={closeModalPublish}>
+                <div className="flex flex-col justify-center items-center w-full">
+                  <p className="text-center">
+                    Etes-vous sûr de vouloir publier cette période de vacance ? Cela veut dire que tout les utilisateurs
+                    pourront la voir.{' '}
+                  </p>
 
-                <div className="flex justify-around mt-6 w-full">
-                  <button
-                    onClick={handlePublish}
-                    type="button"
-                    className="inline-block bg-blue-800 hover-bg-blue-700 text-white font-bold py-1 px-4 rounded-full ml-3.5"
-                  >
-                    Confirmer
-                  </button>
+                  <div className="flex justify-around mt-6 w-full">
+                    <button
+                      onClick={handlePublish}
+                      type="button"
+                      className="inline-block bg-blue-800 hover-bg-blue-700 text-white font-bold py-1 px-4 rounded-full ml-3.5"
+                    >
+                      Confirmer
+                    </button>
 
-                  <button
-                    onClick={closeModalPublish}
-                    type="button"
-                    className="inline-block bg-red-600 hover-bg-red-700 text-white font-bold py-1 px-4 rounded-full ml-3.5"
-                  >
-                    Fermer
-                  </button>
+                    <button
+                      onClick={closeModalPublish}
+                      type="button"
+                      className="inline-block bg-red-600 hover-bg-red-700 text-white font-bold py-1 px-4 rounded-full ml-3.5"
+                    >
+                      Fermer
+                    </button>
+                  </div>
                 </div>
-              </div>
               </Modal>
             )}
 
             {showModalLeave && (
-                <Modal
-                    show={showModalLeave}
-                    onClose={closeModalLeave}
-                >
-                    <div className="flex flex-col justify-center items-center w-full">
-                        <p className="text-center">Etes-vous sûr de vouloir quitter <span className="font-bold text-blue-800">{holidayData.name}</span> ? </p>
+              <Modal show={showModalLeave} onClose={closeModalLeave}>
+                <div className="flex flex-col justify-center items-center w-full">
+                  <p className="text-center">
+                    Etes-vous sûr de vouloir quitter <span className="font-bold text-blue-800">{holidayData.name}</span>{' '}
+                    ?{' '}
+                  </p>
 
-                        <div className="flex justify-around mt-6 w-full">
-                            <button
-                                onClick={handleLeave}
-                                type="button"
-                                className="inline-block bg-blue-800 hover-bg-blue-700 text-white font-bold py-1 px-4 rounded-full ml-3.5"
-                            >
-                                Confirmer
-                            </button>
+                  <div className="flex justify-around mt-6 w-full">
+                    <button
+                      onClick={handleLeave}
+                      type="button"
+                      className="inline-block bg-blue-800 hover-bg-blue-700 text-white font-bold py-1 px-4 rounded-full ml-3.5"
+                    >
+                      Confirmer
+                    </button>
 
-                            <button
-                                onClick={closeModalLeave}
-                                type="button"
-                                className="inline-block bg-red-600 hover-bg-red-700 text-white font-bold py-1 px-4 rounded-full ml-3.5"
-                            >
-                                Fermer
-                            </button>
-                        </div>
-                    </div>
-                </Modal>
+                    <button
+                      onClick={closeModalLeave}
+                      type="button"
+                      className="inline-block bg-red-600 hover-bg-red-700 text-white font-bold py-1 px-4 rounded-full ml-3.5"
+                    >
+                      Fermer
+                    </button>
+                  </div>
+                </div>
+              </Modal>
             )}
-
           </div>
         ) : (
-            <Loading></Loading>
+          <Loading></Loading>
         )}
       </PageContent>
     </PageWrapper>

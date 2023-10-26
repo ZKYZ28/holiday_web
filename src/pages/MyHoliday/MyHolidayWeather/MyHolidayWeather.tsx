@@ -1,6 +1,6 @@
 import ErrorMessage from '../../../components/common/ErrorMessage.tsx';
 import Loading from '../../../components/common/Loading.tsx';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import drop from '../../../assets/imgs/icons/drop.png';
 import { usetGetWeather } from '../../../api/Queries/WeatherQueries.ts';
 import { useState } from 'react';

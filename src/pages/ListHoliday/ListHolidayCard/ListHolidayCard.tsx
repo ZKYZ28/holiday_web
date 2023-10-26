@@ -2,20 +2,20 @@ import ButtonLink from '../../../components/Header/ButtonLink/ButtonLink.tsx';
 import calendar from '../../../assets/imgs/icons/calendar.png';
 import peoples from '../../../assets/imgs/icons/peoples.png';
 import location from '../../../assets/imgs/icons/location.png';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import { Holiday } from '../../../api/Models/Holiday.ts';
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faTrash, faEdit} from "@fortawesome/free-solid-svg-icons";
-import {useState} from "react";
-import Modal from "../../../components/Modal.tsx";
-import {useDeleteHoliday} from "../../../api/Queries/HolidayQueries.ts";
-import {urlApi} from '../../../api/EndPoints/HolidayApi.ts';
-import {NavLink} from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
+import Modal from '../../../components/Modal.tsx';
+import { useDeleteHoliday } from '../../../api/Queries/HolidayQueries.ts';
+import { urlApi } from '../../../api/EndPoints/HolidayApi.ts';
+import { NavLink } from 'react-router-dom';
 
-function ListHolidayCard({ holiday, isPersonalHoliday }: { holiday: Holiday, isPersonalHoliday: boolean }) {
+function ListHolidayCard({ holiday, isPersonalHoliday }: { holiday: Holiday; isPersonalHoliday: boolean }) {
   const id = `/holidays/${holiday.id}`;
   const [showModalInvitation, setShowModalInvitation] = useState(false);
-  const {mutate: mutateHoliday} = useDeleteHoliday();
+  const { mutate: mutateHoliday } = useDeleteHoliday();
 
   const openModalInvitation = (): void => {
     setShowModalInvitation(true);
@@ -26,10 +26,7 @@ function ListHolidayCard({ holiday, isPersonalHoliday }: { holiday: Holiday, isP
   };
 
   function handleDeleteClick() {
-    mutateHoliday(
-      holiday,
-      { onError: () => alert('An error occurred')}
-    )
+    mutateHoliday(holiday, { onError: () => alert('An error occurred') });
   }
 
   return (
@@ -41,7 +38,11 @@ function ListHolidayCard({ holiday, isPersonalHoliday }: { holiday: Holiday, isP
           <h3 className="text-xl md:text-3xl font-bold text-blue-800 ">{holiday.name}</h3>
           <div className="flex items-center">
             {holiday.isPublish ? (
-              <img className="object-cover rounded-lg w-8 h-8 ml-2.5" src="https://cdn-icons-png.flaticon.com/512/3946/3946164.png" alt="" />
+              <img
+                className="object-cover rounded-lg w-8 h-8 ml-2.5"
+                src="https://cdn-icons-png.flaticon.com/512/3946/3946164.png"
+                alt=""
+              />
             ) : (
               <></>
             )}
@@ -50,7 +51,12 @@ function ListHolidayCard({ holiday, isPersonalHoliday }: { holiday: Holiday, isP
                 <NavLink to={`/holidays/holiday/${holiday.id}`}>
                   <FontAwesomeIcon icon={faEdit} size="xl" className="text-blue-700 ml-3 cursor-pointer" />
                 </NavLink>
-                <FontAwesomeIcon icon={faTrash} size="xl" className="text-red-600 ml-3 cursor-pointer" onClick={openModalInvitation}/>
+                <FontAwesomeIcon
+                  icon={faTrash}
+                  size="xl"
+                  className="text-red-600 ml-3 cursor-pointer"
+                  onClick={openModalInvitation}
+                />
               </>
             ) : (
               <></>
@@ -85,12 +91,14 @@ function ListHolidayCard({ holiday, isPersonalHoliday }: { holiday: Holiday, isP
       </div>
 
       {showModalInvitation && (
-        <Modal
-          show={showModalInvitation}
-          onClose={closeModalInvitation}
-        >
+        <Modal show={showModalInvitation} onClose={closeModalInvitation}>
           <div className="flex flex-col justify-center items-center w-full">
-            <p className="text-center">Etes-vous sûr de vouloir supprimer cette activité vacance?<span className={"font-bold text-red-600"}>Attention, elle sera également supprimée pour tous les participants !</span></p>
+            <p className="text-center">
+              Etes-vous sûr de vouloir supprimer cette activité vacance?
+              <span className={'font-bold text-red-600'}>
+                Attention, elle sera également supprimée pour tous les participants !
+              </span>
+            </p>
 
             <div className="flex justify-around mt-6 w-full">
               <button
@@ -112,7 +120,6 @@ function ListHolidayCard({ holiday, isPersonalHoliday }: { holiday: Holiday, isP
           </div>
         </Modal>
       )}
-
     </div>
   );
 }

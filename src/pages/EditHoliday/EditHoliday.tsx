@@ -7,7 +7,7 @@ import { InitialValues } from '../../../typing/inputType.ts';
 import { useState } from 'react';
 import { useAuth } from '../../provider/AuthProvider.tsx';
 import Loading from '../../components/common/Loading.tsx';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import { validateDatesWithoutHour } from '../../validators/dateValidator.ts';
 
 const inputsHoliday = [
@@ -118,7 +118,7 @@ const EditHoliday = () => {
   const { user } = useAuth();
 
   // ASSIGNATION DES VALEURS DE BASE
-  const initialValues = {
+  const initialValues  = {
     name: holidayData?.name ?? '',
     country: holidayData?.location?.country ?? '',
     number: holidayData?.location?.number ?? '',
@@ -144,7 +144,7 @@ const EditHoliday = () => {
     setError('');
 
     const formData = new FormData();
-    formData.append('name', name);
+    formData.append('name', name ?? '');
     formData.append('description', description ?? '');
     formData.append('startDate', dayjs(startDate).format());
     formData.append('endDate', dayjs(endDate).format());

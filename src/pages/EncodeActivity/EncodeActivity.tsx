@@ -1,7 +1,7 @@
 import FormContainer from '../../components/common/FormContainer.tsx';
 import PageWrapper from '../../components/common/PageWrapper.tsx';
 import GenericForm from '../../components/common/GenericForm.tsx';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import { useCreateActivity } from '../../api/Queries/ActivityQueries.ts';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -151,7 +151,7 @@ const EncodeActivity = () => {
     setError('');
 
     const formData = new FormData();
-    formData.append('name', name);
+    formData.append('name', name ?? '');
     formData.append('description', description ?? '');
     formData.append('price', String(price)); // FormData n'accepete pas de number
     formData.append('startDate', dayjs(startDate).format());

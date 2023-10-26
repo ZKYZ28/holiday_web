@@ -7,7 +7,7 @@ import { useAuth } from '../../../provider/AuthProvider.tsx';
 import { Participant } from '../../../api/Models/Participant.ts';
 import { InvitationMutation } from '../../../api/Models/Invitation.ts';
 import { useCreateParticipates } from '../../../api/Queries/ParticipateQueries.ts';
-import {ParticipateListUser, ParticipateMutation} from '../../../api/Models/Participate.ts';
+import { ParticipateListUser } from '../../../api/Models/Participate.ts';
 
 type ListProps = {
   input: string;
@@ -20,7 +20,6 @@ const ListUsers: FC<ListProps> = ({ input, participants, isLoading, isForHoliday
   const { user } = useAuth();
   const { id } = useParams();
   const navigate = useNavigate();
-  const [showAlert, setShowAlert] = useState(false);
 
   // AJOUT ET SUPRESSION DES PARTICIPANTS DANS LES PARTICIPANTS AJOUTES
   const [participantsAdded, setParticipantsAdded] = useState<Participant[]>([]);
@@ -118,7 +117,7 @@ const ListUsers: FC<ListProps> = ({ input, participants, isLoading, isForHoliday
             {isForHoliday
               ? filteredData
                   .filter((participant) => {
-                    return participant.id !== user?.id!;
+                    return participant.id !== user!.id!;
                   })
                   .map((participant) => (
                     <li

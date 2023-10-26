@@ -16,7 +16,7 @@ function GenericForm({
   picturePath,
 }: {
   fields: InputType[];
-  initialValues: object;
+  initialValues: { [key: string | number]: string };
   descriptionValue: string;
   onSubmit: OnSubmitFunction;
   textAreaProps: TextAreaProps;
@@ -24,7 +24,7 @@ function GenericForm({
   error: string;
   picturePath: string;
 }) {
-  const [valueInputs, setValueInputs] = useState(initialValues);
+  const [valueInputs, setValueInputs] = useState<{ [key: string | number]: string }>(initialValues);
   const [description, setDescription] = useState(descriptionValue);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [deleteImage, setDeleteImage] = useState<boolean>(false);

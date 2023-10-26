@@ -1,6 +1,6 @@
 import FormContainer from '../../components/common/FormContainer.tsx';
 import { useCreateHoliday } from '../../api/Queries/HolidayQueries.ts';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import PageWrapper from '../../components/common/PageWrapper.tsx';
 import { useNavigate } from 'react-router-dom';
 import GenericForm from '../../components/common/GenericForm.tsx';
