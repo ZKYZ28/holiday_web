@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import FormInput from './FormInput.tsx';
 import TextAreaInput from './TextAreaInput.tsx';
-import { InputType, OnSubmitFunction } from '../../../typing/inputType.ts';
+import { InitialValues, InputType, OnSubmitFunction } from '../../../typing/inputType.ts';
 import { TextAreaProps } from '../../../typing/textAreaPropsType.ts';
 import UploadFile from './UploadFile.tsx';
 
@@ -56,7 +56,7 @@ function GenericForm({
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Récupérer les valeurs des inputs + le text area
-    const allValues: { description: string } = {
+    const allValues: InitialValues = {
       ...valueInputs,
       description,
       file: selectedFile,

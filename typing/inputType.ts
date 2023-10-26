@@ -12,14 +12,14 @@ export type InputType = {
 };
 
 export type InitialValues = {
-  name: string;
+  name?: string;
   country?: string;
   number?: string;
   street?: string;
   postalCode?: string;
   locality?: string;
-  startDate: string;
-  endDate: string;
+  startDate?: string;
+  endDate?: string;
   description?: string;
   price?: number;
   file: File | null;

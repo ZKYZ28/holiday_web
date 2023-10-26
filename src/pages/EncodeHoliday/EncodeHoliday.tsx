@@ -138,9 +138,9 @@ const EncodeHoliday = () => {
 
     // TODO VERIFIER SI ACTIVITIES EST NECESSAIRE
     const formData = new FormData();
-    formData.append('name', name);
+    formData.append('name', name ?? '');
     console.log(description);
-    formData.append('description', description ?? 'bla');
+    formData.append('description', description ?? '');
     formData.append('startDate', dayjs(startDate).format());
     formData.append('endDate', dayjs(endDate).format());
     formData.append('location.street', street ?? '');
