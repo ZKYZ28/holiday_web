@@ -186,7 +186,7 @@ const EditHoliday = () => {
             descriptionValue={descriptionValue}
             buttonText="Encoder"
             error={error}
-            picturePath={pathPicture}
+            picturePath={pathPicture!}
           />
         </FormContainer>
       )}

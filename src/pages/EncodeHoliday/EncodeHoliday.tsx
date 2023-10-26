@@ -134,7 +134,6 @@ const EncodeHoliday = () => {
       return;
     }
     setError('');
-    console.log(`IMAGE : ${file}`);
 
     // TODO VERIFIER SI ACTIVITIES EST NECESSAIRE
     const formData = new FormData();
@@ -161,7 +160,6 @@ const EncodeHoliday = () => {
     });
   };
 
-  console.log('ici')
   return (
     <PageWrapper>
       <FormContainer title="Encoder vacances">
@@ -173,6 +171,7 @@ const EncodeHoliday = () => {
           buttonText="Encoder"
           descriptionValue=""
           error={error}
+          picturePath={''}
         />
       </FormContainer>
     </PageWrapper>

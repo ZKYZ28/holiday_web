@@ -5,7 +5,7 @@ import {Holiday} from "../Models/Holiday.ts";
 
 export const useGetParticipants = (id : string) => {
   return useQuery({
-    queryKey: participantKeys.all,
+    queryKey: participantKeys.queryList(id),
     queryFn: () => ParticipantRequestsApi.getParticipants(id).then((content) => content.data),
     initialData: [],
   });
@@ -13,7 +13,7 @@ export const useGetParticipants = (id : string) => {
 
 export const useGetParticipantsByHoliday = (holidayId: string) => {
   return useQuery({
-    queryKey: participantKeys.all,
+    queryKey: participantKeys.queryListByHoliday(holidayId),
     queryFn: () => ParticipantRequestsApi.getParticipantsByHoliday(holidayId).then((content) => content.data),
     initialData: [],
   });
@@ -21,7 +21,7 @@ export const useGetParticipantsByHoliday = (holidayId: string) => {
 
 export const useGetParticipantsNotYetActivity = (activityId: string) => {
   return useQuery({
-    queryKey: participantKeys.all,
+    queryKey: participantKeys.queryListNotYet(activityId),
     queryFn: () => ParticipantRequestsApi.getParticipantsNotYetActivity(activityId).then((content) => content.data),
     initialData: [],
   });
@@ -29,7 +29,7 @@ export const useGetParticipantsNotYetActivity = (activityId: string) => {
 
 export const useGetParticipantsCount = () => {
   return useQuery({
-    queryKey: participantKeys.all,
+    queryKey: participantKeys.count(),
     queryFn: () => ParticipantRequestsApi.getParticipantCount().then((content) => content.data),
     initialData: 0,
   });

@@ -28,14 +28,12 @@ function GenericForm({
   const [description, setDescription] = useState(descriptionValue);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [deleteImage, setDeleteImage] = useState<boolean>(false);
-  console.log('while true');
 
   useEffect(() => {
     setValueInputs(initialValues);
   }, [initialValues]);
 
   useEffect(() => {
-    console.log('coucou');
     setDescription(descriptionValue);
   }, [descriptionValue]);
 
@@ -49,7 +47,6 @@ function GenericForm({
   };
 
   const handleChangeDescription = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    console.log('test');
     setDescription(e.target.value);
   };
 

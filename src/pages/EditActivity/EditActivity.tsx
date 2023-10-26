@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { InitialValues } from '../../../typing/inputType.ts';
 import { validateDatesWithoutHour } from '../../validators/dateValidator.ts';
-import { useState } from 'react';
+import {useState} from 'react';
 import Loading from '../../components/common/Loading.tsx';
 
 const inputsActivity = [
@@ -137,7 +137,7 @@ const EditActivity = () => {
     locality: activityData?.location?.locality ?? '',
     startDate: dayjs(activityData?.startDate).format('YYYY-MM-DD HH:mm:ss') ?? '',
     endDate: dayjs(activityData?.endDate).format('YYYY-MM-DD HH:mm:ss') ?? '',
-    price: activityData!.price!
+    price: activityData?.price
   };
 
   const descriptionValue = activityData?.description ?? '';

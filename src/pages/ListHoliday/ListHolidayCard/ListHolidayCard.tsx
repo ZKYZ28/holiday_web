@@ -28,7 +28,7 @@ function ListHolidayCard({ holiday, isPersonalHoliday }: { holiday: Holiday, isP
   function handleDeleteClick() {
     mutateHoliday(
       holiday,
-      { onError: () => alert('An error occurred'), onSuccess : () => alert('SUCCES')}
+      { onError: () => alert('An error occurred')}
     )
   }
 
