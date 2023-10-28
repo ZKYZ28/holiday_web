@@ -3,12 +3,12 @@ import HomePage from '../pages/Home/HomePage.tsx';
 import ListHolidayPage from '../pages/ListHoliday/ListHolidayPage.tsx';
 import MyHolidayPage from '../pages/MyHoliday/MyHolidayPage.tsx';
 import ContactPage from '../pages/Contact/ContactPage.tsx';
-import Login from '../pages/Login/Login.tsx';
-import Register from '../pages/Register/Register.tsx';
+import LoginPage from '../pages/Login/LoginPage.tsx';
+import RegisterPage from '../pages/Register/RegisterPage.tsx';
 import ChatPage from '../pages/Chat/ChatPage.tsx';
-import EncodeHoliday from '../pages/EncodeHoliday/EncodeHoliday.tsx';
-import EncodeActivity from '../pages/EncodeActivity/EncodeActivity.tsx';
-import EncodeParticipant from '../pages/EncodeParticipant/EncodeParticipant.tsx';
+import EncodeHolidayPage from '../pages/EncodeHoliday/EncodeHolidayPage.tsx';
+import EncodeActivityPage from '../pages/EncodeActivity/EncodeActivityPage.tsx';
+import EncodeParticipantHolidayPage from '../pages/EncodeParticipantHoliday/EncodeParticipantHolidayPage.tsx';
 
 const router = createBrowserRouter(
   [
@@ -34,15 +34,15 @@ const router = createBrowserRouter(
         },
         {
           path: 'activity/:id',
-          element: <EncodeActivity />,
+          element: <EncodeActivityPage />,
         },
         {
           path: 'create',
-          element: <EncodeHoliday />,
+          element: <EncodeHolidayPage />,
         },
         {
           path: 'participant/:id',
-          element: <EncodeParticipant />,
+          element: <EncodeParticipantHolidayPage />,
         },
       ],
     },
@@ -56,11 +56,11 @@ const router = createBrowserRouter(
     },
     {
       path: 'login',
-      element: <Login />,
+      element: <LoginPage />,
     },
     {
       path: 'register',
-      element: <Register />,
+      element: <RegisterPage />,
     },
     {
       path: 'chats',

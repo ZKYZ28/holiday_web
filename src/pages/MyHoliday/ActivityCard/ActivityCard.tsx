@@ -6,12 +6,12 @@ import { faLocationDot } from '@fortawesome/free-solid-svg-icons/faLocationDot';
 import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Activity } from '../../../api/Models/Activity.ts';
 import { useDeleteActivity } from '../../../api/Queries/ActivityQueries.ts';
-import Modal from '../../../components/Modal.tsx';
+import Modal from '../../../components/Modal/Modal.tsx';
 import { useState } from 'react';
 import { urlApi } from '../../../api/EndPoints/HolidayApi.ts';
 import {NavLink, useParams} from 'react-router-dom';
 
-function MyHolidayCard({ activity }: { activity: Activity }) {
+function ActivityCard({ activity }: { activity: Activity }) {
   const{id} = useParams();
   const { mutate: mutateActivity } = useDeleteActivity();
 
@@ -105,4 +105,4 @@ function MyHolidayCard({ activity }: { activity: Activity }) {
   );
 }
 
-export default MyHolidayCard;
+export default ActivityCard;

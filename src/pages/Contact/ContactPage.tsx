@@ -4,11 +4,16 @@ import TextAreaInput from '../../components/common/TextAreaInput.tsx';
 import SideContact from './SideContact/SideContact.tsx';
 import PageWrapper from '../../components/common/PageWrapper.tsx';
 import { useSendMail } from '../../api/Queries/MailQueries.ts';
+import {AxiosError} from "axios";
+import ErrosForm from "../../components/ErrorsForm/ErrorsForm.tsx";
 
 function ContactPage() {
   const [emailInput, setEmailInput] = useState('');
   const [textAreaField, setTextAreaFild] = useState('');
-  const { mutate: Mail } = useSendMail();
+  const { mutate: Mail, error: errorMail } = useSendMail() as {
+    mutate: any
+    error: AxiosError<unknown>;
+  };
 
   const inputEmail = {
     id: 'email',
@@ -63,6 +68,11 @@ function ContactPage() {
           <div className="container mx-auto my-4 px-4 lg:px-20">
             <div className="w-full p-8 my-4 md:px-12 lg:w-9/12 lg:pl-20 lg:pr-40 mr-auto rounded-2xl shadow-2xl">
               <span className="font-bold uppercase md:text-5xl sm:text-xs">Contactez-nous</span>
+
+              {errorMail ? (
+                <ErrosForm axiosError={errorMail?.response?.data} />
+              ): (<> </>)}
+
               <div className="grid grid-cols-1 gap-5 mt-5">
                 <FormInput {...inputEmail} value={emailInput} onChange={handleChangeEmail} />
               </div>

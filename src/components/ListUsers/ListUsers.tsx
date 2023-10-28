@@ -2,12 +2,12 @@ import { FC, useState } from 'react';
 import { faTimes, faAdd } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useCreateInvitations } from '../../../api/Queries/InvitationQueries.ts';
-import { useAuth } from '../../../provider/AuthProvider.tsx';
-import { Participant } from '../../../api/Models/Participant.ts';
-import { InvitationMutation } from '../../../api/Models/Invitation.ts';
-import { useCreateParticipates } from '../../../api/Queries/ParticipateQueries.ts';
-import { ParticipateListUser } from '../../../api/Models/Participate.ts';
+import { useCreateInvitations } from '../../api/Queries/InvitationQueries.ts';
+import { useAuth } from '../../provider/AuthProvider.tsx';
+import { Participant } from '../../api/Models/Participant.ts';
+import { InvitationMutation } from '../../api/Models/Invitation.ts';
+import { useCreateParticipates } from '../../api/Queries/ParticipateQueries.ts';
+import { ParticipateListUser } from '../../api/Models/Participate.ts';
 
 type ListProps = {
   input: string;

@@ -7,7 +7,7 @@ import MyHolidayWeather from './MyHolidayWeather/MyHolidayWeather.tsx';
 import MyHolidayListMembers from './MyHolidayMembers/MyHolidayListMembers.tsx';
 import MyHolidayActivities from './MyHolidayActivities/MyHolidayActivities.tsx';
 import { useState } from 'react';
-import Modal from '../../components/Modal.tsx';
+import Modal from '../../components/Modal/Modal.tsx';
 import { useLeaveHoliday } from '../../api/Queries/ParticipantQueries.ts';
 import { useAuth } from '../../provider/AuthProvider.tsx';
 import { useNavigate } from 'react-router-dom';

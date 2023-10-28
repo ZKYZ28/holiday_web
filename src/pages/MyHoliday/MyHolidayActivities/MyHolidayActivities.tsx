@@ -1,9 +1,9 @@
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import MyHolidayCard from '../MyHolidayCard/MyHolidayCard.tsx';
 import { Holiday } from '../../../api/Models/Holiday.ts';
 import { Activity } from '../../../api/Models/Activity.ts';
+import ActivityCard from "../ActivityCard/ActivityCard.tsx";
 
 function MyHolidayActivities({
   id,
@@ -42,7 +42,7 @@ function MyHolidayActivities({
                 holidayData &&
                 holidayData.activities &&
                 holidayData.activities.map((activity: Activity) => (
-                  <MyHolidayCard key={activity.id} activity={activity} />
+                  <ActivityCard key={activity.id} activity={activity} />
                 ))
               )}
             </>

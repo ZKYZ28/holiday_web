@@ -1,6 +1,5 @@
 import PageWrapper from '../../components/common/PageWrapper.tsx';
 
-import './HomePage.css';
 import { useGetParticipantsCount } from '../../api/Queries/ParticipantQueries.ts';
 import { ChangeEvent, useState } from 'react';
 import { useGetAllHolidayCountForDate } from '../../api/Queries/HolidayQueries.ts';
@@ -15,7 +14,6 @@ const HomePage = () => {
   const [holidayCount, setHolidayCount] = useState(0);
 
   const onChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    // Mettez à jour l'état local avec la valeur de l'input
     setDate(evt.target.value);
   };
 

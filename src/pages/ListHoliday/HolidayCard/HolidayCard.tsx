@@ -7,12 +7,12 @@ import { Holiday } from '../../../api/Models/Holiday.ts';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
-import Modal from '../../../components/Modal.tsx';
+import Modal from '../../../components/Modal/Modal.tsx';
 import { useDeleteHoliday } from '../../../api/Queries/HolidayQueries.ts';
 import { urlApi } from '../../../api/EndPoints/HolidayApi.ts';
 import { NavLink } from 'react-router-dom';
 
-function ListHolidayCard({ holiday, isPersonalHoliday }: { holiday: Holiday; isPersonalHoliday: boolean }) {
+function HolidayCard({ holiday, isPersonalHoliday }: { holiday: Holiday; isPersonalHoliday: boolean }) {
   const id = `/holidays/${holiday.id}`;
   const [showModalInvitation, setShowModalInvitation] = useState(false);
   const { mutate: mutateHoliday } = useDeleteHoliday();
@@ -33,7 +33,7 @@ function ListHolidayCard({ holiday, isPersonalHoliday }: { holiday: Holiday; isP
     <div className="lg:flex bg-white rounded-2xl">
       <img className="object-cover w-full h-100 rounded-lg lg:w-64" src={`${urlApi()}${holiday.holidayPath}`} alt="" />
 
-      <div className="flex flex-col justify-between p-6 lg:mx-6 w-full">
+      <div className="flex flex-col justify-between p-6 lg:mx-6 w-full bg-white rounded-2xl">
         <div className="flex items-center justify-between">
           <h3 className="text-xl md:text-3xl font-bold text-blue-800 ">{holiday.name}</h3>
           <div className="flex items-center">
@@ -62,9 +62,15 @@ function ListHolidayCard({ holiday, isPersonalHoliday }: { holiday: Holiday; isP
               <></>
             )}
           </div>
+
         </div>
 
-        <p className="my-8 text-base lg:text-lg"> {holiday.description} </p>
+        <div className="w-5/6">
+          <p className="my-8 text-base lg:text-lg" style={{ wordWrap: 'break-word' }}>
+            {holiday.description}
+          </p>
+        </div>
+
 
         <ul className="flex flex-col justify-around">
           <div className="flex flex-row items-center mb-1.5">
@@ -124,4 +130,4 @@ function ListHolidayCard({ holiday, isPersonalHoliday }: { holiday: Holiday; isP
   );
 }
 
-export default ListHolidayCard;
+export default HolidayCard;

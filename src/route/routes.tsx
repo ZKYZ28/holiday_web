@@ -1,19 +1,19 @@
 import { RouterProvider, createBrowserRouter, Outlet } from 'react-router-dom';
 import HomePage from '../pages/Home/HomePage.tsx';
-import Login from '../pages/Login/Login.tsx';
-import Register from '../pages/Register/Register.tsx';
+import LoginPage from '../pages/Login/LoginPage.tsx';
+import RegisterPage from '../pages/Register/RegisterPage.tsx';
 import ListHolidayPage from '../pages/ListHoliday/ListHolidayPage.tsx';
 import MyHolidayPage from '../pages/MyHoliday/MyHolidayPage.tsx';
-import EncodeActivity from '../pages/EncodeActivity/EncodeActivity.tsx';
-import EncodeHoliday from '../pages/EncodeHoliday/EncodeHoliday.tsx';
+import EncodeActivityPage from '../pages/EncodeActivity/EncodeActivityPage.tsx';
+import EncodeHolidayPage from '../pages/EncodeHoliday/EncodeHolidayPage.tsx';
 import ChatPage from '../pages/Chat/ChatPage.tsx';
 import ContactPage from '../pages/Contact/ContactPage.tsx';
 import Warden from '../components/common/Warden.tsx';
-import EncodeParticipant from '../pages/EncodeParticipant/EncodeParticipant.tsx';
+import EncodeParticipantHolidayPage from '../pages/EncodeParticipantHoliday/EncodeParticipantHolidayPage.tsx';
 import { useAuth } from '../provider/AuthProvider.tsx';
-import EncodeParticipantActivity from "../pages/EncodeParticipantActivity/EncodeParticipantActivity.tsx";
-import EditHoliday from "../pages/EditHoliday/EditHoliday.tsx";
-import EditActivity from "../pages/EditActivity/EditActivity.tsx";
+import EncodeParticipantActivityPage from "../pages/EncodeParticipantActivity/EncodeParticipantActivityPage.tsx";
+import EditHolidayPage from "../pages/EditHoliday/EditHolidayPage.tsx";
+import EditActivityPage from "../pages/EditActivity/EditActivityPage.tsx";
 
 const Routes = () => {
   const { token } = useAuth();
@@ -54,29 +54,29 @@ const Routes = () => {
         },
         {
           path: ':id/activity',
-          element: <EncodeActivity />,
+          element: <EncodeActivityPage />,
         },
         {
           path: ':id/activity/:id',
-          element: <EditActivity />,
+          element: <EditActivityPage />,
         },
         {
           path: 'holiday',
-          element: <EncodeHoliday />,
+          element: <EncodeHolidayPage />,
         },
         {
           path: 'holiday/:id',
-          element: <EditHoliday />,
+          element: <EditHolidayPage />,
         },
         {
           path: 'participant/:id',
-          element: <EncodeParticipant />,
+          element: <EncodeParticipantHolidayPage />,
         },
       ],
     },
     {
       path: 'activity/participants/:id',
-      element: <EncodeParticipantActivity />
+      element: <EncodeParticipantActivityPage />
     },
     {
       path: 'myholiday',
@@ -108,11 +108,11 @@ const Routes = () => {
   const routesForNotAuthenticatedOnly = [
     {
       path: 'login',
-      element: <Login />,
+      element: <LoginPage />,
     },
     {
       path: 'register',
-      element: <Register />,
+      element: <RegisterPage />,
     },
   ];
 

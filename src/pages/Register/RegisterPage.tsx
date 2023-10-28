@@ -64,7 +64,7 @@ const buildInputRegister = (password: string) => {
   ];
 };
 
-const Register = () => {
+const RegisterPage = () => {
   const { setJwtToken } = useAuth();
   const navigate = useNavigate();
 
@@ -146,4 +146,4 @@ const Register = () => {
     </PageWrapper>
   );
 };
-export default Register;
+export default RegisterPage;

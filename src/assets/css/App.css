@@ -56,3 +56,11 @@
 .blur-background {
   filter: blur(2px);
 }
+
+
+.background {
+  background-image: url("../../assets/imgs/bg/bg.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

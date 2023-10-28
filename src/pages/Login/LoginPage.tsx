@@ -6,6 +6,8 @@ import PageWrapper from '../../components/common/PageWrapper.tsx';
 import { useAuth } from '../../provider/AuthProvider.tsx';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useLoginAccount } from '../../api/Queries/AuthentificationQueries.ts';
+import {AxiosError} from "axios";
+import ErrosForm from "../../components/ErrorsForm/ErrorsForm.tsx";
 
 const inputEmail = {
   id: 'email',
@@ -30,11 +32,14 @@ const inputPassword = {
   required: true,
 };
 
-const Login = () => {
+const LoginPage = () => {
   const { setJwtToken } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const { mutate: mutateLogin } = useLoginAccount();
+  const { mutate: mutateLogin, error: errorMutateLogin } = useLoginAccount() as {
+    mutate: any
+    error: AxiosError<unknown>;
+  };
 
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
@@ -54,7 +59,7 @@ const Login = () => {
         password: passwordInput,
       },
       {
-        onSuccess: (data) => {
+        onSuccess: (data: { data: string }) => {
           setJwtToken(data.data);
           navigate('/holidays', { replace: true });
         },
@@ -66,6 +71,11 @@ const Login = () => {
     <PageWrapper>
       <FormContainer title="Se connecter">
         {location.state && <p className="text-red-600 font-bold text-center">{location.state.message}</p>}
+
+        {errorMutateLogin ? (
+          <ErrosForm axiosError={errorMutateLogin?.response?.data} />
+        ): (<> </>)}
+
         <form onSubmit={handleSubmit}>
           <FormInput {...inputEmail} value={emailInput} onChange={handleChangeEmail} />
 
@@ -87,4 +97,4 @@ const Login = () => {
     </PageWrapper>
   );
 };
-export default Login;
+export default LoginPage;

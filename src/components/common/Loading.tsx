@@ -1,5 +1,4 @@
 function Loading() {
-    console.log('render')
   return (
     <div className="w-full h-full flex justify-center mt-4">
       <button

@@ -6,7 +6,7 @@ import {faTrash} from "@fortawesome/free-solid-svg-icons";
 import {Participate} from "../../../api/Models/Participate.ts";
 import {useDeleteParticipate, useGetAllParticipatesByActivity} from "../../../api/Queries/ParticipateQueries.ts";
 import {useState} from "react";
-import Modal from "../../../components/Modal.tsx";
+import Modal from "../../../components/Modal/Modal.tsx";
 
 const MembersActivity = () => {
     const { id} = useParams();
@@ -14,7 +14,6 @@ const MembersActivity = () => {
     const [showModalInvitation, setShowModalInvitation] = useState(false);
     const [selectedParticipate, setSelectedParticipate] = useState<Participate | null>(null);
     const {mutate: mutateParticipate} = useDeleteParticipate();
-    console.log(participates)
 
     const openModalDelete = (participate: Participate): void => {
         setSelectedParticipate(participate);

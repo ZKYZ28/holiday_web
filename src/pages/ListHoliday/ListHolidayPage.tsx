@@ -1,11 +1,11 @@
-import ListHolidayCard from './ListHolidayCard/ListHolidayCard.tsx';
+import HolidayCard from './HolidayCard/HolidayCard.tsx';
 import PageWrapper from '../../components/common/PageWrapper.tsx';
 import PageContent from '../../components/common/PageContent.tsx';
 import {
   useGetAllHolidayByParticipant,
   useGetAllHolidayPublished,
 } from '../../api/Queries/HolidayQueries.ts';
-import Modal from '../../components/Modal.tsx';
+import Modal from '../../components/Modal/Modal.tsx';
 import { useState } from 'react';
 import { useAuth } from '../../provider/AuthProvider.tsx';
 import { useGetInvitations } from '../../api/Queries/InvitationQueries.ts';
@@ -25,6 +25,7 @@ const ListHolidayPage = () => {
   const { data: holidays, isLoading } = isPersonalHoliday ? useGetAllHolidayPublished() : useGetAllHolidayByParticipant(user!.id);
   const [errorMessage, setErrorMessage] = useState<string>('');
 
+  //GESTION DES ERREURS
   if (invitationsError) {
     const axiosError = invitationsError as AxiosError;
     if (axiosError.response) {
@@ -97,7 +98,7 @@ const ListHolidayPage = () => {
 
                 <div className={`grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2 ${backgroundClass}`}>
                   {holidays.map((holiday) => (
-                    <ListHolidayCard key={holiday.id} holiday={holiday} isPersonalHoliday={!isPersonalHoliday}/>
+                    <HolidayCard key={holiday.id} holiday={holiday} isPersonalHoliday={!isPersonalHoliday}/>
                   ))}
                 </div>
 

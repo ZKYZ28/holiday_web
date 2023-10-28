@@ -29,6 +29,7 @@ function GenericForm({
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [deleteImage, setDeleteImage] = useState<boolean>(false);
 
+
   useEffect(() => {
     setValueInputs(initialValues);
   }, [initialValues]);
@@ -61,6 +62,8 @@ function GenericForm({
     };
     onSubmit(allValues);
   };
+
+
   return (
     <form onSubmit={handleSubmit}>
       <UploadFile onFileSelected={handleFileSelect} initialPicturePath={picturePath} />
