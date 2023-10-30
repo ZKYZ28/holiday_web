@@ -1,7 +1,7 @@
 {
   "name": "ue26-frameworkweb-holiday",
   "private": true,
-  "author": "François Mahy et Edwin Devleg",
+  "author": "François Mahy et Edwin De Vlegelaer",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
