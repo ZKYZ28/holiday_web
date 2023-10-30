@@ -4,3 +4,7 @@ export type UserAuthentificated = {
   lastName: string;
   email: string;
 };
+
+export type GoogleAuth = {
+  tokenId : string;
+};
