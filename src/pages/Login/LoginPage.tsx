@@ -6,7 +6,7 @@ import PageWrapper from '../../components/common/PageWrapper.tsx';
 import { useAuth } from '../../provider/AuthProvider.tsx';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useLoginAccount, useLoginGoogle } from '../../api/Queries/AuthentificationQueries.ts';
-import { AxiosError, AxiosResponse } from 'axios';
+import { AxiosError } from 'axios';
 import ErrosForm from '../../components/ErrorsForm/ErrorsForm.tsx';
 import { GoogleLogin } from '@react-oauth/google';
 
@@ -40,10 +40,10 @@ const LoginPage = () => {
   const {
     mutate: mutateLogin,
     error: errorMutateLogin,
-  }: {
+  } = useLoginAccount() as {
     mutate: any;
     error: AxiosError<unknown>;
-  } = useLoginAccount();
+  };
 
   const { mutate: mutateGoogle } = useLoginGoogle();
 
