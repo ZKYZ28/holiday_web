@@ -1,23 +1,23 @@
 import axiosInstance from '../../axios.ts';
-import {Invitation, InvitationMutation} from '../../Models/Invitation.ts';
-import { ENDPOINT } from '../EndPointApi.ts';
+import { Invitation, InvitationMutation } from '../../Models/Invitation.ts';
+import CONFIGURATION from '../Configuration.ts';
 
 class InvitationRequestsApi {
   // INVITATION
   static async getInvitations(participantId: string) {
-    return axiosInstance.get<Invitation[]>(`${ENDPOINT}/invitation/all/${participantId}`);
+    return axiosInstance.get<Invitation[]>(`${CONFIGURATION.API_ENDPOINT}/invitation/all/${participantId}`);
   }
 
   static async createInvitations(invitations: InvitationMutation[]) {
-    return axiosInstance.post(`${ENDPOINT}/invitation`, invitations);
+    return axiosInstance.post(`${CONFIGURATION.API_ENDPOINT}/invitation`, invitations);
   }
 
-  static async acceptInvitation(invitation : Invitation) {
-    return axiosInstance.post(`${ENDPOINT}/invitation/accept`, invitation);
+  static async acceptInvitation(invitation: Invitation) {
+    return axiosInstance.post(`${CONFIGURATION.API_ENDPOINT}/invitation/accept`, invitation);
   }
 
-  static async refuseInvitation(invitation : Invitation) {
-    return axiosInstance.post(`${ENDPOINT}/invitation/refuse`, invitation);
+  static async refuseInvitation(invitation: Invitation) {
+    return axiosInstance.post(`${CONFIGURATION.API_ENDPOINT}/invitation/refuse`, invitation);
   }
 }
 

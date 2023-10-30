@@ -1,7 +1,7 @@
 {
   "name": "ue26-frameworkweb-holiday",
   "private": true,
-  "author": "ma couilkle",
+  "author": "",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -17,6 +17,8 @@
     "@fortawesome/free-regular-svg-icons": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@microsoft/signalr": "^7.0.12",
+    "@react-oauth/google": "^0.11.1",
     "@reduxjs/toolkit": "^1.9.6",
     "@tanstack/react-query": "^4.35.3",
     "axios": "^1.5.1",
@@ -27,7 +29,6 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.16.0",
-    "@microsoft/signalr": "^7.0.12",
     "swiper": "^10.3.1"
   },
   "devDependencies": {

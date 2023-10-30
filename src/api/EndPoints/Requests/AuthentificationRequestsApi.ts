@@ -1,19 +1,23 @@
 import axiosInstance from '../../axios.ts';
-import { UserAuthentificated } from '../../Models/UserAuthentificated.ts';
+import {GoogleAuth, UserAuthentificated} from '../../Models/UserAuthentificated.ts';
 import { Login } from '../../Models/Login.ts';
-import { ENDPOINT } from '../EndPointApi.ts';
+import CONFIGURATION from '../Configuration.ts';
 
 class AuthentificationRequestsApi {
   static async createAccount(newAccount: Register) {
-    return axiosInstance.post(`${ENDPOINT}/authentification/register`, newAccount);
+    return axiosInstance.post(`${CONFIGURATION.API_ENDPOINT}/authentification/register`, newAccount);
   }
 
   static async getUserData() {
-    return axiosInstance.get<UserAuthentificated>(`${ENDPOINT}/participant/user`);
+    return axiosInstance.get<UserAuthentificated>(`${CONFIGURATION.API_ENDPOINT}/participant/user`);
   }
 
   static async loginAccount(loginData: Login) {
-    return axiosInstance.post(`${ENDPOINT}/authentification/login`, loginData);
+    return axiosInstance.post(`${CONFIGURATION.API_ENDPOINT}/authentification/login`, loginData);
+  }
+
+  static async loginGoogle(tokenId: GoogleAuth) {
+    return axiosInstance.post(`${CONFIGURATION.API_ENDPOINT}/authentification/googleauth`, tokenId);
   }
 }
 
