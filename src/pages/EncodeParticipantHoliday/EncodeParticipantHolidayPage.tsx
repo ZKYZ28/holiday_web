@@ -13,6 +13,8 @@ const EncodeParticipantHolidayPage = () => {
   const [searchInput, setSearchText] = useState('');
   const { data: participants, isLoading }: { data: Participant[]; isLoading: boolean } = useGetParticipants(id!);
 
+  console.log(participants);
+
   const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const lowerCase = e.target.value.toLowerCase();
     setSearchText(lowerCase);

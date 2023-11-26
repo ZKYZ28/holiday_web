@@ -3,4 +3,3 @@ export type WeatherCondition = {
   iconPath: string;
 };
 
-export type WeatherConditionMutation = Omit<WeatherCondition, 'id'>;

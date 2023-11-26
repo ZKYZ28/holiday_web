@@ -5,15 +5,15 @@ import CONFIGURATION from '../Configuration.ts';
 class ActivityRequestsApi {
   // ACTIVITY
   static async createActivity(activity: FormData) {
-    return axiosInstance.post(`${CONFIGURATION.API_ENDPOINT}/activity/create`, activity, {
+    return axiosInstance.post(`${CONFIGURATION.API_ENDPOINT}/activity`, activity, {
       headers: {
         'Content-type': 'multipart/form-data',
       },
     });
   }
 
-  static async deleteActivity(activity: Activity) {
-    return axiosInstance.post(`${CONFIGURATION.API_ENDPOINT}/activity/delete`, activity);
+  static async deleteActivity(activityId: string) {
+    return axiosInstance.delete(`${CONFIGURATION.API_ENDPOINT}/activity/${activityId}`);
   }
 
   static async getActivityById(activityId: string) {

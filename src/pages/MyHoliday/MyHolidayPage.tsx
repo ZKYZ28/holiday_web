@@ -112,7 +112,7 @@ function MyHolidayPage() {
             </div>
 
             <div className="w-full flex flex-col items-center md:flex-row md:flex-wrap md:justify-between">
-              <MyHolidayListMembers id={id} />
+              <MyHolidayListMembers participants={holidayData.participants} />
               <MyHolidayWeather id={id!} />
             </div>
 

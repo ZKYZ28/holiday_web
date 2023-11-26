@@ -4,7 +4,7 @@ import CONFIGURATION from '../Configuration.ts';
 
 class MailRequestsApi {
   static async sendMail(email: Mail) {
-    return axiosInstance.post(`${CONFIGURATION.API_ENDPOINT}/mail/send`, email);
+    return axiosInstance.post(`${CONFIGURATION.API_ENDPOINT}/mail`, email);
   }
 }
 

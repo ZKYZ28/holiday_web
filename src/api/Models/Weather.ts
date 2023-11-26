@@ -5,4 +5,3 @@ export type Weather = {
   weatherDays: WeatherDay[];
 };
 
-// export type WeatherMutation = Omit<Weather, 'id'>;

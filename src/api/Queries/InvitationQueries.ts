@@ -32,7 +32,7 @@ export const useAcceptInvitation = () => {
 
 export const useRefuseInvitation = () => {
   const client = useQueryClient();
-  return useMutation((invitation: Invitation) => InvitationRequestsApi.refuseInvitation(invitation), {
+  return useMutation((invitationId: string) => InvitationRequestsApi.refuseInvitation(invitationId), {
     onSuccess: () => {
       client.invalidateQueries(invitationsKeys.all);
     },

@@ -1,5 +1,5 @@
-import {createContext, Dispatch, FC, ReactNode, SetStateAction, useContext, useMemo, useState} from 'react';
-import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
+import {createContext, Dispatch, FC, ReactNode, SetStateAction, useContext, useMemo, useState, useRef} from 'react';
+import { HubConnectionBuilder, LogLevel, HubConnection } from '@microsoft/signalr';
 import { UserAuthentificated } from '../api/Models/UserAuthentificated.ts';
 import { Message } from '../api/Models/Message.ts';
 
@@ -7,7 +7,8 @@ type MessagesContextType = {
   messages: Message[];
   setMessages: Dispatch<SetStateAction<Message[]>>;
   joinRoom: (holidayId: string, user: UserAuthentificated) => void;
-  sendMessage: (userName: UserAuthentificated, holidayId: string, message: string) => void; // Ajoutez cette signature
+  sendMessage: (userName: UserAuthentificated, holidayId: string, message: string) => void;
+  leaveRoom: (holidayId: string, user: UserAuthentificated) => void;
 };
 
 const defaultValue: MessagesContextType = {
@@ -15,56 +16,69 @@ const defaultValue: MessagesContextType = {
   setMessages: () => {},
   joinRoom: () => {},
   sendMessage: () => {},
+  leaveRoom: () => {},
 };
 
 export const MessagesContext = createContext<MessagesContextType>(defaultValue);
 
 const MessagesProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [messages, setMessages] = useState<Message[]>([]);
+  const connectionRef = useRef<HubConnection | null>(null);
 
-  // ETABLISSEMENT DE LA CONNECTION
-  const connection = new HubConnectionBuilder()
-    .withUrl('https://localhost:7048/chat') // URL DU SERVEUR
-    .configureLogging(LogLevel.Information)
-    .build();
 
   // METHODE POUR QUI PEREMT DE REJOINDRE UN CHAT
   const joinRoom = async (holidayId: string, user: UserAuthentificated) => {
     try {
-      if (connection.state !== 'Connected') {
-        await connection.start();
-      }
+      const newConnection = new HubConnectionBuilder()
+        .withUrl('https://localhost:7048/chat')
+        .configureLogging(LogLevel.Information)
+        .build();
+
+      connectionRef.current = newConnection;
 
       // REGISTER DES LISTENERS
-      connection.on('ReceiveWelcomeMessage', (messageReceive: Message) => {
-        setMessages([]);
+      newConnection!.on('ReceiveWelcomeMessage', (messageReceive: Message) => {
         setMessages((messages: Message[]) => [...messages, messageReceive]);
       });
 
-      connection.on('ReceiveHistoryMessage', (messageHistory: Message[]) => {
+      newConnection!.on('ClearMessages', () => {
+        setMessages([]);
+      });
+
+      newConnection!.on('ReceiveHistoryMessage', (messageHistory: Message[]) => {
         setMessages((messages: Message[]) => [...messages, ...messageHistory]);
       });
 
-      connection.on('ReceiveSendMessage', (messageReceive: Message) => {
+      newConnection!.on('ReceiveSendMessage', (messageReceive: Message) => {
         setMessages((messages) => [...messages, messageReceive]);
       });
 
-      await connection.invoke('JoinRoom', holidayId, user);
+      await newConnection!.start();
+
+      await newConnection!.invoke('JoinRoom', holidayId, user);
+
     } catch (e) {
-      console.log(e);
+      console.log(e)
     }
   };
 
   // METHODE POUR ENVOYER UN MESSAGE DANS LE CHAT
   const sendMessage = async (user: UserAuthentificated, holidayId: string, message: string) => {
     try {
-      if (connection.state !== 'Connected') {
-        await connection.start();
-      }
-
-      await connection.invoke('SendMessage', user, holidayId, message);
+      await connectionRef.current!.invoke('SendMessage', user, holidayId, message);
     } catch (e) {
-      console.log(e);
+      console.log(e)
+    }
+  };
+
+  const leaveRoom = async (holidayId: string, user: UserAuthentificated) => {
+    try {
+      await connectionRef.current!.invoke('LeaveHolidayRoom', holidayId, user);
+      await connectionRef.current!.stop();
+
+
+    } catch (e) {
+      console.log(e)
     }
   };
 
@@ -74,6 +88,7 @@ const MessagesProvider: FC<{ children: ReactNode }> = ({ children }) => {
       setMessages,
       joinRoom,
       sendMessage,
+      leaveRoom,
     }),
     [messages]
   );

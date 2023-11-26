@@ -26,7 +26,7 @@ function HolidayCard({ holiday, isPersonalHoliday }: { holiday: Holiday; isPerso
   };
 
   function handleDeleteClick() {
-    mutateHoliday(holiday, { onError: () => alert('An error occurred') });
+    mutateHoliday(holiday.id, { onError: () => alert('An error occurred') });
   }
 
   return (

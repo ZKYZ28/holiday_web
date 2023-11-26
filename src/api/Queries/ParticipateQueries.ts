@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { Participate, ParticipateListUser } from '../Models/Participate.ts';
+import { ParticipateListUser } from '../Models/Participate.ts';
 import ParticipateRequestsApi from '../EndPoints/Requests/ParticipateRequestsApi.ts';
 import { participantKeys, participateKeys } from '../Querykeys.ts';
 
@@ -22,7 +22,7 @@ export const useGetAllParticipatesByActivity = (activityId: string) => {
 
 export const useDeleteParticipate = () => {
   const client = useQueryClient();
-  return useMutation((participate: Participate) => ParticipateRequestsApi.deleteParticipate(participate), {
+  return useMutation((participateId: string) => ParticipateRequestsApi.deleteParticipate(participateId), {
     onSuccess: () => {
       client.invalidateQueries(participateKeys.all);
       client.invalidateQueries(participantKeys.all);

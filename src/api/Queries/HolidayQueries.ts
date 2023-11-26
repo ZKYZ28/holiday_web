@@ -73,7 +73,7 @@ export const useGetAllHolidayCountForDate = () => {
 
 export const useDeleteHoliday = () => {
   const client = useQueryClient();
-  return useMutation((holiday: Holiday) => HolidayRequestsApi.deleteHoliday(holiday), {
+  return useMutation((holidayId: String) => HolidayRequestsApi.deleteHoliday(holidayId), {
     onSuccess: () => {
       client.invalidateQueries(holidayKeys.all);
     },

@@ -5,7 +5,7 @@ import CONFIGURATION from '../Configuration.ts';
 class InvitationRequestsApi {
   // INVITATION
   static async getInvitations(participantId: string) {
-    return axiosInstance.get<Invitation[]>(`${CONFIGURATION.API_ENDPOINT}/invitation/all/${participantId}`);
+    return axiosInstance.get<Invitation[]>(`${CONFIGURATION.API_ENDPOINT}/invitation/participant/${participantId}`);
   }
 
   static async createInvitations(invitations: InvitationMutation[]) {
@@ -13,11 +13,11 @@ class InvitationRequestsApi {
   }
 
   static async acceptInvitation(invitation: Invitation) {
-    return axiosInstance.post(`${CONFIGURATION.API_ENDPOINT}/invitation/accept`, invitation);
+    return axiosInstance.put(`${CONFIGURATION.API_ENDPOINT}/invitation`, invitation);
   }
 
-  static async refuseInvitation(invitation: Invitation) {
-    return axiosInstance.post(`${CONFIGURATION.API_ENDPOINT}/invitation/refuse`, invitation);
+  static async refuseInvitation(invitationId: string) {
+    return axiosInstance.delete(`${CONFIGURATION.API_ENDPOINT}/invitation/${invitationId}`);
   }
 }
 

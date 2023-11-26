@@ -3,5 +3,3 @@ export type WeatherHour = {
   temp: number;
   pathImage: string;
 };
-
-export type WeatherHourMutation = Omit<WeatherHour, 'id'>;

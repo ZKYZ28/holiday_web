@@ -10,20 +10,26 @@ import { useGetAllHolidayByParticipant } from '../../api/Queries/HolidayQueries.
 
 const ChatPage = () => {
   const { user } = useAuth();
+
   const { joinRoom } = useMessages();
+  const { leaveRoom } = useMessages();
+
+
   const { data: holidays } = useGetAllHolidayByParticipant(user!.id);
   const [activeGroupChat, setActiveGroupChat]: [
     activeGroupChat: string,
     setActiveGroupChat: Dispatch<SetStateAction<string>>,
   ] = useState('');
-  const [holidayId, setHolidayId]: [holidayId: string, setHolidayId: Dispatch<SetStateAction<string>>] = useState(
-    holidays[0]?.id
-  );
+  const [holidayId, setHolidayId]: [holidayId: string, setHolidayId: Dispatch<SetStateAction<string>>] = useState("");
 
-  const handleGroupChatClick = (holidayId: string) => {
-    setActiveGroupChat(holidayId);
-    joinRoom(holidayId, user!);
-    setHolidayId(holidayId);
+
+  const handleGroupChatClick = async (holidayIdToJoin: string)  => {
+    if(holidayId.length != 0){
+      await leaveRoom(holidayId, user!);
+    }
+    setActiveGroupChat(holidayIdToJoin);
+    await joinRoom(holidayIdToJoin, user!);
+    setHolidayId(holidayIdToJoin);
   };
 
   return (

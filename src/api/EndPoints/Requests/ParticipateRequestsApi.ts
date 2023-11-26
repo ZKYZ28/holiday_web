@@ -8,11 +8,11 @@ class ParticipateRequestsApi {
   }
 
   static async getAllParticipatesByActivity(activityId: string) {
-    return axiosInstance.get<Participate[]>(`${CONFIGURATION.API_ENDPOINT}/participate/allByActivity/${activityId}`);
+    return axiosInstance.get<Participate[]>(`${CONFIGURATION.API_ENDPOINT}/participate/activity/${activityId}`);
   }
 
-  static async deleteParticipate(participate: Participate) {
-    return axiosInstance.post(`${CONFIGURATION.API_ENDPOINT}/participate/delete`, participate);
+  static async deleteParticipate(participateId: string) {
+    return axiosInstance.delete(`${CONFIGURATION.API_ENDPOINT}/participate/${participateId}`);
   }
 }
 

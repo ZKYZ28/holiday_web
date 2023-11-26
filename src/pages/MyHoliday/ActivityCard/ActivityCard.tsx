@@ -10,13 +10,14 @@ import Modal from '../../../components/Modal/Modal.tsx';
 import { useState } from 'react';
 import { urlApi } from '../../../api/EndPoints/HolidayApi.ts';
 import {NavLink, useParams} from 'react-router-dom';
+import dayjs from 'dayjs';
 
 function ActivityCard({ activity }: { activity: Activity }) {
   const{id} = useParams();
   const { mutate: mutateActivity } = useDeleteActivity();
 
   function handleDeleteClick() {
-    mutateActivity(activity, { onError: () => alert('An error occurred') });
+    mutateActivity(activity.id, { onError: () => alert('An error occurred') });
   }
 
   // GESTION DE LA MONDAL
@@ -54,7 +55,7 @@ function ActivityCard({ activity }: { activity: Activity }) {
         <ul className="flex flex-col justify-around">
           <div className="flex flex-row items-center mb-1.5">
             <FontAwesomeIcon icon={faCalendarDays} size="xl" className="w-5 mr-4" />
-            <li className="font-bold text-base lg:text-xl ">{activity.startDate}</li>
+            <li className="font-bold text-base lg:text-xl ">{dayjs(activity.startDate).format('DD-MM-YYYY à hh:mm')}</li>
           </div>
 
           <div className="flex flex-row items-center mb-1.5">

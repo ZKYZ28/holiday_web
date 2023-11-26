@@ -12,4 +12,3 @@ export type WeatherDay = {
   weatherByHour: WeatherHour[];
 };
 
-export type WeatherDayMutation = Omit<WeatherDay, 'id'>;

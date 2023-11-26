@@ -9,7 +9,7 @@ export type Holiday = {
   startDate: string;
   endDate: string;
   location: Location;
-  participant: Participant;
+  participants: Participant[];
   isPublish: boolean;
   activities: Activity[];
   holidayPath: string;

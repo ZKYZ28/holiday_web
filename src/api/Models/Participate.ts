@@ -13,5 +13,3 @@ export type ParticipateListUser = {
   participantId: string;
 };
 
-
-export type ParticipateMutation = Omit<Participant, 'id'>;

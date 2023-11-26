@@ -27,7 +27,7 @@ const MembersActivity = () => {
     function handleDeleteClick() {
         if (selectedParticipate) {
             mutateParticipate(
-                selectedParticipate,
+                selectedParticipate.id,
                 { onError: () => alert('An error occurred'), onSuccess : () => closeModalDelete()}
             )
         }

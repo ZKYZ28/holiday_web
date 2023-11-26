@@ -1,8 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { holidayKeys } from '../Querykeys.ts';
-import { Activity } from '../Models/Activity.ts';
 import ActivityRequestsApi from '../EndPoints/Requests/ActivityRequestsApi.ts';
-// TODO REBUILD QUERY KEY
+
 export const useCreateActivity = () => {
   const client = useQueryClient();
   return useMutation((activity: FormData) => ActivityRequestsApi.createActivity(activity), {
@@ -34,7 +33,7 @@ export const useGetActivityById = (activityId: string) => {
 
 export const useDeleteActivity = () => {
   const client = useQueryClient();
-  return useMutation((activity: Activity) => ActivityRequestsApi.deleteActivity(activity), {
+  return useMutation((activityId: string) => ActivityRequestsApi.deleteActivity(activityId), {
     onSuccess: () => {
       client.invalidateQueries(holidayKeys.all);
     },
