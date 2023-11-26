@@ -8,7 +8,6 @@ import { Activity } from '../../../api/Models/Activity.ts';
 import { useDeleteActivity } from '../../../api/Queries/ActivityQueries.ts';
 import Modal from '../../../components/Modal/Modal.tsx';
 import { useState } from 'react';
-import { urlApi } from '../../../api/EndPoints/HolidayApi.ts';
 import {NavLink, useParams} from 'react-router-dom';
 
 function ActivityCard({ activity }: { activity: Activity }) {
@@ -32,7 +31,7 @@ function ActivityCard({ activity }: { activity: Activity }) {
   return (
     <div className="block h-auto justify-between bg-white rounded-2xl box-shadow">
       <div className="w-full">
-        <img className="object-cover w-full h-100 rounded-lg" src={`${urlApi()}${activity.activityPath}`} alt="IMAGE" />
+        <img className="object-cover w-full h-100 rounded-lg" src={`${import.meta.env.VITE_BASE_API}/${activity.activityPath}`} alt="IMAGE" />
       </div>
       <div className="flex flex-col justify-between p-6 lg:mx-6">
         <div className="flex flex-row justify-between">

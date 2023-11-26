@@ -15,7 +15,7 @@ const inputEmail = {
   name: 'email',
   type: 'text',
   placeholder: 'john.doe@gmail.com',
-  pattern: '^[#$%&\'*+\\/=?^`\\{\\|\\}~\\-\\.\\w]+@[\\-A-Za-z0-9Çç]+(?:\\.[\\-a-zA-Z0-9]+)+$',
+  pattern: '^[#$%&\'*+\\/=?^`\\{\\|\\}~\\-\\.\\w]+@[\\-A-Za-z0-9]+(?:\\.[\\-a-zA-Z0-9]+)+$',
   errorMessage: 'Veuillez entrer une adresse e-mail valide. Par exemple,"john.doe@gmail.com"',
   label: 'Courriel :',
   required: true,
@@ -25,7 +25,7 @@ const inputPassword = {
   id: 'password',
   name: 'password',
   type: 'password',
-  placeholder: '',
+  placeholder: '********',
   errorMessage:
     'Votre mot de passe doit comporter au moins 8 caractères, incluant au minimum un caractère spécial, une majuscule, une minuscule et un chiffre ! ',
   pattern: '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*\\.!@$%^&\\(\\)\\{\\}\\[\\]\\:;<>,\\.?\\/~_\\+\\-=\\|çÇ]).{8,32}$',

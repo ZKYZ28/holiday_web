@@ -2,7 +2,6 @@ import { ChangeEvent, FC, useEffect, useState } from 'react';
 import { faX } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { isAllowedTypes, isHigherFiveMo } from './utils/imageUtils.ts';
-import { urlApi } from '../../api/EndPoints/HolidayApi.ts';
 
 type UploadFileProps = {
   onFileSelected: (file: File | null, deleteImage?: boolean) => void;
@@ -10,9 +9,9 @@ type UploadFileProps = {
 };
 
 const UploadFile: FC<UploadFileProps> = ({ onFileSelected, initialPicturePath }) => {
-  let [imageSrc, setImageSrc] = useState<string | null>(initialPicturePath ? `${urlApi()}${initialPicturePath}` : null);
+  let [imageSrc, setImageSrc] = useState<string | null>(initialPicturePath ? `${import.meta.env.VITE_BASE_API}/${initialPicturePath}` : null);
   useEffect(() => {
-    setImageSrc(initialPicturePath ? `${urlApi()}${initialPicturePath}` : null);
+    setImageSrc(initialPicturePath ? `${import.meta.env.VITE_BASE_API}/${initialPicturePath}` : null);
     return () => {
       imageSrc = null;
     };

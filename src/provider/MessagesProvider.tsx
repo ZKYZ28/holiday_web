@@ -24,7 +24,8 @@ const MessagesProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
   // ETABLISSEMENT DE LA CONNECTION
   const connection = new HubConnectionBuilder()
-    .withUrl('https://localhost:7048/chat') // URL DU SERVEUR
+    // .withUrl('https://localhost:7048/chat') // url dév
+    .withUrl(`${import.meta.env.VITE_BASE_API}/chat`) // URL DU SERVEUR
     .configureLogging(LogLevel.Information)
     .build();
 

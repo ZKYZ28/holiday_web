@@ -9,7 +9,6 @@ import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import Modal from '../../../components/Modal/Modal.tsx';
 import { useDeleteHoliday } from '../../../api/Queries/HolidayQueries.ts';
-import { urlApi } from '../../../api/EndPoints/HolidayApi.ts';
 import { NavLink } from 'react-router-dom';
 
 function HolidayCard({ holiday, isPersonalHoliday }: { holiday: Holiday; isPersonalHoliday: boolean }) {
@@ -31,7 +30,11 @@ function HolidayCard({ holiday, isPersonalHoliday }: { holiday: Holiday; isPerso
 
   return (
     <div className="lg:flex bg-white rounded-2xl">
-      <img className="object-cover w-full h-100 rounded-lg lg:w-64" src={`${urlApi()}${holiday.holidayPath}`} alt="" />
+      <img
+        className="object-cover w-full h-100 rounded-lg lg:w-64"
+        src={`${import.meta.env.VITE_BASE_API}/${holiday.holidayPath}`}
+        alt=""
+      />
 
       <div className="flex flex-col justify-between p-6 lg:mx-6 w-full bg-white rounded-2xl">
         <div className="flex items-center justify-between">
@@ -62,7 +65,6 @@ function HolidayCard({ holiday, isPersonalHoliday }: { holiday: Holiday; isPerso
               <></>
             )}
           </div>
-
         </div>
 
         <div className="w-5/6">
@@ -70,7 +72,6 @@ function HolidayCard({ holiday, isPersonalHoliday }: { holiday: Holiday; isPerso
             {holiday.description}
           </p>
         </div>
-
 
         <ul className="flex flex-col justify-around">
           <div className="flex flex-row items-center mb-1.5">
