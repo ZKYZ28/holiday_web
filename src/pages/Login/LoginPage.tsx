@@ -5,16 +5,17 @@ import ButtonLink from '../../components/Header/ButtonLink/ButtonLink.tsx';
 import PageWrapper from '../../components/common/PageWrapper.tsx';
 import { useAuth } from '../../provider/AuthProvider.tsx';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useLoginAccount } from '../../api/Queries/AuthentificationQueries.ts';
-import {AxiosError} from "axios";
-import ErrosForm from "../../components/ErrorsForm/ErrorsForm.tsx";
+import { useLoginAccount, useLoginGoogle } from '../../api/Queries/AuthentificationQueries.ts';
+import { AxiosError } from 'axios';
+import ErrosForm from '../../components/ErrorsForm/ErrorsForm.tsx';
+import { GoogleLogin } from '@react-oauth/google';
 
 const inputEmail = {
   id: 'email',
   name: 'email',
   type: 'text',
   placeholder: 'john.doe@gmail.com',
-  pattern: '^[#$%&\'*+\\/=?^`\\{\\|\\}~\\-\\.\\w]+@[\\-A-Za-z0-9Çç]+(?:\\.[\\-a-zA-Z0-9]+)+$',
+  pattern: '^[#$%&\'*+\\/=?^`\\{\\|\\}~\\-\\.\\w]+@[\\-A-Za-z0-9]+(?:\\.[\\-a-zA-Z0-9]+)+$',
   errorMessage: 'Veuillez entrer une adresse e-mail valide. Par exemple,"john.doe@gmail.com"',
   label: 'Courriel :',
   required: true,
@@ -24,7 +25,7 @@ const inputPassword = {
   id: 'password',
   name: 'password',
   type: 'password',
-  placeholder: '',
+  placeholder: '********',
   errorMessage:
     'Votre mot de passe doit comporter au moins 8 caractères, incluant au minimum un caractère spécial, une majuscule, une minuscule et un chiffre ! ',
   pattern: '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*\\.!@$%^&\\(\\)\\{\\}\\[\\]\\:;<>,\\.?\\/~_\\+\\-=\\|çÇ]).{8,32}$',
@@ -36,10 +37,15 @@ const LoginPage = () => {
   const { setJwtToken } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const { mutate: mutateLogin, error: errorMutateLogin } = useLoginAccount() as {
-    mutate: any
+  const {
+    mutate: mutateLogin,
+    error: errorMutateLogin,
+  } = useLoginAccount() as {
+    mutate: any;
     error: AxiosError<unknown>;
   };
+
+  const { mutate: mutateGoogle } = useLoginGoogle();
 
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
@@ -72,9 +78,7 @@ const LoginPage = () => {
       <FormContainer title="Se connecter">
         {location.state && <p className="text-red-600 font-bold text-center">{location.state.message}</p>}
 
-        {errorMutateLogin ? (
-          <ErrosForm axiosError={errorMutateLogin?.response?.data} />
-        ): (<> </>)}
+        {errorMutateLogin ? <ErrosForm axiosError={errorMutateLogin?.response?.data} /> : <> </>}
 
         <form onSubmit={handleSubmit}>
           <FormInput {...inputEmail} value={emailInput} onChange={handleChangeEmail} />
@@ -89,7 +93,27 @@ const LoginPage = () => {
         </form>
 
         <div className="flex items-center mt-12 flex-col">
-          <div className="h-1 bg-gray-100 w-1/2 rounded-lg mb-10" />
+          <div className="h-1 bg-gray-100 w-1/2 rounded-lg mb-5" />
+          <div className="mb-5">
+            <GoogleLogin
+              onSuccess={(credentialResponse) => {
+                mutateGoogle(
+                  {
+                    tokenId: credentialResponse.credential!,
+                  },
+                  {
+                    onSuccess: (data: { data: string }) => {
+                      setJwtToken(data.data);
+                      navigate('/holidays', { replace: true });
+                    },
+                  }
+                );
+              }}
+              onError={() => {
+                console.log('Login Failed');
+              }}
+            />
+          </div>
           <p className="text-xl text-blue-800 font-semibold mb-8">Vous n'avez pas encore de compte ? </p>
           <ButtonLink text="S'enregistrer" to="/register" />
         </div>

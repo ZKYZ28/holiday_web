@@ -1,4 +1,4 @@
-import { RouterProvider, createBrowserRouter, Outlet } from 'react-router-dom';
+import { RouterProvider, Outlet, createHashRouter } from 'react-router-dom';
 import HomePage from '../pages/Home/HomePage.tsx';
 import LoginPage from '../pages/Login/LoginPage.tsx';
 import RegisterPage from '../pages/Register/RegisterPage.tsx';
@@ -11,9 +11,9 @@ import ContactPage from '../pages/Contact/ContactPage.tsx';
 import Warden from '../components/common/Warden.tsx';
 import EncodeParticipantHolidayPage from '../pages/EncodeParticipantHoliday/EncodeParticipantHolidayPage.tsx';
 import { useAuth } from '../provider/AuthProvider.tsx';
-import EncodeParticipantActivityPage from "../pages/EncodeParticipantActivity/EncodeParticipantActivityPage.tsx";
-import EditHolidayPage from "../pages/EditHoliday/EditHolidayPage.tsx";
-import EditActivityPage from "../pages/EditActivity/EditActivityPage.tsx";
+import EncodeParticipantActivityPage from '../pages/EncodeParticipantActivity/EncodeParticipantActivityPage.tsx';
+import EditHolidayPage from '../pages/EditHoliday/EditHolidayPage.tsx';
+import EditActivityPage from '../pages/EditActivity/EditActivityPage.tsx';
 
 const Routes = () => {
   const { token } = useAuth();
@@ -27,10 +27,6 @@ const Routes = () => {
     {
       path: '*',
       element: <span>404</span>,
-    },
-    {
-      path: 'contact',
-      element: <ContactPage />,
     },
   ];
 
@@ -76,7 +72,7 @@ const Routes = () => {
     },
     {
       path: 'activity/participants/:id',
-      element: <EncodeParticipantActivityPage />
+      element: <EncodeParticipantActivityPage />,
     },
     {
       path: 'myholiday',
@@ -114,10 +110,14 @@ const Routes = () => {
       path: 'register',
       element: <RegisterPage />,
     },
+    {
+      path: 'contact',
+      element: <ContactPage />,
+    },
   ];
 
   // Combine and conditionally include routes based on authentication status
-  const router = createBrowserRouter([
+  const router = createHashRouter([
     ...routesForPublic,
     ...(!token ? routesForNotAuthenticatedOnly : []),
     ...routesForAuthenticatedOnly,

@@ -30,7 +30,7 @@ const MessagesProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const joinRoom = async (holidayId: string, user: UserAuthentificated) => {
     try {
       const newConnection = new HubConnectionBuilder()
-        .withUrl('https://localhost:7048/chat')
+        .withUrl(`${import.meta.env.VITE_BASE_API}/chat`)
         .configureLogging(LogLevel.Information)
         .build();
 
