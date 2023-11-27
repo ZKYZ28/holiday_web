@@ -6,10 +6,12 @@ import PageWrapper from '../../components/common/PageWrapper.tsx';
 import { useSendMail } from '../../api/Queries/MailQueries.ts';
 import {AxiosError} from "axios";
 import ErrosForm from "../../components/ErrorsForm/ErrorsForm.tsx";
+import Modal from "../../components/Modal/Modal.tsx";
 
 function ContactPage() {
   const [emailInput, setEmailInput] = useState('');
-  const [textAreaField, setTextAreaFild] = useState('');
+  const [textAreaField, setTextAreaField] = useState('');
+  const [showModalConfirmation, setShowModalConfirmation] = useState(false);
   const { mutate: Mail, error: errorMail } = useSendMail() as {
     mutate: any
     error: AxiosError<unknown>;
@@ -36,9 +38,16 @@ function ContactPage() {
     required: true,
   };
 
+  const closeModalConfirmation = (): void => {
+    setShowModalConfirmation(false);
+  };
+
+  const openModalConfirmation = (): void => {
+    setShowModalConfirmation(true);
+  };
+
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    console.log(textAreaField.length);
     if (textAreaField.length > 10) {
       Mail(
         {
@@ -47,7 +56,11 @@ function ContactPage() {
         },
         {
           onError: () => alert('An error occurred'),
-          onSuccess: () => alert('Votre mail a été envoyé avec succès.')
+          onSuccess: () => {
+            setEmailInput('');
+            setTextAreaField('');
+            openModalConfirmation()
+          }
         }
       );
     }
@@ -58,7 +71,7 @@ function ContactPage() {
   };
 
   const handleChangeTextArea = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setTextAreaFild(e.target.value);
+    setTextAreaField(e.target.value);
   };
 
   return (
@@ -90,6 +103,13 @@ function ContactPage() {
             <SideContact />
           </div>
         </div>
+
+        <Modal show={showModalConfirmation} onClose={closeModalConfirmation}>
+          <div className="flex flex-col justify-center items-center w-full">
+              <h3 className="font-bold text-green-600">Mail envoyé avec succès !</h3>
+              <p className="font-semibold text-blue-800">Merci pour votre message, nous traiterons votre demande dès que possible.</p>
+          </div>
+        </Modal>
       </form>
     </PageWrapper>
   );

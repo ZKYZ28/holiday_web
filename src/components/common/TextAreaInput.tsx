@@ -24,7 +24,7 @@ function TextAreaInput({ id, name, errorMessage, label, onChange, placeholder, v
         }`}
         id={id}
         name={name}
-        defaultValue={value}
+        value={value}
         placeholder={placeholder}
         onChange={onChange}
         onBlur={handleBlur}
