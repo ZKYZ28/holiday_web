@@ -75,7 +75,7 @@ function MyHolidayPage() {
               <h2 className="text-xl capitalize lg:text-2xl text-blue-800 font-bold">
                 {dayjs(holidayData.startDate).format('DD-MM-YYYY')}
               </h2>
-              <div>
+              <div className="flex">
                 {holidayData.isPublish ? (
                   <button
                     type="button"
@@ -93,33 +93,40 @@ function MyHolidayPage() {
                   </button>
                 )}
 
-                <button
-                  onClick={handleDownload}
-                  type="button"
-                  className="inline-block bg-blue-800 hover-bg-blue-700 text-white font-bold py-1 px-4 rounded-full ml-3.5"
-                >
-                  Exporter dans l'agenda
-                </button>
+                {!holidayData.isPublish ? (
+                    <div>
+                          <button
+                              onClick={handleDownload}
+                              type="button"
+                              className="inline-block bg-blue-800 hover-bg-blue-700 text-white font-bold py-1 px-4 rounded-full ml-3.5"
+                          >
+                            Exporter dans l'agenda
+                          </button>
 
-                <button
-                  onClick={openModalLeave}
-                  type="button"
-                  className="inline-block bg-red-600 hover-bg-red-700 text-white font-bold py-1 px-4 rounded-full ml-3.5"
-                >
-                  Quitter
-                </button>
+                      <button
+                          onClick={openModalLeave}
+                          type="button"
+                          className="inline-block bg-red-600 hover-bg-red-700 text-white font-bold py-1 px-4 rounded-full ml-3.5"
+                      >
+                        Quitter
+                      </button>
+                    </div>
+                ) : (
+                   <></>
+                )}
+
               </div>
             </div>
 
             <div className="w-full flex flex-col items-center md:flex-row md:flex-wrap md:justify-between">
-              <MyHolidayListMembers participants={holidayData.participants} />
+              <MyHolidayListMembers participants={holidayData.participants} isPublish={holidayData.isPublish} />
               <MyHolidayWeather id={id!} />
             </div>
 
-            <MyHolidayActivities id={id!} holidayData={holidayData} holidayIsLoading={holidayIsLoading} />
+            <MyHolidayActivities id={id!} holidayData={holidayData} holidayIsLoading={holidayIsLoading} isPublish={holidayData.isPublish} />
 
             {showModalPublish && (
-              <Modal show={showModalPublish} onClose={closeModalPublish}>
+              <Modal show={showModalPublish} onClose={closeModalPublish} title="Publier">
                 <div className="flex flex-col justify-center items-center w-full">
                   <p className="text-center">
                     Etes-vous sûr de vouloir publier cette période de vacance ? Cela veut dire que tout les utilisateurs
@@ -148,7 +155,7 @@ function MyHolidayPage() {
             )}
 
             {showModalLeave && (
-              <Modal show={showModalLeave} onClose={closeModalLeave}>
+              <Modal show={showModalLeave} onClose={closeModalLeave} title="Quitter">
                 <div className="flex flex-col justify-center items-center w-full">
                   <p className="text-center">
                     Etes-vous sûr de vouloir quitter <span className="font-bold text-blue-800">{holidayData.name}</span>{' '}

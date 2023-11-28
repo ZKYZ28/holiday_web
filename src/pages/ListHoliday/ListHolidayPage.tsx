@@ -109,6 +109,7 @@ const ListHolidayPage = () => {
             <Modal
               show={showModalInvitation}
               onClose={closeModalInvitation}
+              title={'Invitations'}
             >
               {invitationsError ? (
                   <ErrorMessage message={errorMessage}/>

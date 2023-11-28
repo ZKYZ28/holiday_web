@@ -76,7 +76,7 @@ function ContactPage() {
 
   return (
     <PageWrapper>
-      <form onSubmit={handleSubmit} className="page-chat">
+      <form onSubmit={handleSubmit} className="page-chat mt-6">
         <div className="flex justify-center items-center w-screen bg-red pb-10 h-full">
           <div className="container mx-auto my-4 px-4 lg:px-20">
             <div className="w-full p-8 my-4 md:px-12 lg:w-9/12 lg:pl-20 lg:pr-40 mr-auto rounded-2xl shadow-2xl">
@@ -107,7 +107,7 @@ function ContactPage() {
           </div>
         </div>
 
-        <Modal show={showModalConfirmation} onClose={closeModalConfirmation}>
+        <Modal show={showModalConfirmation} onClose={closeModalConfirmation} title={'Confirmation'}>
           <div className="flex flex-col justify-center items-center w-full">
             <h3 className="font-bold text-green-600">Mail envoyé avec succès !</h3>
             <p className="font-semibold text-blue-800">

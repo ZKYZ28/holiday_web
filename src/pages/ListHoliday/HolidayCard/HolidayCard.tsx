@@ -11,7 +11,7 @@ import Modal from '../../../components/Modal/Modal.tsx';
 import { useDeleteHoliday } from '../../../api/Queries/HolidayQueries.ts';
 import { NavLink } from 'react-router-dom';
 
-function HolidayCard({ holiday, isPersonalHoliday }: { holiday: Holiday; isPersonalHoliday: boolean }) {
+function HolidayCard({ holiday }: { holiday: Holiday; isPersonalHoliday: boolean }) {
   const id = `/holidays/${holiday.id}`;
   const [showModalInvitation, setShowModalInvitation] = useState(false);
   const { mutate: mutateHoliday } = useDeleteHoliday();
@@ -47,9 +47,6 @@ function HolidayCard({ holiday, isPersonalHoliday }: { holiday: Holiday; isPerso
                 alt=""
               />
             ) : (
-              <></>
-            )}
-            {isPersonalHoliday ? (
               <>
                 <NavLink to={`/holidays/holiday/${holiday.id}`}>
                   <FontAwesomeIcon icon={faEdit} size="xl" className="text-blue-700 ml-3 cursor-pointer" />
@@ -61,9 +58,8 @@ function HolidayCard({ holiday, isPersonalHoliday }: { holiday: Holiday; isPerso
                   onClick={openModalInvitation}
                 />
               </>
-            ) : (
-              <></>
             )}
+
           </div>
         </div>
 
@@ -98,7 +94,7 @@ function HolidayCard({ holiday, isPersonalHoliday }: { holiday: Holiday; isPerso
       </div>
 
       {showModalInvitation && (
-        <Modal show={showModalInvitation} onClose={closeModalInvitation}>
+        <Modal show={showModalInvitation} onClose={closeModalInvitation} title={'Supprimer'}>
           <div className="flex flex-col justify-center items-center w-full">
             <p className="text-center">
               Etes-vous sûr de vouloir supprimer cette activité vacance?

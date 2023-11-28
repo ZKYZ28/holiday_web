@@ -7,15 +7,19 @@ import Loading from '../../../components/common/Loading.tsx';
 import { Participant } from '../../../api/Models/Participant.ts';
 import {useParams} from "react-router-dom";
 
-function MyHolidayListMembers({ participants }: { participants: Participant[] | undefined }) {
+function MyHolidayListMembers({ participants, isPublish }: { participants: Participant[] | undefined, isPublish: boolean}) {
   const { id } = useParams();
     return (
         <div className="w-full md:w-5/12 bg-white shadow-lg rounded-sm border border-gray-200 h-96 overflow-x-scroll">
             <header className="flex justify-between items-center px-5 py-4 border-b border-gray-100">
                 <h2 className="text-xl capitalize lg:text-2xl text-blue-800 font-bold ">Participant(s)</h2>
-                <NavLink to={`/holidays/participant/${id}`}>
-                    <FontAwesomeIcon className="text-blue-800" icon={faPlus} size="xl" />
-                </NavLink>
+                {!isPublish ? (
+                    <NavLink to={`/holidays/participant/${id}`}>
+                        <FontAwesomeIcon className="text-blue-800" icon={faPlus} size="xl" />
+                    </NavLink>
+                ): (
+                <></>
+                )}
             </header>
             <div className="p-3">
 

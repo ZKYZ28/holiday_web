@@ -1,6 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook, faLinkedin } from '@fortawesome/free-brands-svg-icons';
-
 function SideContact() {
   return (
     <div className="w-full lg:-mt-96 lg:w-2/6 px-8 py-12 ml-auto bg-blue-900 rounded-2xl sm:mt-5">
@@ -31,14 +28,6 @@ function SideContact() {
             <h2 className="text-2xl">Notre numéro</h2>
             <p className="text-gray-400">Tel: 123-456-777</p>
           </div>
-        </div>
-        <div className="flex my-4 w-2/3 lg:w-1/2">
-          <a href="https://www.facebook.com/" target="_blank" rel="noreferrer" className="mr-2">
-            <FontAwesomeIcon icon={faFacebook} size="2xl" />
-          </a>
-          <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">
-            <FontAwesomeIcon icon={faLinkedin} size="2xl" />
-          </a>
         </div>
       </div>
     </div>

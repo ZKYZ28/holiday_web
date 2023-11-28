@@ -10,13 +10,16 @@ function MyHolidayActivities({
   id,
   holidayData,
   holidayIsLoading,
+  isPublish
 }: {
   id: string;
   holidayData: Holiday;
   holidayIsLoading: boolean;
+  isPublish: boolean;
 }) {
 
   const [sortAscending, setSortAscending] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const toggleSortOrder = () => {
     setSortAscending((prevSortOrder) => !prevSortOrder);
@@ -36,27 +39,47 @@ function MyHolidayActivities({
       }
     });
 
-    return sortedActivities;
+    // Appliquer le filtre de recherche
+    const filteredActivities = sortedActivities.filter((activity) =>
+      activity.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    return filteredActivities;
   };
 
   return (
     <div className="w-full bg-white shadow-lg rounded-sm border border-gray-200 mt-10">
       <header className="flex justify-between items-center px-5 py-4 border-b border-gray-100 ">
-
         <div>
           <h2 className="text-xl capitalize lg:text-2xl text-blue-800 font-bold ">Activités prévues</h2>
-          <label className="relative inline-flex items-center cursor-pointer mt-3.5">
-            <input type="checkbox" value="" className="sr-only peer" onClick={toggleSortOrder} />
-              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-              <span className="ms-3 text-sm font-medium text-blue-800">
-                {sortAscending ? 'Date croissante' : 'Date décroissante'}
-              </span>
-          </label>
+         <div className="flex items-center">
+           <label className="relative inline-flex items-center cursor-pointer mt-3.5 mr-3.5">
+             <input
+               type="text"
+               placeholder="Rechercher ..."
+               value={searchQuery}
+               onChange={(e) => setSearchQuery(e.target.value)}
+               className="px-2 py-1 border border-gray-300 rounded-md"
+             />
+           </label>
+
+            <label className="relative inline-flex items-center cursor-pointer mt-3.5">
+              <input type="checkbox" value="" className="sr-only peer" onClick={toggleSortOrder} />
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                <span className="ms-3 text-sm font-medium text-blue-800">
+                  {sortAscending ? 'Date croissante' : 'Date décroissante'}
+                </span>
+            </label>
+         </div>
         </div>
 
-        <NavLink to={`/holidays/${id}/activity`}>
-          <FontAwesomeIcon className="text-blue-800 cursor-pointer" icon={faPlus} size="xl"  />
-        </NavLink>
+        {!isPublish ? (
+            <NavLink to={`/holidays/${id}/activity`}>
+              <FontAwesomeIcon className="text-blue-800 cursor-pointer" icon={faPlus} size="xl"  />
+            </NavLink>
+        ) : (
+            <></>
+          )}
       </header>
       <div className="overflow-y-scroll">
         <div className="grid grid-cols-1 gap-14 mt-6 md:grid-cols-2 p-8 max-height-list-activities">
@@ -78,7 +101,7 @@ function MyHolidayActivities({
                 holidayData &&
                 holidayData.activities &&
                 sortActivities(holidayData.activities).map((activity: Activity) => (
-                  <ActivityCard key={activity.id} activity={activity} />
+                  <ActivityCard key={activity.id} activity={activity} isPublish={isPublish} />
                 ))
               )}
             </>

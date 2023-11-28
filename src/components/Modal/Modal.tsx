@@ -5,9 +5,10 @@ type ModalInvitationProps = {
   show: boolean;
   onClose: () => void;
   children: ReactNode;
+  title: string;
 };
 
-const Modal: FC<ModalInvitationProps> = ({ show, onClose, children }) => {
+const Modal: FC<ModalInvitationProps> = ({ show, onClose, children, title  }) => {
 
   return (
     <div style={{ display: show ? 'block' : 'none' }} id="crypto-modal" className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden bg-blue-800 p-1 rounded-lg shadow-lg w-[400px]">
@@ -25,7 +26,7 @@ const Modal: FC<ModalInvitationProps> = ({ show, onClose, children }) => {
           {/* Modal header*/}
           <div className="px-6 py-4 border-b rounded-t dark:border-gray-600">
             <h3 className="text-base font-bold text-blue-800 lg:text-xl">
-              Invitations
+              {title}
             </h3>
           </div>
 
