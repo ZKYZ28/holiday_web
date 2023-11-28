@@ -62,7 +62,7 @@ const UploadFile: FC<UploadFileProps> = ({ onFileSelected, initialPicturePath })
       {imageSrc ? (
         <div>
           <img src={imageSrc} alt="Visulation de l'image téléversé" className="object-contain rounded-xl w-60 h-60 " />
-          <button onClick={removeImage} className="absolute top-2 right-2  p-1 rounded-full">
+          <button type="button" onClick={removeImage} className="absolute top-2 right-2  p-1 rounded-full">
             <FontAwesomeIcon
               icon={faX}
               beat

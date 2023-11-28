@@ -35,8 +35,8 @@ const EncodeActivityPage = () => {
     postalCode: '',
     locality: '',
     price: '',
-    startDate: formattedDate(false, true),
-    endDate: formattedDate(true, true),
+    startDate: formattedDate(false, true, 30),
+    endDate: formattedDate(true, true, 30),
   };
 
   const handleSubmit = (values: InitialValues) => {
@@ -53,7 +53,7 @@ const EncodeActivityPage = () => {
     const formData = new FormData();
     formData.append('name', name ?? '');
     formData.append('description', description ?? '');
-    formData.append('price', String(price)); // FormData n'accepete pas de number
+    formData.append('price', String(price).replace(/\./g, ',')); // FormData n'accepete pas de number
     formData.append('startDate', dayjs(startDate).format());
     formData.append('endDate', dayjs(endDate).format());
     formData.append('location.street', street ?? '');

@@ -42,7 +42,7 @@ const EncodeHolidayPage = () => {
   const handleSubmit = (values: InitialValues) => {
     const { name, country, number, street, postalCode, locality, startDate, endDate, description, file } = values;
 
-    const datesValid = validateDatesWithoutHour(startDate as string, endDate as string);
+    const datesValid = validateDatesWithoutHour(startDate as string, endDate as string, false, true);
     if (datesValid) {
       setError(datesValid);
       return;

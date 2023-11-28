@@ -91,7 +91,7 @@ export const descriptionTextAreaHolidayObject =  {
   name: 'description',
   type: 'message',
   placeholder: 'On va faire de l\'aqua poney, trop bien !',
-  errorMessage: 'Veuillez saisir un message d\'au moins 10 caractères',
+  errorMessage: 'Champ faculatif. Autrement, la description doit contenir de 0 et 500 caractères et peut inclure des lettres, des chiffres, des apostrophes, des tirets et des espaces et certains caractères spéciaux.',
   label: 'Description',
   required: false,
 };
@@ -202,7 +202,7 @@ export const descriptionTextAreaActivityObject = {
   name: 'description',
   type: 'message',
   placeholder: 'On va faire de l\'aqua poney, trop bien !',
-  errorMessage: 'Veuillez saisir un message d\'au moins 10 caractères',
+  errorMessage: 'Champ faculatif. Autrement, la description doit contenir de 0 et 500 caractères et peut inclure des lettres, des chiffres, des apostrophes, des tirets et des espaces et certains caractères spéciaux.',
   label: 'Description',
   required: false,
 };

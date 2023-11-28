@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import('dayjs/plugin/isSameOrBefore');
 
-const validateDatesWithoutHour = (startDate: string, endDate: string, withHour: boolean = false): string | null => {
+const validateDatesWithoutHour = (startDate: string, endDate: string, withHour: boolean = false, checkCurrentDate : boolean = false): string | null => {
   const now = withHour ? dayjs() : dayjs().startOf('day');
 
   // Méthode de parse de dayjs : https://day.js.org/docs/en/parse/string
@@ -14,7 +14,7 @@ const validateDatesWithoutHour = (startDate: string, endDate: string, withHour: 
     return 'Les dates fournies ne sont pas valides.';
   }
 
-  if (formattedStartDate.isBefore(now)) {
+  if (checkCurrentDate && formattedStartDate.isBefore(now)) {
     return 'La date de début doit être supérieure ou égale à la date actuelle.';
   }
 

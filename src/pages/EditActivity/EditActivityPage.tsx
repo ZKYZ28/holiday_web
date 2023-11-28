@@ -68,7 +68,7 @@ const EditActivityPage = () => {
     const formData = new FormData();
     formData.append('name', name ?? '');
     formData.append('description', description ?? '');
-    formData.append('price', price!.toString());
+    formData.append('price', String(price).replace(/\./g, ',')); // g (global) pour dire qu'on veut remplacer toutes les occurences du point, pas seulement la première
     formData.append('startDate', dayjs(startDate).format());
     formData.append('endDate', dayjs(endDate).format());
     formData.append('location.Id', activityData!.location!.id!);

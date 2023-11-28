@@ -10,6 +10,7 @@ type FormInputProps = {
   name: string;
   errorMessage: string;
   label: string;
+  required: boolean;
   onChange: ChangeEventHandler;
   placeholder: string;
   type: string;
@@ -31,7 +32,7 @@ const FormInput: FC<FormInputProps> = ({ id, errorMessage, label, type, ...input
     <div className="my-4 relative">
       <label htmlFor={id}>
         {label}
-        <StarsRequired />
+        {inputProps.required && <StarsRequired />}
       </label>
       <div className="flex items-center">
         <input

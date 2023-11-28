@@ -6,8 +6,16 @@
  * @param {boolean} includeTime - If true, the returned string will include the time.
  * @returns {string} The formatted date or date-time string.
  */
-export const formattedDate = (oneWeekAfter: boolean = false, includeTime: boolean = false): string => {
+export const formattedDate = (
+  oneWeekAfter: boolean = false,
+  includeTime: boolean = false,
+  additionalMinutes: number = 0
+): string => {
   const currentDate = new Date();
+
+  if (additionalMinutes > 0) {
+    currentDate.setMinutes(currentDate.getMinutes() + additionalMinutes);
+  }
 
   if (oneWeekAfter) {
     currentDate.setDate(currentDate.getDate() + 7);

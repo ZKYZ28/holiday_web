@@ -4,16 +4,16 @@ import TextAreaInput from '../../components/common/TextAreaInput.tsx';
 import SideContact from './SideContact/SideContact.tsx';
 import PageWrapper from '../../components/common/PageWrapper.tsx';
 import { useSendMail } from '../../api/Queries/MailQueries.ts';
-import {AxiosError} from "axios";
-import ErrosForm from "../../components/ErrorsForm/ErrorsForm.tsx";
-import Modal from "../../components/Modal/Modal.tsx";
+import { AxiosError } from 'axios';
+import ErrosForm from '../../components/ErrorsForm/ErrorsForm.tsx';
+import Modal from '../../components/Modal/Modal.tsx';
 
 function ContactPage() {
   const [emailInput, setEmailInput] = useState('');
   const [textAreaField, setTextAreaField] = useState('');
   const [showModalConfirmation, setShowModalConfirmation] = useState(false);
   const { mutate: Mail, error: errorMail } = useSendMail() as {
-    mutate: any
+    mutate: any;
     error: AxiosError<unknown>;
   };
 
@@ -33,7 +33,8 @@ function ContactPage() {
     name: 'message',
     type: 'message',
     placeholder: 'Bonjour, où se trouve votre agence ?',
-    errorMessage: 'Votre message doit au moins comporter 10 caractères !',
+    errorMessage:
+      'La description doit contenir entre 5 et 500 caractères et peut inclure des lettres, des chiffres, des apostrophes, des tirets et des espaces et certains caractères spéciaux.s !',
     label: 'Message',
     required: true,
   };
@@ -48,19 +49,18 @@ function ContactPage() {
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    if (textAreaField.length > 10) {
+    if (textAreaField.length > 4) {
       Mail(
         {
           senderEmail: emailInput,
           content: textAreaField,
         },
         {
-          onError: () => alert('An error occurred'),
           onSuccess: () => {
             setEmailInput('');
             setTextAreaField('');
-            openModalConfirmation()
-          }
+            openModalConfirmation();
+          },
         }
       );
     }
@@ -82,14 +82,17 @@ function ContactPage() {
             <div className="w-full p-8 my-4 md:px-12 lg:w-9/12 lg:pl-20 lg:pr-40 mr-auto rounded-2xl shadow-2xl">
               <span className="font-bold uppercase md:text-5xl sm:text-xs">Contactez-nous</span>
 
-              {errorMail ? (
-                <ErrosForm axiosError={errorMail?.response?.data} />
-              ): (<> </>)}
+              {errorMail ? <ErrosForm axiosError={errorMail?.response?.data} /> : <> </>}
 
               <div className="grid grid-cols-1 gap-5 mt-5">
                 <FormInput {...inputEmail} value={emailInput} onChange={handleChangeEmail} />
               </div>
-              <TextAreaInput {...textAreaFieldContent} value={textAreaField} onChange={handleChangeTextArea} />
+              <TextAreaInput
+                {...textAreaFieldContent}
+                value={textAreaField}
+                onChange={handleChangeTextArea}
+                isOptional={false}
+              />
               <div className="my-2 w-1/2 lg:w-1/4">
                 <button
                   type="submit"
@@ -106,8 +109,10 @@ function ContactPage() {
 
         <Modal show={showModalConfirmation} onClose={closeModalConfirmation}>
           <div className="flex flex-col justify-center items-center w-full">
-              <h3 className="font-bold text-green-600">Mail envoyé avec succès !</h3>
-              <p className="font-semibold text-blue-800">Merci pour votre message, nous traiterons votre demande dès que possible.</p>
+            <h3 className="font-bold text-green-600">Mail envoyé avec succès !</h3>
+            <p className="font-semibold text-blue-800">
+              Merci pour votre message, nous traiterons votre demande dès que possible.
+            </p>
           </div>
         </Modal>
       </form>
