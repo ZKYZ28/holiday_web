@@ -75,7 +75,6 @@ const EditHolidayPage = () => {
     mutateUpdateHoliday(
       { holidayId: id!, updatedHoliday: formData },
       {
-        onError: () => alert('An error occurred'),
         onSuccess: () => {
           navigate('/holidays');
         },

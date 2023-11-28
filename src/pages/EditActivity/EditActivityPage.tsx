@@ -88,7 +88,6 @@ const EditActivityPage = () => {
     mutateUpdateActivity(
       { activityId: id!, updatedActivity: formData },
       {
-        onError: () => alert('An error occurred'),
         onSuccess: () => navigate(`/holidays/${activityData!.holidayId!}`),
       }
     );

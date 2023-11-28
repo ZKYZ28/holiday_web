@@ -68,7 +68,6 @@ const EncodeActivityPage = () => {
 
     // CALL TO API TO REGITER THE ACTIVITY
     mutateActivity(formData, {
-      onError: () => alert('An error occurred'),
       onSuccess: () => navigate(`/holidays/${id}`),
     });
   };
