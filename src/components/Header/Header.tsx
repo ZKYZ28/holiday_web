@@ -44,7 +44,7 @@ function Header() {
         ) : (
           <div>
             <ButtonLink text="Nous contacter" to="/contact" />
-            <ButtonLink text="Se conecter" to="/login" />
+            <ButtonLink text="Se connecter" to="/login" />
             <ButtonLink text="S'enregister" to="/register" />
           </div>
         )}
