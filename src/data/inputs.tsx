@@ -29,7 +29,7 @@ export const inputsHolidayTab = [
     errorMessage: 'Veuillez entrer un numéro de boîte valide entre 1 à 10 caractères. Exemples : 77, 77A, PO Box 123, PMB 456B.',
     pattern: '^[\\- A-Za-z0-9]{1,10}$',
     label: 'Numéro de boite :',
-    required: true,
+    required: false,
   },
   {
     id: 'street',
@@ -37,10 +37,10 @@ export const inputsHolidayTab = [
     type: 'text',
     placeholder: 'Rue du port',
     errorMessage:
-      'Veuillez saisir une adresse de rue valide contenant entre 1 et 100 caractères. Seules les lettres, chiffres, espaces, apostrophes, points, virgules et tirets sont autorisés.',
-    pattern: '^[A-Za-zÀ-ÿ0-9 \'.\\,\\-]{1,100}$',
+      'Veuillez saisir une adresse de rue valide contenant entre 3 et 100 caractères. Seules les lettres, chiffres, espaces, apostrophes, points, virgules et tirets sont autorisés.',
+    pattern: '^[A-Za-zÀ-ÿ0-9 \'.\\,\\-]{3,100}$',
     label: 'Rue :',
-    required: true,
+    required: false,
   },
   {
     id: 'postalCode',
@@ -59,8 +59,8 @@ export const inputsHolidayTab = [
     type: 'text',
     placeholder: 'Liège',
     errorMessage:
-      'Veuillez saisir une localité valide contenant entre 1 et 100 caractères. Seules les lettres, chiffres, espaces, apostrophes, points, virgules et tirets sont autorisés.',
-    pattern: '^[A-Za-zÀ-ÿ0-9 \'\\.,\\-]{1,100}$',
+      'Veuillez saisir une localité valide contenant entre 3 et 100 caractères. Seules les lettres, chiffres, espaces, apostrophes, points, virgules et tirets sont autorisés.',
+    pattern: '^[A-Za-zÀ-ÿ0-9 \'\\.,\\-]{3,100}$',
     label: 'Lieu :',
     required: true,
   },
@@ -128,7 +128,7 @@ export const inputsActivityTab = [
     errorMessage: 'Veuillez entrer un numéro de boîte valide entre 1 à 10 caractères. Exemples : 77, 77A, PO Box 123, PMB 456B.',
     pattern: '^[\\- A-Za-z0-9]{1,10}$',
     label: 'Numéro de boite :',
-    required: true,
+    required: false,
   },
   {
     id: 'street',
@@ -137,9 +137,9 @@ export const inputsActivityTab = [
     placeholder: 'Rue du port',
     label: 'Rue :',
     errorMessage:
-      'Veuillez saisir une adresse de rue valide contenant entre 1 et 100 caractères. Seules les lettres, chiffres, espaces, apostrophes, points, virgules et tirets sont autorisés.',
-    pattern: '^[A-Za-zÀ-ÿ0-9 \'.\\,\\-]{1,100}$',
-    required: true,
+      'Veuillez saisir une adresse de rue valide contenant entre 3 et 100 caractères. Seules les lettres, chiffres, espaces, apostrophes, points, virgules et tirets sont autorisés.',
+    pattern: '^[A-Za-zÀ-ÿ0-9 \'.\\,\\-]{3,100}$',
+    required: false,
   },
   {
     id: 'postalCode',
@@ -158,8 +158,8 @@ export const inputsActivityTab = [
     type: 'text',
     placeholder: 'Liège',
     errorMessage:
-      'Veuillez saisir une localité valide contenant entre 1 et 100 caractères. Seules les lettres, chiffres, espaces, apostrophes, points, virgules et tirets sont autorisés.',
-    pattern: '^[A-Za-zÀ-ÿ0-9 \'\\.,\\-]{1,100}$',
+      'Veuillez saisir une localité valide contenant entre 3 et 100 caractères. Seules les lettres, chiffres, espaces, apostrophes, points, virgules et tirets sont autorisés.',
+    pattern: '^[A-Za-zÀ-ÿ0-9 \'\\.,\\-]{3,100}$',
     label: 'Lieu :',
     required: true,
   },
