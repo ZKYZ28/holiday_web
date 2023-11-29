@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react';
-import useWarden from '../../hooks/Warden.ts';
+import useWarden from '../../hooks/UseWarden.ts';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../../provider/AuthProvider.tsx';
 

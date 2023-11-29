@@ -75,9 +75,11 @@ function ActivityCard({ activity, isPublish }: { activity: Activity, isPublish: 
           </div>
         </ul>
 
-        <div className="flex justify-center items-center mt-8">
-          <ButtonLink text="Participant(s)" to={`/activity/participants/${activity.id}`} />
-        </div>
+        {!isPublish ? (
+          <div className="flex justify-center items-center mt-8">
+            <ButtonLink text="Participant(s)" to={`/activity/participants/${activity.id}`} />
+          </div>
+        ) : (<></>)}
       </div>
 
       {showModalInvitation && (
