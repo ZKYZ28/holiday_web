@@ -5,6 +5,13 @@ export const holidayKeys = {
   list: () => [...holidayKeys.all, 'list'] as const,
 };
 
+export const activityKeys = {
+  all: ['activity'] as const,
+  get: (id: string) => [...activityKeys.all, id] as const,
+  getParticipant: (id: string) => [...activityKeys.all, 'activity-participant', id] as const,
+  list: () => [...activityKeys.all, 'list'] as const,
+};
+
 export const authentificationKeys = {
   all: ['authentification'] as const,
 };
@@ -38,4 +45,3 @@ export const weatherKeys = {
   get: (id: string) => [...weatherKeys.all, 'list', id] as const,
   list: () => [...weatherKeys.all, 'list'] as const,
 };
-

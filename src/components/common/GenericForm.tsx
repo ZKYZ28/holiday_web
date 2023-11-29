@@ -31,12 +31,14 @@ function GenericForm({
 
 
   useEffect(() => {
+    console.log('je passe ici')
     setValueInputs(initialValues);
-  }, [initialValues]);
+  }, []);
 
   useEffect(() => {
+    console.log('je passe par là')
     setDescription(descriptionValue);
-  }, [descriptionValue]);
+  }, []);
 
   const handleFileSelect = (file: File | null, deleteImage: boolean = false) => {
     setSelectedFile(file);
@@ -45,9 +47,14 @@ function GenericForm({
 
   const onChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setValueInputs({ ...valueInputs, [evt.target.name]: evt.target.value });
+   // console.log({ ...valueInputs, [evt.target.name]: evt.target.value })
+    console.log(valueInputs)
+    console.log(initialValues)
   };
 
   const handleChangeDescription = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    console.log(descriptionValue)
+    console.log(description)
     setDescription(e.target.value);
   };
 

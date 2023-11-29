@@ -8,6 +8,7 @@ type UploadFileProps = {
   initialPicturePath: string;
 };
 
+// TODO mettre le import meta.env.vite_base_api à l'appel dans initialPicturepATH PAS ICI
 const UploadFile: FC<UploadFileProps> = ({ onFileSelected, initialPicturePath }) => {
   let [imageSrc, setImageSrc] = useState<string | null>(initialPicturePath ? `${import.meta.env.VITE_BASE_API}/${initialPicturePath}` : null);
   useEffect(() => {

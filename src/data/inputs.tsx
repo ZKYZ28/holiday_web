@@ -94,6 +94,7 @@ export const descriptionTextAreaHolidayObject =  {
   errorMessage: 'Champ faculatif. Autrement, la description doit contenir de 0 et 500 caractères et peut inclure des lettres, des chiffres, des apostrophes, des tirets et des espaces et certains caractères spéciaux.',
   label: 'Description',
   required: false,
+  isOptional: true,
 };
 
 
@@ -205,4 +206,5 @@ export const descriptionTextAreaActivityObject = {
   errorMessage: 'Champ faculatif. Autrement, la description doit contenir de 0 et 500 caractères et peut inclure des lettres, des chiffres, des apostrophes, des tirets et des espaces et certains caractères spéciaux.',
   label: 'Description',
   required: false,
+  isOptional : true,
 };
