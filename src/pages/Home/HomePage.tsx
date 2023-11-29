@@ -9,8 +9,9 @@ import {ParticipantCount} from "../../api/Models/CountParticipant.ts";
 
 const HomePage = () => {
   const { data: countParticipantsRegistered } = useGetParticipantsCount();
-  const [date, setDate] = useState(formattedDate);
   const { mutate: holidayCountMutate } = useGetAllHolidayCountForDate();
+
+  const [date, setDate] = useState(formattedDate);
   const [showHolidayCount, setShowHolidayCount] = useState(false);
   const [countParticipants, setCountParticipants] = useState<ParticipantCount[]>([]);
 
@@ -20,7 +21,7 @@ const HomePage = () => {
 
   const onClick = () => {
     holidayCountMutate(date, {
-      onError: () => alert('An error occurred'),
+      onError: () => alert('Désolé, nous envons rencontré une erreur.'),
       onSuccess: (data) => {
         setCountParticipants(data);
         setShowHolidayCount(true);
