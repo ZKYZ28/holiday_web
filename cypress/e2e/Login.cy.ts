@@ -3,7 +3,7 @@ describe('Login Page', () => {
   it('should retrieve the access token after login', () => {
     // Visiter la page de connexion
     cy.visit('http://localhost:5173/#/login');
-    cy.intercept('GET', 'https://localhost:7048/v1/holiday/participant/3b8ab47b-860f-459e-8dcc-5828f7d5fabc').as('getHolidaysBYParticipant');
+    cy.intercept('GET', 'https://localhost:7048/v1/holiday/participant/63d57a29-c94e-4373-8931-5afcefca5b55').as('getHolidaysBYParticipant');
 
     // Remplir le formulaire de connexion et soumettre
     cy.get('input[name="email"]').type('Francis@gmail.com');
