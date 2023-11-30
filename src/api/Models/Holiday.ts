@@ -6,8 +6,8 @@ export type Holiday = {
   id: string;
   name: string;
   description: string;
-  startDate: string | null;
-  endDate: string | null;
+  startDate: string ;
+  endDate: string ;
   location: Location;
   participants: Participant[];
   isPublish: boolean;

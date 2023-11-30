@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import {activityKeys, holidayKeys} from '../Querykeys.ts';
+import {activityKeys} from '../Querykeys.ts';
 import ActivityRequestsApi from '../EndPoints/Requests/ActivityRequestsApi.ts';
 
 export const useCreateActivity = () => {

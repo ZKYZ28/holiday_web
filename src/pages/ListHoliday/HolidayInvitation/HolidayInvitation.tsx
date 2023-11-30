@@ -7,7 +7,7 @@ const HolidayInvitation = ({ invitation }: { invitation: Invitation }) => {
   const { mutate: mutateAcceptInvitation } = useAcceptInvitation();
 
   const handleAcceptClick = async () => {
-    await mutateAcceptInvitation(invitation, {
+    await mutateAcceptInvitation({invitation : invitation, invitationId : invitation.id}, {
       onError: () => alert('An error occurred'),
     });
   };

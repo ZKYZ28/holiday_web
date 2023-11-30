@@ -15,7 +15,7 @@ const ChatPage = () => {
   const { leaveRoom } = useMessages();
 
 
-  const { data: holidays } = useGetAllHolidayByParticipant(user!.id);
+  const { data: holidays } = useGetAllHolidayByParticipant(false);
   const [activeGroupChat, setActiveGroupChat]: [
     activeGroupChat: string,
     setActiveGroupChat: Dispatch<SetStateAction<string>>,

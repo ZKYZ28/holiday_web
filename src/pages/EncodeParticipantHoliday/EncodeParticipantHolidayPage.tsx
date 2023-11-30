@@ -11,7 +11,7 @@ import {useParams} from "react-router-dom";
 const EncodeParticipantHolidayPage = () => {
   const { id } = useParams();
   const [searchInput, setSearchText] = useState('');
-  const { data: participants, isLoading }: { data: Participant[]; isLoading: boolean } = useGetParticipants(id!);
+  const { data: participants, isLoading }: { data: Participant[]; isLoading: boolean } = useGetParticipants(id!, false);
 
   console.log(participants);
 
