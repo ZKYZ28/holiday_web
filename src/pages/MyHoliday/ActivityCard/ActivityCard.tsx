@@ -11,23 +11,26 @@ import { useState } from 'react';
 import {NavLink, useParams} from 'react-router-dom';
 import dayjs from 'dayjs';
 
-function ActivityCard({ activity, isPublish }: { activity: Activity, isPublish: boolean }) {
+function ActivityCard({ activity, isPublish }: { activity: Activity, isPublish: boolean}) {
   const{id} = useParams();
   const { mutate: mutateActivity } = useDeleteActivity();
-
-  function handleDeleteClick() {
-    mutateActivity(activity.id, { onError: () => alert('An error occurred') });
-  }
+  const [showModalConfirmation, setShowModalConfirmation] = useState(false);
 
   // GESTION DE LA MONDAL
-  const [showModalInvitation, setShowModalInvitation] = useState(false);
-  const openModalInvitation = (): void => {
-    setShowModalInvitation(true);
+  const openModalConfirmation = (): void => {
+    setShowModalConfirmation(true);
   };
 
-  const closeModalInvitation = (): void => {
-    setShowModalInvitation(false);
+  const closeModalConfirmation = (): void => {
+    setShowModalConfirmation(false);
   };
+
+  function handleDeleteClick() {
+   mutateActivity(activity.id, {
+     onError: () => alert('Erreur lors de la suppression de l\'activité.')
+   });
+  }
+
 
   return (
     <div className="block h-auto justify-between bg-white rounded-2xl box-shadow">
@@ -47,7 +50,9 @@ function ActivityCard({ activity, isPublish }: { activity: Activity, isPublish: 
                     icon={faTrash}
                     size="xl"
                     className="text-red-600 ml-3 cursor-pointer"
-                    onClick={openModalInvitation}
+                    onClick={() => {
+                      openModalConfirmation();
+                    }}
                 />
               </div>
           ):(<></>)}
@@ -82,8 +87,8 @@ function ActivityCard({ activity, isPublish }: { activity: Activity, isPublish: 
         ) : (<></>)}
       </div>
 
-      {showModalInvitation && (
-        <Modal show={showModalInvitation} onClose={closeModalInvitation} title={'Supprimer'}>
+      {showModalConfirmation && (
+        <Modal show={showModalConfirmation} onClose={closeModalConfirmation} title={'Supprimer'}>
           <div className="flex flex-col justify-center items-center w-full">
             <p className="text-center">Etes-vous sûr de vouloir supprimer cette activité?</p>
 
@@ -97,7 +102,7 @@ function ActivityCard({ activity, isPublish }: { activity: Activity, isPublish: 
               </button>
 
               <button
-                onClick={closeModalInvitation}
+                onClick={closeModalConfirmation}
                 type="button"
                 className="inline-block bg-red-600 hover-bg-red-700 text-white font-bold py-1 px-4 rounded-full ml-3.5"
               >

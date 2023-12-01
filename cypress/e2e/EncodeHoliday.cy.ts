@@ -22,7 +22,7 @@ describe('EncodeHoliday Page', () => {
     cy.intercept('POST', 'https://localhost:7048/v1/holiday').as('encodeHoliday');
 
     // Remplir et soumettre le formulaire d'encodage de vacances
-    cy.get('input[name="name"]').type('Nom de la vacance');
+    cy.get('input[name="name"]').type('Nom de la vacances');
     cy.get('input[name="country"]').type('Belgique');
     cy.get('input[name="number"]').type('10');
     cy.get('input[name="street"]').type('Rue J.F. Kennedy');

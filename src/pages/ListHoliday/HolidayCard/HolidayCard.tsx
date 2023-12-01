@@ -25,7 +25,7 @@ function HolidayCard({ holiday }: { holiday: Holiday; isPersonalHoliday: boolean
   };
 
   function handleDeleteClick() {
-    mutateHoliday(holiday.id, { onError: () => alert('An error occurred') });
+    mutateHoliday(holiday.id, { onError: () => alert('Erreur lors de la suppression de la vacances.') });
   }
 
   return (

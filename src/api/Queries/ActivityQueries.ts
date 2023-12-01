@@ -35,7 +35,7 @@ export const useDeleteActivity = () => {
   const client = useQueryClient();
   return useMutation((activityId: string) => ActivityRequestsApi.deleteActivity(activityId), {
     onSuccess: () => {
-      client.invalidateQueries(activityKeys.all);
+      client.invalidateQueries(holidayKeys.all);
     },
   });
 };
