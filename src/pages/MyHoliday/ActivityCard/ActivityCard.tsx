@@ -74,8 +74,8 @@ function ActivityCard({ activity, isPublish }: { activity: Activity, isPublish: 
           <div className="flex flex-row items-center mb-1.5">
             <FontAwesomeIcon icon={faLocationDot} size="xl" className="w-5 mr-4" />
             <li className="font-bold text-base lg:text-xl ">
-              {activity.location.street} {activity.location.number}, {activity.location.postalCode}{' '}
-              {activity.location.locality}
+              {activity.location.street} {activity.location.number}
+              {(activity.location.street || activity.location.number) && ','} {activity.location.postalCode} {activity.location.locality}
             </li>
           </div>
         </ul>

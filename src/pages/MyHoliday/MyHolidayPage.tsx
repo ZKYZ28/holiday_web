@@ -1,7 +1,11 @@
 import PageWrapper from '../../components/common/PageWrapper.tsx';
 import PageContent from '../../components/common/PageContent.tsx';
 import { useParams } from 'react-router-dom';
-import { useGetExportHoliday, useGetHolidayById, usePublishHoliday } from '../../api/Queries/HolidayQueries.ts';
+import {
+  useGetExportHoliday,
+  useGetHolidayById,
+  useUpdateHoliday,
+} from '../../api/Queries/HolidayQueries.ts';
 import dayjs from 'dayjs';
 import MyHolidayWeather from './MyHolidayWeather/MyHolidayWeather.tsx';
 import MyHolidayListMembers from './MyHolidayMembers/MyHolidayListMembers.tsx';
@@ -21,8 +25,8 @@ function MyHolidayPage() {
   const [showModalLeave, setShowModalLeave] = useState(false);
   const { data: holidayData, isLoading: holidayIsLoading } = useGetHolidayById(id!);
   const { mutate: mutateExportHoliday } = useGetExportHoliday(id!);
-  const { mutate: mutatePusblishHoliday } = usePublishHoliday();
-  const { mutate: mutateLeaveHoliday } = useLeaveHoliday(user!.id);
+  const { mutate: mutateUpdateHoliday } = useUpdateHoliday();
+  const { mutate: mutateLeaveHoliday } = useLeaveHoliday();
   const navigate = useNavigate();
 
   // EXPORT DE L'AGENDA
@@ -42,10 +46,30 @@ function MyHolidayPage() {
 
   const handlePublish = async () => {
     if (holidayData) {
-      await mutatePusblishHoliday(holidayData, {
-        onError: () => alert('Erreur lors de la publication de la holiday'),
-        onSuccess: () => closeModalPublish(),
-      });
+      const formData = new FormData();
+      formData.append('name', holidayData.name ?? '');
+      formData.append('description', holidayData.description ?? '');
+      formData.append('startDate', holidayData.startDate);
+      formData.append('endDate', holidayData.endDate);
+      formData.append('location.Id', holidayData.location.id!);
+      formData.append('location.street', holidayData.location.street ?? '');
+      formData.append('location.number', holidayData.location.number ?? '');
+      formData.append('location.locality', holidayData.location.locality);
+      formData.append('location.postalCode', holidayData.location.postalCode);
+      formData.append('location.country', holidayData.location.country);
+      formData.append('creatorId', user!.id);
+      formData.append('deleteImage', 'false');
+      formData.append('initialPath', holidayData.holidayPath);
+      formData.append('isPublish', 'true')
+
+
+      mutateUpdateHoliday(
+        { holidayId: id!, updatedHoliday: formData },
+        {
+          onError: () => alert('Erreur lors de la publication de la holiday'),
+          onSuccess: () => closeModalPublish(),
+        }
+      );
     }
   };
 
@@ -59,7 +83,7 @@ function MyHolidayPage() {
 
   const handleLeave = async () => {
     if (holidayData) {
-      await mutateLeaveHoliday(holidayData, {
+      await mutateLeaveHoliday(id!, {
         onError: () => alert('Erreur'),
         onSuccess: () => navigate('/holidays'),
       });
@@ -94,27 +118,26 @@ function MyHolidayPage() {
                 )}
 
                 {!holidayData.isPublish ? (
-                    <div>
-                          <button
-                              onClick={handleDownload}
-                              type="button"
-                              className="inline-block bg-blue-800 hover-bg-blue-700 text-white font-bold py-1 px-4 rounded-full ml-3.5"
-                          >
-                            Exporter dans l'agenda
-                          </button>
+                  <div>
+                    <button
+                      onClick={handleDownload}
+                      type="button"
+                      className="inline-block bg-blue-800 hover-bg-blue-700 text-white font-bold py-1 px-4 rounded-full ml-3.5"
+                    >
+                      Exporter dans l'agenda
+                    </button>
 
-                      <button
-                          onClick={openModalLeave}
-                          type="button"
-                          className="inline-block bg-red-600 hover-bg-red-700 text-white font-bold py-1 px-4 rounded-full ml-3.5"
-                      >
-                        Quitter
-                      </button>
-                    </div>
+                    <button
+                      onClick={openModalLeave}
+                      type="button"
+                      className="inline-block bg-red-600 hover-bg-red-700 text-white font-bold py-1 px-4 rounded-full ml-3.5"
+                    >
+                      Quitter
+                    </button>
+                  </div>
                 ) : (
-                   <></>
+                  <></>
                 )}
-
               </div>
             </div>
 
@@ -123,7 +146,12 @@ function MyHolidayPage() {
               <MyHolidayWeather id={id!} />
             </div>
 
-            <MyHolidayActivities id={id!} holidayData={holidayData} holidayIsLoading={holidayIsLoading} isPublish={holidayData.isPublish} />
+            <MyHolidayActivities
+              id={id!}
+              holidayData={holidayData}
+              holidayIsLoading={holidayIsLoading}
+              isPublish={holidayData.isPublish}
+            />
 
             {showModalPublish && (
               <Modal show={showModalPublish} onClose={closeModalPublish} title="Publier">

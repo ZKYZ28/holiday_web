@@ -1,31 +1,28 @@
 import HolidayCard from './HolidayCard/HolidayCard.tsx';
 import PageWrapper from '../../components/common/PageWrapper.tsx';
 import PageContent from '../../components/common/PageContent.tsx';
-import {
-  useGetAllHolidayByParticipant,
-  useGetAllHolidayPublished,
-} from '../../api/Queries/HolidayQueries.ts';
+import { useGetAllHolidayByParticipant, useGetAllHolidayPublished } from '../../api/Queries/HolidayQueries.ts';
 import Modal from '../../components/Modal/Modal.tsx';
 import { useState } from 'react';
-import { useAuth } from '../../provider/AuthProvider.tsx';
 import { useGetInvitations } from '../../api/Queries/InvitationQueries.ts';
 import { NavLink } from 'react-router-dom';
-import ErrorMessage from "../../components/common/ErrorMessage.tsx";
-import Loading from "../../components/common/Loading.tsx";
-import HolidayInvitation from "./HolidayInvitation/HolidayInvitation.tsx";
-import {AxiosError} from "axios";
+import ErrorMessage from '../../components/common/ErrorMessage.tsx';
+import Loading from '../../components/common/Loading.tsx';
+import HolidayInvitation from './HolidayInvitation/HolidayInvitation.tsx';
+import { AxiosError } from 'axios';
 
 const ListHolidayPage = () => {
-  const { user } = useAuth();
   const [showModalInvitation, setShowModalInvitation] = useState(false);
   const [isPersonalHoliday, setIsPersonalHoliday] = useState(false);
-  const [pageTitle, setPageTitle] = useState("Mes vacances");
+  const [pageTitle, setPageTitle] = useState('Mes vacances');
 
-  const { data: invitations, isLoading: invitationsIsLoading, error: invitationsError } = useGetInvitations(user!.id);
-  const { data: holidays, isLoading } = isPersonalHoliday ? useGetAllHolidayPublished() : useGetAllHolidayByParticipant(user!.id);
+  const { data: invitations, isLoading: invitationsIsLoading, error: invitationsError } = useGetInvitations();
+  const { data: holidays, isLoading } = isPersonalHoliday
+    ? useGetAllHolidayPublished(true)
+    : useGetAllHolidayByParticipant(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
 
-  //GESTION DES ERREURS
+  // GESTION DES ERREURS
   if (invitationsError) {
     const axiosError = invitationsError as AxiosError;
     if (axiosError.response) {
@@ -33,7 +30,7 @@ const ListHolidayPage = () => {
     }
   }
 
-  //GESTION DE LA MONDALE
+  // GESTION DE LA MONDALE
   const openModalInvitation = (): void => {
     setShowModalInvitation(true);
   };
@@ -42,13 +39,13 @@ const ListHolidayPage = () => {
     setShowModalInvitation(false);
   };
 
-  //FILTER DES VACANCES PUBLIEES
+  // FILTER DES VACANCES PUBLIEES
   const handleCheckboxChange = () => {
     setIsPersonalHoliday(!isPersonalHoliday);
-    if(isPersonalHoliday){
-      setPageTitle("Mes vacances")
-    }else{
-      setPageTitle("Vacances publiées par les utilisateurs")
+    if (isPersonalHoliday) {
+      setPageTitle('Mes vacances');
+    } else {
+      setPageTitle('Vacances publiées par les utilisateurs');
     }
   };
 
@@ -92,27 +89,24 @@ const ListHolidayPage = () => {
                       onChange={handleCheckboxChange}
                     />
                     <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-800"></div>
-                    <span className="ml-3 text-lg font-medium text-gray-900">Vacances publiées par les utilisateurs</span>
+                    <span className="ml-3 text-lg font-medium text-gray-900">
+                      Vacances publiées par les utilisateurs
+                    </span>
                   </label>
                 </div>
 
                 <div className={`grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2 ${backgroundClass}`}>
                   {holidays.map((holiday) => (
-                    <HolidayCard key={holiday.id} holiday={holiday} isPersonalHoliday={!isPersonalHoliday}/>
+                    <HolidayCard key={holiday.id} holiday={holiday} isPersonalHoliday={!isPersonalHoliday} />
                   ))}
                 </div>
-
               </>
             )}
           </div>
           {showModalInvitation && (
-            <Modal
-              show={showModalInvitation}
-              onClose={closeModalInvitation}
-              title={'Invitations'}
-            >
+            <Modal show={showModalInvitation} onClose={closeModalInvitation} title={'Invitations'}>
               {invitationsError ? (
-                  <ErrorMessage message={errorMessage}/>
+                <ErrorMessage message={errorMessage} />
               ) : (
                 <>
                   {invitationsIsLoading ? (
@@ -124,7 +118,7 @@ const ListHolidayPage = () => {
                       ) : (
                         <ul className="my-4 space-y-3 overflow-y-scroll h-52 pr-4">
                           {invitations?.map((invitation) => (
-                              <HolidayInvitation key={invitation.id} invitation={invitation} />
+                            <HolidayInvitation key={invitation.id} invitation={invitation} />
                           ))}
                         </ul>
                       )}

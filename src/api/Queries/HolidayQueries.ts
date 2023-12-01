@@ -1,5 +1,4 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { Holiday } from '../Models/Holiday.ts';
 import { holidayKeys } from '../Querykeys.ts';
 import HolidayRequestsApi from '../EndPoints/Requests/HolidayRequestsApi.ts';
 
@@ -24,28 +23,18 @@ export const useUpdateHoliday = () => {
     }
   );
 };
-
-export const usePublishHoliday = () => {
-  const client = useQueryClient();
-  return useMutation((holiday: Holiday) => HolidayRequestsApi.publishHoliday(holiday), {
-    onSuccess: () => {
-      client.invalidateQueries(holidayKeys.all);
-    },
-  });
-};
-
-export const useGetAllHolidayByParticipant = (participantId: string) => {
+export const useGetAllHolidayByParticipant = (isPublished: boolean) => {
   return useQuery({
-    queryKey: holidayKeys.getParticipant(participantId),
-    queryFn: () => HolidayRequestsApi.getAllHolidayByParticipant(participantId).then((content) => content.data),
+    queryKey: holidayKeys.list(),
+    queryFn: () => HolidayRequestsApi.getAllHolidayByParticipant(isPublished).then((content) => content.data),
     initialData: [],
   });
 };
 
-export const useGetAllHolidayPublished = () => {
+export const useGetAllHolidayPublished = (isPublished: boolean) => {
   return useQuery({
-    queryKey: holidayKeys.list(),
-    queryFn: () => HolidayRequestsApi.getAllHolidayPublished().then((content) => content.data),
+    queryKey: holidayKeys.listPublished(),
+    queryFn: () => HolidayRequestsApi.getAllHolidayPublished(isPublished).then((content) => content.data),
     initialData: [],
   });
 };
@@ -57,7 +46,6 @@ export const useGetHolidayById = (holidayId: string) => {
     // initialData: {} as Holiday,
   });
 };
-
 
 export const useGetAllHolidayCountForDate = () => {
   const client = useQueryClient();

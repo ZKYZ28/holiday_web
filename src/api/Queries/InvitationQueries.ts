@@ -3,10 +3,10 @@ import {holidayKeys, invitationsKeys} from '../Querykeys.ts';
 import {Invitation, InvitationMutation} from '../Models/Invitation.ts';
 import InvitationRequestsApi from '../EndPoints/Requests/InvitationRequestsApi.ts';
 
-export const useGetInvitations = (participantId: string) => {
+export const useGetInvitations = () => {
   return useQuery({
-    queryKey: invitationsKeys.queryList(participantId),
-    queryFn: () => InvitationRequestsApi.getInvitations(participantId).then((content) => content.data),
+    queryKey: invitationsKeys.list(),
+    queryFn: () => InvitationRequestsApi.getInvitations().then((content) => content.data),
     initialData: [],
   });
 };
@@ -22,7 +22,9 @@ export const useCreateInvitations = () => {
 
 export const useAcceptInvitation = () => {
   const client = useQueryClient();
-  return useMutation((invitation: Invitation) => InvitationRequestsApi.acceptInvitation(invitation), {
+  return useMutation(
+    (data : {invitation : Invitation, invitationId : string}) => InvitationRequestsApi.acceptInvitation(data.invitation, data.invitationId),
+    {
     onSuccess: () => {
       client.invalidateQueries(invitationsKeys.all);
       client.invalidateQueries(holidayKeys.all);

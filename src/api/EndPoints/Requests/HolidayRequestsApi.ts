@@ -3,7 +3,7 @@
 import { Holiday } from '../../Models/Holiday.ts';
 import axiosInstance from '../../axios.ts';
 import CONFIGURATION from '../Configuration.ts';
-import {ParticipantCount} from "../../Models/CountParticipant.ts";
+import { ParticipantCount } from '../../Models/CountParticipant.ts';
 
 class HolidayRequestsApi {
   static async createHoliday(holiday: FormData) {
@@ -22,12 +22,16 @@ class HolidayRequestsApi {
     });
   }
 
-  static async getAllHolidayByParticipant(participantId: string) {
-    return axiosInstance.get<Holiday[]>(`${CONFIGURATION.API_ENDPOINT}/holiday/participant/${participantId}`);
+  static async getAllHolidayByParticipant(isPublished: boolean) {
+    return axiosInstance.get<Holiday[]>(`${CONFIGURATION.API_ENDPOINT}/holiday/`, {
+      params: { isPublished: isPublished },
+    });
   }
 
-  static async getAllHolidayPublished() {
-    return axiosInstance.get<Holiday[]>(`${CONFIGURATION.API_ENDPOINT}/holiday/published`);
+  static async getAllHolidayPublished(isPublished: boolean) {
+    return axiosInstance.get<Holiday[]>(`${CONFIGURATION.API_ENDPOINT}/holiday/`, {
+      params: { isPublished: isPublished },
+    });
   }
 
   static async getHolidayById(holidayId: string) {
@@ -43,13 +47,17 @@ class HolidayRequestsApi {
   }
 
   static async getExportHoliday(holidayId: string) {
-    return axiosInstance.get(`${CONFIGURATION.API_ENDPOINT}/holiday/ics/${holidayId}`, {
+    return axiosInstance.get(`${CONFIGURATION.API_ENDPOINT}/holiday/${holidayId}/ics`, {
       responseType: 'blob',
     });
   }
 
-  static async deleteHoliday(holidayId: String) {
+  static async deleteHoliday(holidayId: string) {
     return axiosInstance.delete(`${CONFIGURATION.API_ENDPOINT}/holiday/${holidayId}`);
+  }
+
+  static async leaveHoliday(holidayId: string) {
+    return axiosInstance.delete(`${CONFIGURATION.API_ENDPOINT}/participant/leave/${holidayId}`);
   }
 }
 

@@ -1,20 +1,20 @@
-import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import ParticipantRequestsApi from '../EndPoints/Requests/ParticipantRequestsApi.ts';
-import {participantKeys} from '../Querykeys.ts';
-import {Holiday} from "../Models/Holiday.ts";
+import { participantKeys } from '../Querykeys.ts';
+import HolidayRequestsApi from '../EndPoints/Requests/HolidayRequestsApi.ts';
 
-export const useGetParticipants = (id : string) => {
+export const useGetParticipants = (id: string, isParticipated : boolean) => {
   return useQuery({
     queryKey: participantKeys.queryList(id),
-    queryFn: () => ParticipantRequestsApi.getParticipants(id).then((content) => content.data),
+    queryFn: () => ParticipantRequestsApi.getParticipants(id, isParticipated).then((content) => content.data),
     initialData: [],
   });
 };
 
-export const useGetParticipantsByHoliday = (holidayId: string) => {
+export const useGetParticipantsByHoliday = (holidayId: string, isParticipated : boolean) => {
   return useQuery({
     queryKey: participantKeys.queryListByHoliday(holidayId),
-    queryFn: () => ParticipantRequestsApi.getParticipantsByHoliday(holidayId).then((content) => content.data),
+    queryFn: () => ParticipantRequestsApi.getParticipantsByHoliday(holidayId, isParticipated).then((content) => content.data),
     initialData: [],
   });
 };
@@ -35,10 +35,9 @@ export const useGetParticipantsCount = () => {
   });
 };
 
-
-export const useLeaveHoliday = (participantId: string) => {
+export const useLeaveHoliday = () => {
   const client = useQueryClient();
-  return useMutation((holiday: Holiday) => ParticipantRequestsApi.leaveHoliday(participantId, holiday), {
+  return useMutation((holidayId: string) => HolidayRequestsApi.leaveHoliday(holidayId), {
     onSuccess: () => {
       client.invalidateQueries(participantKeys.all);
     },
