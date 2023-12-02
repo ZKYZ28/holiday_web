@@ -1,6 +1,5 @@
 import ButtonLink from '../../../components/Header/ButtonLink/ButtonLink.tsx';
 import calendar from '../../../assets/imgs/icons/calendar.png';
-import peoples from '../../../assets/imgs/icons/peoples.png';
 import location from '../../../assets/imgs/icons/location.png';
 import dayjs from 'dayjs';
 import { Holiday } from '../../../api/Models/Holiday.ts';
@@ -73,11 +72,6 @@ function HolidayCard({ holiday }: { holiday: Holiday; isPersonalHoliday: boolean
           <div className="flex flex-row items-center mb-1.5">
             <img src={calendar} alt="CALENDAR" className="w-5 mr-4" />
             <li className="font-bold text-base lg:text-xl ">{dayjs(holiday.startDate).format('DD-MM-YYYY')}</li>
-          </div>
-
-          <div className="flex flex-row items-center mb-1.5">
-            <img src={peoples} alt="PEOPLES" className="w-5 mr-4" />
-            <li className="font-bold text-base lg:text-xl">X</li>
           </div>
 
           <div className="flex flex-row items-center mb-1.5">
