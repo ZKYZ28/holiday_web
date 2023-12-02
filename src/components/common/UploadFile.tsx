@@ -5,14 +5,14 @@ import { isAllowedTypes, isHigherFiveMo } from './utils/imageUtils.ts';
 
 type UploadFileProps = {
   onFileSelected: (file: File | null, deleteImage?: boolean) => void;
-  initialPicturePath: string;
+  initialPicturePath: string | null;
 };
 
-// TODO mettre le import meta.env.vite_base_api à l'appel dans initialPicturepATH PAS ICI
+
 const UploadFile: FC<UploadFileProps> = ({ onFileSelected, initialPicturePath }) => {
-  let [imageSrc, setImageSrc] = useState<string | null>(initialPicturePath ? `${import.meta.env.VITE_BASE_API}/${initialPicturePath}` : null);
+  let [imageSrc, setImageSrc] = useState<string | null>(initialPicturePath ? `${initialPicturePath}` : null);
   useEffect(() => {
-    setImageSrc(initialPicturePath ? `${import.meta.env.VITE_BASE_API}/${initialPicturePath}` : null);
+    setImageSrc(initialPicturePath ? `${initialPicturePath}` : null);
     return () => {
       imageSrc = null;
     };
