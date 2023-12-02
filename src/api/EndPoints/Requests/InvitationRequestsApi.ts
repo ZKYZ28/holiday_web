@@ -12,8 +12,8 @@ class InvitationRequestsApi {
     return axiosInstance.post(`${CONFIGURATION.API_ENDPOINT}/invitation`, invitations);
   }
 
-  static async acceptInvitation(invitation: Invitation, invitationId: string) {
-    return axiosInstance.put(`${CONFIGURATION.API_ENDPOINT}/invitation/${invitationId}`, invitation);
+  static async acceptInvitation(invitationId: string) {
+    return axiosInstance.put(`${CONFIGURATION.API_ENDPOINT}/invitation/${invitationId}`);
   }
 
   static async refuseInvitation(invitationId: string) {
