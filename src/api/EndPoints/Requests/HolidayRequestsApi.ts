@@ -3,7 +3,7 @@
 import { Holiday } from '../../Models/Holiday.ts';
 import axiosInstance from '../../axios.ts';
 import CONFIGURATION from '../Configuration.ts';
-import { ParticipantCount } from '../../Models/CountParticipant.ts';
+import {Participant} from "../../Models/Participant.ts";
 
 class HolidayRequestsApi {
   static async createHoliday(holiday: FormData) {
@@ -34,12 +34,14 @@ class HolidayRequestsApi {
     });
   }
 
-  static async getHolidayById(holidayId: string) {
-    return axiosInstance.get<Holiday>(`${CONFIGURATION.API_ENDPOINT}/holiday/${holidayId}`);
+  static async getParticipantsByHoliday(holidayId: string, isParticipated : boolean) {
+    return axiosInstance.get<Participant[]>(`${CONFIGURATION.API_ENDPOINT}/holiday/${holidayId}/participant`, {
+      params : {isParticipated : isParticipated}
+    });
   }
 
-  static async getAllHolidayCountForDate(date: string) {
-    return axiosInstance.get<ParticipantCount[]>(`${CONFIGURATION.API_ENDPOINT}/holiday/date/${date}`);
+  static async getHolidayById(holidayId: string) {
+    return axiosInstance.get<Holiday>(`${CONFIGURATION.API_ENDPOINT}/holiday/${holidayId}`);
   }
 
   static async publishHoliday(holiday: Holiday) {
@@ -57,7 +59,7 @@ class HolidayRequestsApi {
   }
 
   static async leaveHoliday(holidayId: string) {
-    return axiosInstance.delete(`${CONFIGURATION.API_ENDPOINT}/participant/leave/${holidayId}`);
+    return axiosInstance.delete(`${CONFIGURATION.API_ENDPOINT}/holiday/${holidayId}/leave`);
   }
 }
 

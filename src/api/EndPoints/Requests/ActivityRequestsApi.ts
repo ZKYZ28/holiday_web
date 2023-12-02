@@ -1,6 +1,7 @@
 import { Activity } from '../../Models/Activity.ts';
 import axiosInstance from '../../axios.ts';
 import CONFIGURATION from '../Configuration.ts';
+import {Participant} from "../../Models/Participant.ts";
 
 class ActivityRequestsApi {
   // ACTIVITY
@@ -27,6 +28,21 @@ class ActivityRequestsApi {
       },
     });
   }
+
+  static async getParticipantByActivity(activityId: string, isParticipated: boolean) {
+    return axiosInstance.get<Participant[]>(`${CONFIGURATION.API_ENDPOINT}/activity/${activityId}/participant`, {
+      params : {isParticipated : isParticipated}
+    });
+  }
+
+  static async deleteParticipate(activityId: string, participantId: string) {
+    return axiosInstance.delete(`${CONFIGURATION.API_ENDPOINT}/activity/${activityId}/participant/${participantId}`);
+  }
+
+  static async createParticipate(activityId: string, participantId: string) {
+    return axiosInstance.post(`${CONFIGURATION.API_ENDPOINT}/activity/${activityId}/participant/${participantId}`);
+  }
+
 }
 
 export default ActivityRequestsApi;

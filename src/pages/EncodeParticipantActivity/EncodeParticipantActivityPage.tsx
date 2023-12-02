@@ -5,16 +5,14 @@ import PageWrapper from '../../components/common/PageWrapper.tsx';
 import PageContent from '../../components/common/PageContent.tsx';
 import ListUsers from "../../components/ListUsers/ListUsers.tsx";
 import {useParams} from "react-router-dom";
-import {
-  useGetParticipantsNotYetActivity,
-} from "../../api/Queries/ParticipantQueries.ts";
 import MembersActivity from "./MembersActivity/MembersActivity.tsx";
+import {GetParticipantsByActivity} from "../../api/Queries/ActivityQueries.ts";
 
 const EncodeParticipantActivityPage = () => {
   const { id} = useParams();
 
   const [searchInput, setSearchText] = useState('');
-  const {data : participantsNotYetActivity, isLoading: isLoadingNotYetActivity} = useGetParticipantsNotYetActivity(id!);
+  const {data : participantsNotYetActivity, isLoading: isLoadingNotYetActivity} = GetParticipantsByActivity(id!, false);
 
   const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const lowerCase = e.target.value.toLowerCase();

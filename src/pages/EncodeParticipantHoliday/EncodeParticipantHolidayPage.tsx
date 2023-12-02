@@ -5,15 +5,13 @@ import ListUsers from '../../components/ListUsers/ListUsers.tsx';
 import PageWrapper from '../../components/common/PageWrapper.tsx';
 import PageContent from '../../components/common/PageContent.tsx';
 import {Participant} from "../../api/Models/Participant.ts";
-import {useGetParticipants} from "../../api/Queries/ParticipantQueries.ts";
 import {useParams} from "react-router-dom";
+import {useGetParticipantsByHoliday} from "../../api/Queries/HolidayQueries.ts";
 
 const EncodeParticipantHolidayPage = () => {
   const { id } = useParams();
   const [searchInput, setSearchText] = useState('');
-  const { data: participants, isLoading }: { data: Participant[]; isLoading: boolean } = useGetParticipants(id!, false);
-
-  console.log(participants);
+  const { data: participants, isLoading }: { data: Participant[]; isLoading: boolean } = useGetParticipantsByHoliday(id!, false);
 
   const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const lowerCase = e.target.value.toLowerCase();

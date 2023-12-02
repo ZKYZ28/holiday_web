@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import {activityKeys} from '../Querykeys.ts';
+import {activityKeys, holidayKeys} from '../Querykeys.ts';
 import ActivityRequestsApi from '../EndPoints/Requests/ActivityRequestsApi.ts';
 
 export const useCreateActivity = () => {
@@ -36,6 +36,32 @@ export const useDeleteActivity = () => {
   return useMutation((activityId: string) => ActivityRequestsApi.deleteActivity(activityId), {
     onSuccess: () => {
       client.invalidateQueries(holidayKeys.all);
+    },
+  });
+};
+
+export const GetParticipantsByActivity = (activityId: string, isParticipated: boolean) => {
+  return useQuery({
+    queryKey: [...activityKeys.get(activityId), isParticipated],
+    queryFn: () => ActivityRequestsApi.getParticipantByActivity(activityId, isParticipated).then((content) => content.data),
+    initialData: [],
+  });
+};
+
+export const useDeleteParticipate = () => {
+  const client = useQueryClient();
+  return useMutation(({ activityId, participantId }: { activityId: string; participantId: string }) => ActivityRequestsApi.deleteParticipate(activityId, participantId), {
+    onSuccess: () => {
+      client.invalidateQueries(activityKeys.all);
+    },
+  });
+};
+
+export const useCreateParticipate = () => {
+  const client = useQueryClient();
+  return useMutation(({ activityId, participantId }: { activityId: string; participantId: string }) => ActivityRequestsApi.createParticipate(activityId, participantId), {
+    onSuccess: () => {
+      client.invalidateQueries(activityKeys.all);
     },
   });
 };

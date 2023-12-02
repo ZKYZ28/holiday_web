@@ -1,7 +1,6 @@
 import axiosInstance from '../../axios.ts';
 import { Invitation, InvitationMutation } from '../../Models/Invitation.ts';
 import CONFIGURATION from '../Configuration.ts';
-import { Participant } from '../../Models/Participant.ts';
 
 class InvitationRequestsApi {
   // INVITATION

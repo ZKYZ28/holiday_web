@@ -6,8 +6,7 @@ import { useCreateInvitations } from '../../api/Queries/InvitationQueries.ts';
 import { useAuth } from '../../provider/AuthProvider.tsx';
 import { Participant } from '../../api/Models/Participant.ts';
 import { InvitationMutation } from '../../api/Models/Invitation.ts';
-import { useCreateParticipates } from '../../api/Queries/ParticipateQueries.ts';
-import { ParticipateListUser } from '../../api/Models/Participate.ts';
+import {useCreateParticipate} from "../../api/Queries/ActivityQueries.ts";
 
 type ListProps = {
   input: string;
@@ -21,8 +20,10 @@ const ListUsers: FC<ListProps> = ({ input, participants, isLoading, isForHoliday
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // AJOUT ET SUPRESSION DES PARTICIPANTS DANS LES PARTICIPANTS AJOUTES
   const [participantsAdded, setParticipantsAdded] = useState<Participant[]>([]);
+  const { mutate: mutateInvitations } = useCreateInvitations();
+  const { mutate: mutateParticipate } = useCreateParticipate();
+
   const addParticipantToAddedList = (participant: Participant) => {
     // Vérifiez si le participant n'est pas déjà dans participantsAdded
     const isParticipantAlreadyAdded = participantsAdded.find(
@@ -55,9 +56,6 @@ const ListUsers: FC<ListProps> = ({ input, participants, isLoading, isForHoliday
 
   const filteredData = filterParticipants(participants, input);
 
-  // CALL API
-  const { mutate: mutateInvitations } = useCreateInvitations();
-
   // CREATION DES INVITATIONS
   const handleSubmitHoliday = async () => {
     const invitations: InvitationMutation[] = participantsAdded.map((participant: Participant) => ({
@@ -66,25 +64,24 @@ const ListUsers: FC<ListProps> = ({ input, participants, isLoading, isForHoliday
     }));
 
     await mutateInvitations(invitations, {
-      onError: () => alert('An error occurred'),
+      onError: () => alert('Une erreur est survenue lors de l\'invitations des participants.'),
       onSuccess: () => navigate(`/holidays/${id}`),
     });
   };
 
-  const { mutate: mutateParticipates } = useCreateParticipates();
   const handleSubmitActivity = async () => {
-    const participates: ParticipateListUser[] = participantsAdded.map((participant: Participant) => ({
-      activityId: id ?? '', // TODO : value '' is good ?
-      participantId: participant.id,
-    }));
-
-    await mutateParticipates(participates, {
-      onError: () => alert('An error occurred'),
-      onSuccess: () => {
-        navigate(-1);
-      },
-    });
+    try {
+      for (const participant of participantsAdded) {
+        await mutateParticipate({ activityId: id!, participantId: participant.id }, {
+          onError: () => alert(`Une erreur est survenue lors de l'ajout du participant ${participant.id}.`),
+        });
+      }
+      navigate(-1);
+    } catch (error) {
+      alert(`Une erreur est survenue lors de l'ajout du participant.`)
+    }
   };
+
 
   return (
     <div id="addedParticipant" className="mb-6">

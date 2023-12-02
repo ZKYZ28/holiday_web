@@ -3,7 +3,7 @@ import PageContent from '../../components/common/PageContent.tsx';
 import { useParams } from 'react-router-dom';
 import {
   useGetExportHoliday,
-  useGetHolidayById,
+  useGetHolidayById, useLeaveHoliday,
   useUpdateHoliday,
 } from '../../api/Queries/HolidayQueries.ts';
 import dayjs from 'dayjs';
@@ -12,7 +12,6 @@ import MyHolidayListMembers from './MyHolidayMembers/MyHolidayListMembers.tsx';
 import MyHolidayActivities from './MyHolidayActivities/MyHolidayActivities.tsx';
 import { useState } from 'react';
 import Modal from '../../components/Modal/Modal.tsx';
-import { useLeaveHoliday } from '../../api/Queries/ParticipantQueries.ts';
 import { useAuth } from '../../provider/AuthProvider.tsx';
 import { useNavigate } from 'react-router-dom';
 import Loading from '../../components/common/Loading.tsx';

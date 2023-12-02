@@ -3,20 +3,20 @@ import {useParams} from "react-router-dom";
 import Loading from "../../../components/common/Loading.tsx";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrash} from "@fortawesome/free-solid-svg-icons";
-import {Participate} from "../../../api/Models/Participate.ts";
-import {useDeleteParticipate, useGetAllParticipatesByActivity} from "../../../api/Queries/ParticipateQueries.ts";
 import {useState} from "react";
 import Modal from "../../../components/Modal/Modal.tsx";
+import {Participant} from "../../../api/Models/Participant.ts";
+import {GetParticipantsByActivity, useDeleteParticipate} from "../../../api/Queries/ActivityQueries.ts";
 
 const MembersActivity = () => {
     const { id} = useParams();
-    const {data : participates, isLoading: isLoadingParticipates}: {data: Participate[], isLoading: boolean} = useGetAllParticipatesByActivity(id!)
+    const {data : activityParticipants, isLoading: isLoadingActivityParticipants}: {data: Participant[], isLoading: boolean} = GetParticipantsByActivity(id!, true)
     const [showModalInvitation, setShowModalInvitation] = useState(false);
-    const [selectedParticipate, setSelectedParticipate] = useState<Participate | null>(null);
+    const [selectedParticipant, setSelectedParticipant] = useState<Participant | null>(null);
     const {mutate: mutateParticipate} = useDeleteParticipate();
 
-    const openModalDelete = (participate: Participate): void => {
-        setSelectedParticipate(participate);
+    const openModalDelete = (participant: Participant): void => {
+      setSelectedParticipant(participant);
         setShowModalInvitation(true);
     };
 
@@ -25,17 +25,16 @@ const MembersActivity = () => {
     };
 
     function handleDeleteClick() {
-        if (selectedParticipate) {
-            mutateParticipate(
-                selectedParticipate.id,
-                { onError: () => alert('An error occurred'), onSuccess : () => closeModalDelete()}
+        if (selectedParticipant) {
+            mutateParticipate( {activityId : id!, participantId : selectedParticipant.id},
+            { onError: () => alert('Une erreur est survenue lors de la suppression de la participation'), onSuccess : () => closeModalDelete()}
             )
         }
     }
 
     return (
         <div>
-            {isLoadingParticipates ? (
+            {isLoadingActivityParticipants ? (
                 <Loading />
             ) : (
                 <div>
@@ -44,13 +43,13 @@ const MembersActivity = () => {
                     </div>
 
                     <ul className="max-h-52 overflow-y-scroll w-full mb-4">
-                        {participates.map((participate) => (
+                        {activityParticipants.map((participant) => (
                             <li
-                                key={participate.participant.id}
+                                key={participant.id}
                                 className="border-b-2 mb-2 mt-2 cursor-pointer pb-2 flex justify-between px-3"
                             >
-                                {participate.participant.lastName} ({participate.participant.email})
-                                <FontAwesomeIcon icon={faTrash} size="xl" className="text-red-600 ml-3 cursor-pointer" onClick={() => openModalDelete(participate)}/>
+                                {participant.lastName} ({participant.email})
+                                <FontAwesomeIcon icon={faTrash} size="xl" className="text-red-600 ml-3 cursor-pointer" onClick={() => openModalDelete(participant)}/>
                             </li>
                         ))}
                     </ul>
@@ -61,6 +60,7 @@ const MembersActivity = () => {
                 <Modal
                     show={showModalInvitation}
                     onClose={closeModalDelete}
+                    title = "Supprimer"
                 >
                     <div className="flex flex-col justify-center items-center w-full">
                         <p className="text-center">Etes-vous sûr de vouloir supprimer ce participant?</p>

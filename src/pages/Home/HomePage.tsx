@@ -1,29 +1,27 @@
 import PageWrapper from '../../components/common/PageWrapper.tsx';
-
-import { useGetParticipantsCount } from '../../api/Queries/ParticipantQueries.ts';
 import { ChangeEvent, useState } from 'react';
-import { useGetAllHolidayCountForDate } from '../../api/Queries/HolidayQueries.ts';
 import { formattedDate } from '../../components/common/utils/dateUtils.ts';
 import dayjs from 'dayjs';
-import {ParticipantCount} from "../../api/Models/CountParticipant.ts";
+import {useGetStatistics, useGetStatisticsForDate} from "../../api/Queries/StatisticsQueries.ts";
+import {Statistics} from "../../api/Models/Statistics.ts";
 
 const HomePage = () => {
-  const { data: countParticipantsRegistered } = useGetParticipantsCount();
-  const { mutate: holidayCountMutate } = useGetAllHolidayCountForDate();
+  const { data: statistics } = useGetStatistics();
+  const { mutate: statisticsMutate } = useGetStatisticsForDate();
 
   const [date, setDate] = useState(formattedDate);
   const [showHolidayCount, setShowHolidayCount] = useState(false);
-  const [countParticipants, setCountParticipants] = useState<ParticipantCount[]>([]);
+  const [statisticsAtDate, setStatisticsAtDate] = useState<Statistics[]>([]);
 
   const onChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setDate(evt.target.value);
   };
 
   const onClick = () => {
-    holidayCountMutate(date, {
+    statisticsMutate(date, {
       onError: () => alert('Désolé, nous envons rencontré une erreur.'),
       onSuccess: (data) => {
-        setCountParticipants(data);
+        setStatisticsAtDate(data);
         setShowHolidayCount(true);
       },
     });
@@ -41,7 +39,7 @@ const HomePage = () => {
                 <span className="text-blue-800">.</span>
               </h1>
             </div>
-            <p className="mt-3.5 lg:text-3xl text-lg font-bold">Rejoingnez nos {countParticipantsRegistered} membre(s) actifs !</p>
+            <p className="mt-3.5 lg:text-3xl text-lg font-bold">Rejoingnez nos {statistics?.activeParticipants} membre(s) actifs !</p>
           </div>
 
           <div className="h-1/2 flex flex-col mt-12">
@@ -53,9 +51,9 @@ const HomePage = () => {
                   Voici le nombre de participants en vacances pour la date du {dayjs(date).format('DD/MM/YYYY')} :
                 </p>
 
-                {countParticipants.map((participant, index) => (
+                {statisticsAtDate.map((statistic, index) => (
                   <div key={index}>
-                    <p className="font-semibold text-blue-800">{`${participant.country} : ${participant.participants} participant(s).`}</p>
+                    <p className="font-semibold text-blue-800">{`${statistic.country} : ${statistic.participantsByCountry} participant(s).`}</p>
                   </div>
                 ))}
               </div>

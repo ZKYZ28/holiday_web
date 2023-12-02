@@ -17,6 +17,10 @@ export const authentificationKeys = {
   all: ['authentification'] as const,
 };
 
+export const statisticsKey = {
+  all: ['statistics'] as const,
+};
+
 export const mailKeys = {
   all: ['mail'] as const,
 };
