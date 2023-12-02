@@ -14,8 +14,8 @@ const ChatPage = () => {
   const { joinRoom } = useMessages();
   const { leaveRoom } = useMessages();
 
-
   const { data: holidays } = useGetAllHolidayByParticipant(false);
+  const [showChatSection, setShowChatSection] = useState(false);
   const [activeGroupChat, setActiveGroupChat]: [
     activeGroupChat: string,
     setActiveGroupChat: Dispatch<SetStateAction<string>>,
@@ -30,6 +30,7 @@ const ChatPage = () => {
     setActiveGroupChat(holidayIdToJoin);
     await joinRoom(holidayIdToJoin, user!);
     setHolidayId(holidayIdToJoin);
+    setShowChatSection(true);
   };
 
   return (
@@ -68,14 +69,24 @@ const ChatPage = () => {
           </div>
 
           {/* Right part*/}
-          <div className="flex flex-col flex-auto h-full p-6">
+          {showChatSection ? (
             <div className="flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-gray-100 h-full p-4">
               {/* LIVE CHAT*/}
               <LiveChat />
               {/* Send message part*/}
               <SendChat holidayId={holidayId} />
             </div>
-          </div>
+          ) : (
+            <div className="h-full w-full flex justify-center items-center bg-gray-100">
+
+              <div className="flex flex-col justify-center items-center bg-white rounded-2xl p-10 box-shadow">
+                <img src="https://i.gifer.com/ZVxg.gif" alt="PIRATE" />
+                <p className="text-black font-bold text-2xl">Choisissez un groupe moussaillon</p>
+              </div>
+
+            </div>
+          )}
+
         </div>
       </div>
     </PageWrapper>
