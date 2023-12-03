@@ -9,6 +9,7 @@ import { useLoginAccount, useLoginGoogle } from '../../api/Queries/Authentificat
 import { AxiosError } from 'axios';
 import ErrosForm from '../../components/ErrorsForm/ErrorsForm.tsx';
 import { GoogleLogin } from '@react-oauth/google';
+import Loading from '../../components/common/Loading.tsx';
 
 const inputEmail = {
   id: 'email',
@@ -37,18 +38,20 @@ const LoginPage = () => {
   const { setJwtToken } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const {
-    mutate: mutateLogin,
-    error: errorMutateLogin,
-  } = useLoginAccount() as {
+  const { mutate: mutateLogin, error: errorMutateLogin } = useLoginAccount() as {
     mutate: any;
     error: AxiosError<unknown>;
   };
 
-  const { mutate: mutateGoogle } = useLoginGoogle();
+  const { mutate: mutateGoogle, error: errorMutateGoogle } = useLoginGoogle() as {
+    mutate: any;
+    error: AxiosError<unknown>;
+  };
 
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmailInput(e.target.value);
   };
@@ -79,6 +82,7 @@ const LoginPage = () => {
         {location.state && <p className="text-red-600 font-bold text-center">{location.state.message}</p>}
 
         {errorMutateLogin ? <ErrosForm axiosError={errorMutateLogin?.response?.data} /> : <> </>}
+        {errorMutateGoogle ? <ErrosForm axiosError={errorMutateGoogle?.response?.data} /> : <> </>}
 
         <form onSubmit={handleSubmit}>
           <FormInput {...inputEmail} value={emailInput} onChange={handleChangeEmail} />
@@ -95,24 +99,31 @@ const LoginPage = () => {
         <div className="flex items-center mt-12 flex-col">
           <div className="h-1 bg-gray-100 w-1/2 rounded-lg mb-5" />
           <div className="mb-5">
-            <GoogleLogin
-              onSuccess={(credentialResponse) => {
-                mutateGoogle(
-                  {
-                    tokenId: credentialResponse.credential!,
-                  },
-                  {
-                    onSuccess: (data: { data: string }) => {
-                      setJwtToken(data.data);
-                      navigate('/holidays', { replace: true });
+            {isLoading ? (
+              <Loading />
+            ) : (
+              <GoogleLogin
+                onSuccess={(credentialResponse) => {
+                  setIsLoading(true);
+                  mutateGoogle(
+                    {
+                      tokenId: credentialResponse.credential!,
                     },
-                  }
-                );
-              }}
-              onError={() => {
-                console.log('Login Failed');
-              }}
-            />
+                    {
+                      onSuccess: (data: { data: string }) => {
+                        setJwtToken(data.data);
+                        setIsLoading(false);
+                        navigate('/holidays', { replace: true });
+                      },
+                    }
+                  );
+                }}
+                onError={() => {
+                  setIsLoading(false);
+                  console.log('Login Google a rencontré un problème');
+                }}
+              />
+            )}
           </div>
           <p className="text-xl text-blue-800 font-semibold mb-8">Vous n'avez pas encore de compte ? </p>
           <ButtonLink text="S'enregistrer" to="/register" />

@@ -1,6 +1,6 @@
 import axiosInstance from '../../axios.ts';
 import CONFIGURATION from '../Configuration.ts';
-import {Statistics} from "../../Models/Statistics.ts";
+import { Statistics } from '../../Models/Statistics.ts';
 
 class StatisticsRequestApi {
   static async getStatistics() {
