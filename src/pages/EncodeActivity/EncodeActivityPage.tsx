@@ -15,7 +15,6 @@ import {descriptionTextAreaActivityObject, inputsActivityTab} from "../../data/i
 
 const EncodeActivityPage = () => {
   const { id } = useParams();
-  // TODO : id! ou id ?? ''
   const { mutate: mutateActivity, error: ErrorMutateActivity } = useCreateActivity() as {
     mutate: any
     error: AxiosError<unknown>;

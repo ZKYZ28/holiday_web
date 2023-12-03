@@ -27,7 +27,7 @@ const MembersActivity = () => {
     function handleDeleteClick() {
         if (selectedParticipant) {
             mutateParticipate( {activityId : id!, participantId : selectedParticipant.id},
-            { onError: () => alert('Une erreur est survenue lors de la suppression de la participation'), onSuccess : () => closeModalDelete()}
+            { onError: () => alert('Une erreur est survenue lors de la suppression de la participation.'), onSuccess : () => closeModalDelete()}
             )
         }
     }
@@ -63,7 +63,7 @@ const MembersActivity = () => {
                     title = "Supprimer"
                 >
                     <div className="flex flex-col justify-center items-center w-full">
-                        <p className="text-center">Etes-vous sûr de vouloir supprimer ce participant?</p>
+                        <p className="text-center">Etes-vous sûr de vouloir supprimer ce participant ?</p>
 
                         <div className="flex justify-around mt-6 w-full">
                             <button

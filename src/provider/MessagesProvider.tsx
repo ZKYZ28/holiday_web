@@ -75,8 +75,6 @@ const MessagesProvider: FC<{ children: ReactNode }> = ({ children }) => {
     try {
       await connectionRef.current!.invoke('LeaveHolidayRoom', holidayId, user);
       await connectionRef.current!.stop();
-
-
     } catch (e) {
       console.log(e)
     }

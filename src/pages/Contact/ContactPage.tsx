@@ -34,7 +34,7 @@ function ContactPage() {
     type: 'message',
     placeholder: 'Bonjour, où se trouve votre agence ?',
     errorMessage:
-      'La description doit contenir entre 5 et 500 caractères et peut inclure des lettres, des chiffres, des apostrophes, des tirets et des espaces et certains caractères spéciaux.s !',
+      'La description doit contenir entre 5 et 500 caractères et peut inclure des lettres, des chiffres, des apostrophes, des tirets, des espaces et certains caractères spéciaux.s !',
     label: 'Message',
     required: true,
   };

@@ -43,7 +43,7 @@ const HomePage = () => {
           </div>
 
           <div className="h-1/2 flex flex-col mt-12">
-            <p className="font-semibold">Découvrez le nombre de participants en vacances par pays pour une date!</p>
+            <p className="font-semibold">Découvrez le nombre de participants en vacances par pays pour une date !</p>
             {showHolidayCount && (
               <div className="mt-3.5">
                 <p className="font-semibold text-blue-800">

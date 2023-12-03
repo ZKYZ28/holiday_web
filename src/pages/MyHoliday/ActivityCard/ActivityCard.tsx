@@ -90,7 +90,7 @@ function ActivityCard({ activity, isPublish }: { activity: Activity, isPublish: 
       {showModalConfirmation && (
         <Modal show={showModalConfirmation} onClose={closeModalConfirmation} title={'Supprimer'}>
           <div className="flex flex-col justify-center items-center w-full">
-            <p className="text-center">Etes-vous sûr de vouloir supprimer cette activité?</p>
+            <p className="text-center">Etes-vous sûr de vouloir supprimer cette activité ?</p>
 
             <div className="flex justify-around mt-6 w-full">
               <button

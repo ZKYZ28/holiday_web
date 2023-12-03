@@ -46,7 +46,6 @@ function MyHolidayActivities({
     return filteredActivities;
   };
 
-  console.log("RENDER")
   return (
     <div className="w-full bg-white shadow-lg rounded-sm border border-gray-200 mt-10">
       <header className="flex justify-between items-center px-5 py-4 border-b border-gray-100 ">

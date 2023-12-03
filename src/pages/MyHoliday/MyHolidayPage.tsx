@@ -65,7 +65,7 @@ function MyHolidayPage() {
       mutateUpdateHoliday(
         { holidayId: id!, updatedHoliday: formData },
         {
-          onError: () => alert('Erreur lors de la publication de la holiday'),
+          onError: () => alert('Erreur lors de la publication de la vacances.'),
           onSuccess: () => closeModalPublish(),
         }
       );
@@ -156,8 +156,8 @@ function MyHolidayPage() {
               <Modal show={showModalPublish} onClose={closeModalPublish} title="Publier">
                 <div className="flex flex-col justify-center items-center w-full">
                   <p className="text-center">
-                    Etes-vous sûr de vouloir publier cette période de vacance ? Cela veut dire que tout les utilisateurs
-                    pourront la voir.{' '}
+                    Etes-vous sûr de vouloir publier cette période de vacances ? Cela veut dire que tous les utilisateurs
+                    pourront la voir.
                   </p>
 
                   <div className="flex justify-around mt-6 w-full">
@@ -185,8 +185,7 @@ function MyHolidayPage() {
               <Modal show={showModalLeave} onClose={closeModalLeave} title="Quitter">
                 <div className="flex flex-col justify-center items-center w-full">
                   <p className="text-center">
-                    Etes-vous sûr de vouloir quitter <span className="font-bold text-blue-800">{holidayData.name}</span>{' '}
-                    ?{' '}
+                    Etes-vous sûr de vouloir quitter <span className="font-bold text-blue-800">{holidayData.name}</span> ?
                   </p>
 
                   <div className="flex justify-around mt-6 w-full">

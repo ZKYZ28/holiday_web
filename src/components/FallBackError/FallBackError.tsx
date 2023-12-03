@@ -13,7 +13,7 @@ function FallBackError() {
             </div>
             <p className="mb-4 text-lg font-light text-gray-500">Nous sommes désolés pour ce désagrément.</p>
             <NavLink to={'/'}>
-              <p className=" inline bg-blue-800 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full w-1/6 mt-3.5">Back to Homepage</p>
+              <p className=" inline bg-blue-800 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full w-1/6 mt-3.5">Retour à la page d'accueil</p>
             </NavLink>
           </div>
         </div>

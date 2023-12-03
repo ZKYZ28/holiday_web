@@ -13,9 +13,6 @@ import ErrosForm from "../../components/ErrorsForm/ErrorsForm.tsx";
 import {AxiosError} from "axios";
 import {descriptionTextAreaHolidayObject, inputsHolidayTab} from '../../data/inputs.tsx';
 
-
-
-
 const EncodeHolidayPage = () => {
   const { mutate: mutateHoliday, error: ErrorMutateHoliday }= useCreateHoliday() as {
     mutate: any
@@ -49,7 +46,6 @@ const EncodeHolidayPage = () => {
     }
     setError('');
 
-    // TODO VERIFIER SI ACTIVITIES EST NECESSAIRE
     const formData = new FormData();
     formData.append('name', name ?? '');
     formData.append('description', description ?? '');

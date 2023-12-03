@@ -24,7 +24,7 @@ const buildInputRegister = (password: string) => {
       name: 'lastName',
       type: 'text',
       placeholder: 'Doe',
-      errorMessage: 'Veuillez sasir un nom valide, qui ne doit pas être vide, ne doit pas inclure de chiffres et doit comporter entre 3 et 48 caractères.',
+      errorMessage: 'Veuillez saisir un nom valide, qui ne doit pas être vide, ne doit pas inclure de chiffres et doit comporter entre 3 et 48 caractères.',
       label: 'Nom :',
       pattern: '[a-zA-ZÀ-ÿ][çÇ\\-\\.a-z\' ]{1,48}[a-zÀ-ÿ]',
       required: true,
@@ -45,7 +45,7 @@ const buildInputRegister = (password: string) => {
       type: 'password',
       placeholder: '*************',
       errorMessage:
-        'Votre mot de passe doit comporter entre 8 à 32 caractères, incluant au minimum un caractère spécial, une majuscule, une minuscule et un chiffre !. ',
+        'Votre mot de passe doit comporter entre 8 à 32 caractères, incluant au minimum un caractère spécial, une majuscule, une minuscule et un chiffre !',
       label: 'Mot de passe :',
       pattern:
         '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*\\.!@$%^&\\(\\)\\{\\}\\[\\]\\:;<>,\\.?\\/~_\\+\\-=\\|çÇ]).{8,32}$',
@@ -57,7 +57,7 @@ const buildInputRegister = (password: string) => {
       type: 'password',
       placeholder: '*************',
       errorMessage: 'Oops! Les mots de passe ne correspondent pas. Veuillez réessayer.',
-      label: 'Confirmation de mot de passe :',
+      label: 'Confirmation du mot de passe :',
       pattern: password,
       required: true,
     },
@@ -99,7 +99,6 @@ const RegisterPage = () => {
         // Recuperer le token renvoyé par l'api
         onSuccess: (data) => {
           setJwtToken(data.data);
-          // Récupérer les infos de l'utilisateru ???
           navigate('/holidays', { replace: true });
         },
       }
