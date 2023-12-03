@@ -7,11 +7,13 @@ import { useSendMail } from '../../api/Queries/MailQueries.ts';
 import { AxiosError } from 'axios';
 import ErrosForm from '../../components/ErrorsForm/ErrorsForm.tsx';
 import Modal from '../../components/Modal/Modal.tsx';
+import Loading from "../../components/common/Loading.tsx";
 
 function ContactPage() {
   const [emailInput, setEmailInput] = useState('');
   const [textAreaField, setTextAreaField] = useState('');
   const [showModalConfirmation, setShowModalConfirmation] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { mutate: Mail, error: errorMail } = useSendMail() as {
     mutate: any;
     error: AxiosError<unknown>;
@@ -49,6 +51,7 @@ function ContactPage() {
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+    setIsLoading(true);
     if (textAreaField.length > 4) {
       Mail(
         {
@@ -59,8 +62,12 @@ function ContactPage() {
           onSuccess: () => {
             setEmailInput('');
             setTextAreaField('');
+            setIsLoading(false);
             openModalConfirmation();
           },
+          onError: () => {
+            setIsLoading(false);
+          }
         }
       );
     }
@@ -94,12 +101,16 @@ function ContactPage() {
                 isOptional={false}
               />
               <div className="my-2 w-1/2 lg:w-1/4">
-                <button
-                  type="submit"
-                  className="bg-blue-800 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full"
-                >
-                  Envoyer
-                </button>
+                {isLoading ? (
+                  <Loading />
+                ) : (
+                  <button
+                    type="submit"
+                    className="bg-blue-800 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full"
+                  >
+                    Envoyer
+                  </button>
+                )}
               </div>
             </div>
 

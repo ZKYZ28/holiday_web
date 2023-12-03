@@ -39,7 +39,7 @@ const HomePage = () => {
                 <span className="text-blue-800">.</span>
               </h1>
             </div>
-            <p className="mt-3.5 lg:text-3xl text-lg font-bold">Rejoingnez nos {statistics?.activeParticipants} membre(s) actifs !</p>
+            <p className="mt-3.5 lg:text-3xl text-lg font-bold">Rejoignez nos {statistics?.activeParticipants} membre(s) actifs !</p>
           </div>
 
           <div className="h-1/2 flex flex-col mt-12">
