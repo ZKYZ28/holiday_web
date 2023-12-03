@@ -6,6 +6,9 @@ import PageWrapper from '../../components/common/PageWrapper.tsx';
 import { useCreateAccount } from '../../api/Queries/AuthentificationQueries.ts';
 import { useAuth } from '../../provider/AuthProvider.tsx';
 import { useNavigate } from 'react-router-dom';
+import ErrosForm from '../../components/ErrorsForm/ErrorsForm.tsx';
+import { AxiosError } from 'axios';
+import Loading from '../../components/common/Loading.tsx';
 
 const buildInputRegister = (password: string) => {
   return [
@@ -67,8 +70,12 @@ const buildInputRegister = (password: string) => {
 const RegisterPage = () => {
   const { setJwtToken } = useAuth();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const { mutate: mutateRegister } = useCreateAccount();
+  const { mutate: mutateRegister, error: errorMutateRegister } = useCreateAccount() as {
+    mutate: any;
+    error: AxiosError<unknown>;
+  };
 
   const [values, setValues] = useState({
     email: '',
@@ -86,6 +93,7 @@ const RegisterPage = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
 
     mutateRegister(
       {
@@ -97,9 +105,13 @@ const RegisterPage = () => {
       },
       {
         // Recuperer le token renvoyé par l'api
-        onSuccess: (data) => {
+        onSuccess: (data: { data: string }) => {
           setJwtToken(data.data);
+          setIsLoading(false);
           navigate('/holidays', { replace: true });
+        },
+        onError: () => {
+          setIsLoading(false);
         },
       }
     );
@@ -109,6 +121,8 @@ const RegisterPage = () => {
     <PageWrapper>
       <FormContainer title="S'enregister">
         <form onSubmit={handleSubmit}>
+          {errorMutateRegister ? <ErrosForm axiosError={errorMutateRegister?.response?.data} /> : <> </>}
+
           <FormInput {...inputRegister[0]} value={values.email} onChange={onChange} />
 
           <div className="block lg:flex justify-between w-full">
@@ -130,9 +144,16 @@ const RegisterPage = () => {
           </div>
 
           <div className="flex justify-center">
-            <button type="submit" className="bg-blue-800 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full">
-              S'enregistrer
-            </button>
+            {isLoading ? (
+              <Loading />
+            ) : (
+              <button
+                type="submit"
+                className="bg-blue-800 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full"
+              >
+                S'enregistrer
+              </button>
+            )}
           </div>
         </form>
 

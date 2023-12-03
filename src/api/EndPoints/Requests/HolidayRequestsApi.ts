@@ -3,11 +3,11 @@
 import { Holiday } from '../../Models/Holiday.ts';
 import axiosInstance from '../../axios.ts';
 import CONFIGURATION from '../Configuration.ts';
-import {Participant} from "../../Models/Participant.ts";
+import { Participant } from '../../Models/Participant.ts';
 
 class HolidayRequestsApi {
   static async createHoliday(holiday: FormData) {
-    return axiosInstance.post(`${CONFIGURATION.API_ENDPOINT}/holiday`, holiday, {
+    return axiosInstance.post(`${CONFIGURATION.API_ENDPOINT}/holidays`, holiday, {
       headers: {
         'Content-type': 'multipart/form-data',
       },
@@ -15,7 +15,7 @@ class HolidayRequestsApi {
   }
 
   static async updateHoliday(holidayId: string, updatedHoliday: FormData) {
-    return axiosInstance.put(`${CONFIGURATION.API_ENDPOINT}/holiday/${holidayId}`, updatedHoliday, {
+    return axiosInstance.put(`${CONFIGURATION.API_ENDPOINT}/holidays/${holidayId}`, updatedHoliday, {
       headers: {
         'Content-type': 'multipart/form-data',
       },
@@ -23,43 +23,43 @@ class HolidayRequestsApi {
   }
 
   static async getAllHolidayByParticipant(isPublished: boolean) {
-    return axiosInstance.get<Holiday[]>(`${CONFIGURATION.API_ENDPOINT}/holiday/`, {
+    return axiosInstance.get<Holiday[]>(`${CONFIGURATION.API_ENDPOINT}/holidays/`, {
       params: { isPublished: isPublished },
     });
   }
 
   static async getAllHolidayPublished(isPublished: boolean) {
-    return axiosInstance.get<Holiday[]>(`${CONFIGURATION.API_ENDPOINT}/holiday/`, {
+    return axiosInstance.get<Holiday[]>(`${CONFIGURATION.API_ENDPOINT}/holidays/`, {
       params: { isPublished: isPublished },
     });
   }
 
-  static async getParticipantsByHoliday(holidayId: string, isParticipated : boolean) {
-    return axiosInstance.get<Participant[]>(`${CONFIGURATION.API_ENDPOINT}/holiday/${holidayId}/participant`, {
-      params : {isParticipated : isParticipated}
+  static async getParticipantsByHoliday(holidayId: string, isParticipated: boolean) {
+    return axiosInstance.get<Participant[]>(`${CONFIGURATION.API_ENDPOINT}/holidays/${holidayId}/participants`, {
+      params: { isParticipated: isParticipated },
     });
   }
 
   static async getHolidayById(holidayId: string) {
-    return axiosInstance.get<Holiday>(`${CONFIGURATION.API_ENDPOINT}/holiday/${holidayId}`);
+    return axiosInstance.get<Holiday>(`${CONFIGURATION.API_ENDPOINT}/holidays/${holidayId}`);
   }
 
   static async publishHoliday(holiday: Holiday) {
-    return axiosInstance.put(`${CONFIGURATION.API_ENDPOINT}/holiday/publish`, holiday);
+    return axiosInstance.put(`${CONFIGURATION.API_ENDPOINT}/holidays/publish`, holiday);
   }
 
   static async getExportHoliday(holidayId: string) {
-    return axiosInstance.get(`${CONFIGURATION.API_ENDPOINT}/holiday/${holidayId}/ics`, {
+    return axiosInstance.get(`${CONFIGURATION.API_ENDPOINT}/holidays/${holidayId}/ics`, {
       responseType: 'blob',
     });
   }
 
   static async deleteHoliday(holidayId: string) {
-    return axiosInstance.delete(`${CONFIGURATION.API_ENDPOINT}/holiday/${holidayId}`);
+    return axiosInstance.delete(`${CONFIGURATION.API_ENDPOINT}/holidays/${holidayId}`);
   }
 
   static async leaveHoliday(holidayId: string) {
-    return axiosInstance.delete(`${CONFIGURATION.API_ENDPOINT}/holiday/${holidayId}/leave`);
+    return axiosInstance.delete(`${CONFIGURATION.API_ENDPOINT}/holidays/${holidayId}/leave`);
   }
 }
 
