@@ -25,7 +25,7 @@ function Header() {
 
         {user ? (
         <>
-          <div>
+          <div className="flex flex-col gap-3 items-center sm:flex-row">
             <ButtonLink text="Vacances" to="/holidays" />
             <ButtonLink text="Chats" to="/chats" />
           </div>
@@ -42,7 +42,7 @@ function Header() {
           </div>
           </>
         ) : (
-          <div>
+          <div className="flex flex-col gap-3 items-center sm:flex-row">
             <ButtonLink text="Nous contacter" to="/contact" />
             <ButtonLink text="Se connecter" to="/login" />
             <ButtonLink text="S'enregister" to="/register" />

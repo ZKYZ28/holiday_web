@@ -8,7 +8,7 @@ type ButtonLinkProps = {
 function ButtonLink({ to, text }: ButtonLinkProps) {
   return (
     <NavLink to={to}>
-      <li className="ml-3.5 inline-block bg-blue-800 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full">{text}</li>
+      <li className="inline-block bg-blue-800 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full">{text}</li>
     </NavLink>
   );
 }
