@@ -19,7 +19,7 @@ describe('EncodeHoliday Page', () => {
     // Attendre que la page d'encodage soit chargée
     cy.url().should('include', 'http://localhost:5173/#/holidays/holiday');
 
-    cy.intercept('POST', 'https://localhost:7048/v1/holiday').as('encodeHoliday');
+    cy.intercept('POST', 'https://porthos-intra.cg.helmo.be/q210054/v1/holiday').as('encodeHoliday');
 
     // Remplir et soumettre le formulaire d'encodage de vacances
     cy.get('input[name="name"]').type('Nom de la vacances');
