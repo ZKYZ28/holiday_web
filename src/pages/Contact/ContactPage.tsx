@@ -36,7 +36,7 @@ function ContactPage() {
     type: 'message',
     placeholder: 'Bonjour, où se trouve votre agence ?',
     errorMessage:
-      'La description doit contenir entre 5 et 500 caractères et peut inclure des lettres, des chiffres, des apostrophes, des tirets, des espaces et certains caractères spéciaux.s !',
+      'La description doit contenir entre 5 et 500 caractères et peut inclure des lettres, des chiffres, des apostrophes, des tirets, des espaces et certains caractères spéciaux. !',
     label: 'Message',
     required: true,
   };
@@ -84,9 +84,9 @@ function ContactPage() {
   return (
     <PageWrapper>
       <form onSubmit={handleSubmit} className="page-chat mt-6">
-        <div className="flex justify-center items-center w-screen bg-red pb-10 h-full">
-          <div className="container mx-auto my-4 px-4 lg:px-20">
-            <div className="w-full p-8 my-4 md:px-12 lg:w-9/12 lg:pl-20 lg:pr-40 mr-auto rounded-2xl shadow-2xl">
+        <div className="flex justify-center items-center w-screen bg-red pb-10">
+          <div className="container mx-auto my-4 px-4 lg:px-20 md:mt-0">
+            <div className="p-8 my-4 md:px-12 lg:w-9/12 lg:pl-20 lg:pr-40 mr-auto rounded-2xl shadow-2xl">
               <span className="font-bold uppercase md:text-5xl sm:text-xs">Contactez-nous</span>
 
               {errorMail ? <ErrosForm axiosError={errorMail?.response?.data} /> : <> </>}

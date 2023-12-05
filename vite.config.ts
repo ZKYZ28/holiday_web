@@ -3,6 +3,6 @@ import react from '@vitejs/plugin-react-swc';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  // base: '~/q210054/',
+  base: '~/q210054/',
   plugins: [react()],
 });
