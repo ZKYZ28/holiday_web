@@ -3,7 +3,7 @@ describe('Login Page', () => {
   it('should retrieve the access token after login', () => {
     // Visiter la page de connexion
     cy.visit('http://localhost:5173/#/login');
-    cy.intercept('GET', 'https://localhost:7048/v1/holiday/participant/63d57a29-c94e-4373-8931-5afcefca5b55').as('getHolidaysBYParticipant');
+    cy.intercept('GET', 'https://porthos-intra.cg.helmo.be/q210054/v1/holiday/participant/63d57a29-c94e-4373-8931-5afcefca5b55').as('getHolidaysBYParticipant');
 
     // Remplir le formulaire de connexion et soumettre
     cy.get('input[name="email"]').type('Francis@gmail.com');
@@ -30,7 +30,7 @@ describe('Login Page', () => {
   it('should not redirect when login form is submitted with empty fields', () => {
     // Visiter la page de connexion
     cy.visit('http://localhost:5173/#/login');
-    cy.intercept('POST', 'https://localhost:7048/v1/authentification/login').as('loginRequest');
+    cy.intercept('POST', 'https://porthos-intra.cg.helmo.be/q210054/v1/authentification/login').as('loginRequest');
 
     // Trouver le formulaire de connexion
     cy.get('form').submit();

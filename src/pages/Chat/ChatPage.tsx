@@ -5,7 +5,7 @@ import LiveChat from './LiveChat/LiveChat.tsx';
 import SendChat from './SendChat/SendChat.tsx';
 import { useAuth } from '../../provider/AuthProvider.tsx';
 import { useMessages } from '../../provider/MessagesProvider.tsx';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useState, useEffect } from 'react';
 import { useGetAllHolidayByParticipant } from '../../api/Queries/HolidayQueries.ts';
 
 const ChatPage = () => {
@@ -16,10 +16,6 @@ const ChatPage = () => {
 
   const { data: holidays } = useGetAllHolidayByParticipant(false);
   const [showChatSection, setShowChatSection] = useState(false);
-  const [activeGroupChat, setActiveGroupChat]: [
-    activeGroupChat: string,
-    setActiveGroupChat: Dispatch<SetStateAction<string>>,
-  ] = useState('');
   const [holidayId, setHolidayId]: [holidayId: string, setHolidayId: Dispatch<SetStateAction<string>>] = useState("");
 
 
@@ -27,11 +23,18 @@ const ChatPage = () => {
     if(holidayId.length != 0){
       await leaveRoom(holidayId, user!);
     }
-    setActiveGroupChat(holidayIdToJoin);
+
     await joinRoom(holidayIdToJoin, user!);
     setHolidayId(holidayIdToJoin);
     setShowChatSection(true);
   };
+
+  useEffect(() => {
+    // Déconnecte l'utilisateur si jamais il quitte brusquement la page.
+    return  () => {
+         leaveRoom(holidayId, user!);
+    };
+  }, []);
 
   return (
     <PageWrapper>
@@ -60,8 +63,9 @@ const ChatPage = () => {
                   <GroupChat
                     key={holiday.id}
                     text={holiday.name}
+                    holidayImagePath={holiday.holidayPath}
                     onClick={() => handleGroupChatClick(holiday.id)}
-                    isActive={holiday.id === activeGroupChat}
+                    isActive={holiday.id === holidayId}
                   />
                 ))}
               </div>

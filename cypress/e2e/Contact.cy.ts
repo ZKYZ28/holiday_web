@@ -1,8 +1,13 @@
 describe('Contact Page', () => {
+  beforeEach(() => {
+    //On doit augmenter le timeout à cause du SMTP de l'école qui est lent
+    cy.timeout(10000);
+  });
+
   it('should receive a 200 response when the form is submitted with valid data', () => {
     // Visiter la page de contact
     cy.visit('http://localhost:5173/#/contact');
-    cy.intercept('POST', 'https://localhost:7048/v1/mail').as('sendMail');
+    cy.intercept('POST', 'https://porthos-intra.cg.helmo.be/q210054/v1/mail').as('sendMail');
 
     // Remplir le formulaire avec des données valides
     cy.get('input[name="email"]').type('john.doe@example.com');
