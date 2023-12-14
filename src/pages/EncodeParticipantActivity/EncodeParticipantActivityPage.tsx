@@ -25,7 +25,7 @@ const EncodeParticipantActivityPage = () => {
     placeholder: 'John Doe',
     errorMessage: 'Ça doit être un nom valide !',
     label: 'Recherche :',
-    required: true,
+    required: false,
   };
 
   return (
