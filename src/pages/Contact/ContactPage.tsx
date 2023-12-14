@@ -51,8 +51,8 @@ function ContactPage() {
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    setIsLoading(true);
     if (textAreaField.length > 4) {
+      setIsLoading(true);
       Mail(
         {
           senderEmail: emailInput,
