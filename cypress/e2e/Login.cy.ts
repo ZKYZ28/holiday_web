@@ -1,4 +1,5 @@
 // Exemple de test Cypress pour récupérer le token après une connexion
+import {} from 'cypress';
 describe('Login Page', () => {
 
   it('should not redirect when login form is submitted with empty fields', () => {

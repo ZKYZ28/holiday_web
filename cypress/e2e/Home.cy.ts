@@ -1,3 +1,4 @@
+import {} from 'cypress';
 describe('HomePage', () => {
   it('should receive a 200 response when the form is submitted', () => {
     // Visitez la page

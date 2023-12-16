@@ -1,3 +1,4 @@
+import {} from 'cypress';
 describe('EncodeHoliday Page', () => {
   it('should create a new holiday', () => {
     // Visiter la page de connexion
@@ -12,9 +13,7 @@ describe('EncodeHoliday Page', () => {
     cy.url().should('include', 'http://localhost:5173/#/holidays');
 
     // Cliquez sur le lien NavLink "Encoder"
-    cy.get('a')
-      .eq(3)
-      .click()
+    cy.get('a').eq(3).click();
 
     // Attendre que la page d'encodage soit chargée
     cy.url().should('include', 'http://localhost:5173/#/holidays/holiday');

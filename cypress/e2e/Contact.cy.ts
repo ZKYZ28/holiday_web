@@ -1,3 +1,4 @@
+import {} from 'cypress';
 describe('Contact Page', () => {
   beforeEach(() => {
     //On doit augmenter le timeout à cause du SMTP de l'école qui est lent
