@@ -63,7 +63,7 @@ function ActivityCard({ activity, isPublish }: { activity: Activity, isPublish: 
         <ul className="flex flex-col justify-around">
           <div className="flex flex-row items-center mb-1.5">
             <FontAwesomeIcon icon={faCalendarDays} size="xl" className="w-5 mr-4" />
-            <li className="font-bold text-base lg:text-xl ">{dayjs(activity.startDate).format('DD-MM-YYYY à HH:MM')}</li>
+            <li className="font-bold text-base lg:text-xl ">{dayjs(activity.startDate).format('DD-MM-YYYY à HH:mm')}</li>
           </div>
 
           <div className="flex flex-row items-center mb-1.5">
