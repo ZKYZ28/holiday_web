@@ -3,7 +3,7 @@
 Pour activer le mode développement, il est nécessaire de modifier le fichier ```.env``` situé à la racine du projet. Assurez-vous que la première ligne, ```VITE_BASE_API=https://localhost:7048```, soit active (non commentée), tandis que la seconde ligne doit rester commentée.
 
 ## Environnement de production
-Pour activer le mode production, il faut se rendre également dans le fichier ```.env``` situé à la racine du projet. À présent, vérifiez que la première ligne est commentée, alors que la seconde ligne, contenant VITE_BASE_API=https://test/q210054, doit être non commentée et de ce fait, active.
+Pour activer le mode production, il faut se rendre également dans le fichier ```.env``` situé à la racine du projet. À présent, vérifiez que la première ligne est commentée, alors que la seconde ligne, contenant VITE_BASE_API=https://porthos-intra.cg.helmo.be/q210054, doit être non commentée et de ce fait, active.
 
 ## Cypress
 
