@@ -4,7 +4,7 @@ describe('EncodeHoliday Page', () => {
     cy.visit('http://localhost:5173/#/login');
 
     // Remplir le formulaire de connexion et soumettre
-    cy.get('input[name="email"]').type('Francis@gmail.com');
+    cy.get('input[name="email"]').type('test@gmail.com');
     cy.get('input[name="password"]').type('Passw0rd!');
     cy.get('form').submit();
 
@@ -19,7 +19,7 @@ describe('EncodeHoliday Page', () => {
     // Attendre que la page d'encodage soit chargée
     cy.url().should('include', 'http://localhost:5173/#/holidays/holiday');
 
-    cy.intercept('POST', 'https://porthos-intra.cg.helmo.be/q210054/v1/holiday').as('encodeHoliday');
+    cy.intercept('POST', 'https://porthos-intra.cg.helmo.be/q210054/v1/holidays').as('encodeHoliday');
 
     // Remplir et soumettre le formulaire d'encodage de vacances
     cy.get('input[name="name"]').type('Nom de la vacances');
@@ -30,7 +30,7 @@ describe('EncodeHoliday Page', () => {
     cy.get('input[name="locality"]').type('Liège');
     cy.get('input[name="startDate"]').type('2024-02-15');
     cy.get('input[name="endDate"]').type('2024-02-25');
-    cy.get('textarea[name="description"]').type('Description de la vacance');
+    cy.get('textarea[name="description"]').type('Description de la vacances');
 
     // Soumettre le formulaire
     cy.get('form').submit();

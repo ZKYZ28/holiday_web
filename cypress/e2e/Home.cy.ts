@@ -4,10 +4,10 @@ describe('HomePage', () => {
     cy.visit('http://localhost:5173/#/');
 
     // Interceptez la requête associée à la soumission du formulaire
-    cy.intercept('GET', 'https://porthos-intra.cg.helmo.be/q210054/v1/statistics/date/2023-12-01').as('formSubmission');
+    cy.intercept('GET', 'https://porthos-intra.cg.helmo.be/q210054/v1/statistics/date/2023-12-28').as('formSubmission');
 
     // Simulez la saisie d'une date dans le champ de formulaire
-    cy.get('#date').type('2023-12-01'); // Remplacez par une date appropriée
+    cy.get('#date').type('2023-12-28'); // Remplacez par une date appropriée
 
     // Simulez le clic sur le bouton de recherche
     cy.get('button').click();
