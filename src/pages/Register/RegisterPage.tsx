@@ -105,10 +105,10 @@ const RegisterPage = () => {
       },
       {
         // Recuperer le token renvoyé par l'api
-        onSuccess: (data: { data: string }) => {
-          setJwtToken(data.data);
-          setIsLoading(false);
-          navigate('/holidays', { replace: true });
+        onSuccess: (response: any) => {
+          const accessToken = String(response.data.access_token);
+          console.log('AccessToken in onSuccess:', accessToken);
+          setJwtToken(accessToken);
         },
         onError: () => {
           setIsLoading(false);

@@ -53,6 +53,7 @@ const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [payloadJwt, setPayloadJwt] = useState<JwtPayloadType | null>(initialValues.jwtTokenInfo);
 
   const setJwtToken = useCallback((token?: string) => {
+    console.log(token)
     if (token) {
       axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
       localStorage.setItem(LS_TOKEN, token);
